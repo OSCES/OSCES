@@ -22,4 +22,7 @@
 
 #IDE projects
 *.sdf
+*.opensdf
 
+#Temporary directories
+build/
