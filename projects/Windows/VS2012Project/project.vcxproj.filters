@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Display">
+      <UniqueIdentifier>{a8e733e3-d91d-471d-be22-be23bba2f31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Display">
+      <UniqueIdentifier>{d0d4d546-e0e4-468e-bd6f-36ddcd443e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Keyboard">
+      <UniqueIdentifier>{06deafc3-fab4-41ea-8ebc-f4b082e9ab86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Keyboard">
+      <UniqueIdentifier>{9fce6dd5-534a-4ff0-aa81-6cfde51f7aa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SysTimer">
+      <UniqueIdentifier>{65ab2bc2-9685-41df-91b1-4d79f3fa8cbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SysTimer">
+      <UniqueIdentifier>{af9ee176-2f76-4028-966b-c34918d0ee35}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\crossplatform\System\Keyboard\Keyboard.cpp">
+      <Filter>Source Files\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Windows\System\Keyboard\KeyboardPlatform.cpp">
+      <Filter>Source Files\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Windows\System\OscesFramework.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Windows\System\Display\Display.cpp">
+      <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.cpp">
+      <Filter>Header Files\SysTimer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\platform\Windows\System\Display\Display.h">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\crossplatform\System\Keyboard\Keyboard.h">
+      <Filter>Header Files\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\platform\Windows\System\Keyboard\KeyboardPlatform.h">
+      <Filter>Header Files\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\DisplayInterface.h">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
