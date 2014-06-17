@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\crossplatform\System\Keyboard\Keyboard.cpp" />
-    <ClCompile Include="..\..\..\platform\Windows\System\Display\Display.cpp" />
+    <ClCompile Include="..\..\..\platform\Windows\System\Display\DisplayPlatform.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\Keyboard\KeyboardPlatform.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\OscesFramework.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.cpp" />
@@ -20,7 +20,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\crossplatform\System\Keyboard\Keyboard.h" />
     <ClInclude Include="..\..\..\include\DisplayInterface.h" />
-    <ClInclude Include="..\..\..\platform\Windows\System\Display\Display.h" />
+    <ClInclude Include="..\..\..\platform\Windows\System\Display\DisplayPlatform.h" />
     <ClInclude Include="..\..\..\platform\Windows\System\Keyboard\KeyboardPlatform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -53,8 +53,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\..\..\..\build\temp\Windows\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\..\..\..\build\temp\Windows\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\..\..\..\build\Windows\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)\..\..\..\build\Temp\Windows\$(Configuration)\</IntDir>
+    <TargetName>libOSCES</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\..\build\$(Configuration)\</OutDir>
@@ -79,14 +80,14 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <Lib>
-      <OutputFile>../../../build/Windows/libOSCES$(TargetExt)</OutputFile>
+      <OutputFile>$(SolutionDir)\..\..\..\build\Windows\$(Configuration)\libOSCES$(TargetExt)</OutputFile>
       <LinkTimeCodeGeneration>
       </LinkTimeCodeGeneration>
       <AdditionalLibraryDirectories>..\..\..\thirdparty\SDL2-VC\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <BuildLog>
-      <Path>$(SolutionDir)\..\..\..\..\build\temp\Windows\$(Configuration)\build.log</Path>
+      <Path>$(SolutionDir)\..\..\..\..\build\Temp\Windows\$(Configuration)\build.log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
