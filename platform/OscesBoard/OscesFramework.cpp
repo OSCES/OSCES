@@ -1,50 +1,38 @@
-#include "include/OscesFramework.h"
-
-
-
-#include "Display/DisplayPlatform.h"
-#include "Keyboard/KeyboardPlatform.h"
-#include <stdio.h>
-
-
+#include "OscesFramework.h"
 #include "GpioDriver.h"
 #include "Leds/leds.h"
 #include "Buttons/Buttons.h"
 #include "ClockManager/ClockManager.h"
-#include "SysTimer/SysTimerPlatform.h"
 
-#include "InterruptManager.h"
+OscesFramework_t::OscesFramework_t()
+{
+    m_IsApplicationRun = true;
+}
 
-
-static DisplayPlatform_t  Display;
-static KeyboardPlatform_t Keyboard;
-static SysTimerPlatform_t SysTimer;
-
-static OscesFramework_t   OscesFramework;
-static bool IsApplicationRunEnable = true;
+SysTimerInterface_t* OscesFramework_t::GetSysTimer()
+{
+    return m_pSysTimer;
+}
 
 DisplayInterface_t* OscesFramework_t::GetDisplay()
 {
-    return &Display;
+    return m_pDisplay;
 }
 
 KeyboardInterface_t* OscesFramework_t::GetKeyboard()
 {
-    return &Keyboard;
-}
-
-SysTimerInterface_t* OscesFramework_t::GetSysTimer()
-{ 
-    return &SysTimer;
+    return m_pKeyboard;
 }
 
 int main()
 {
-    OscesFrameworkInit();
+    OscesFramework_t*  m_pOscesFramework = new OscesFramework_t();
 
-    osces_main( &OscesFramework );
-    
-    OscesFrameworkDeInit();
+    m_pOscesFramework->Init();
+
+    osces_main( m_pOscesFramework );
+
+    m_pOscesFramework->DeInit();
 
     return 0;
 }
@@ -52,17 +40,15 @@ int main()
 
 bool OscesFramework_t::IsApplicationRun()
 {
-
-    return IsApplicationRunEnable;
+    return m_IsApplicationRun;
 }
 
-
-OscesFrameworkStatus_t OscesFrameworkInit()
+OscesFrameworkStatus_t OscesFramework_t::Init()
 {
     OscesFrameworkStatus_t status = OSCES_FRAMEWORK_INIT_SUCCESS;
 
     ClockManager_t clockManager;
-    
+        
     clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
     
    
@@ -84,24 +70,29 @@ OscesFrameworkStatus_t OscesFrameworkInit()
     
     __disable_interrupt();
     
-//    Button_t button( BUTTON_1 );
-//    
-//    Button_t buttonA( BUTTON_2 );
-//    
-//    Button_t buttonB( BUTTON_3 );
-    
-    Display.Init( 400, 300 );
+    do
+    {
 
-    Display.Clear();
-    Display.Flip();
-    Display.Clear();
-    Display.Flip();
+        m_pDisplay  = new DisplayPlatform_t;
+        m_pKeyboard = new KeyboardPlatform_t;
+        m_pSysTimer = new SysTimerPlatform_t;
+
+    }while( false );
+
+    m_pDisplay->Init( 400, 300);
+
+    m_pDisplay->Clear();
+    m_pDisplay->Flip();
+    m_pDisplay->Clear();
+    m_pDisplay->Flip();
 
     return status;
 }
 
 
-void OscesFrameworkDeInit()
+void OscesFramework_t::DeInit()
 {
-
+    delete m_pSysTimer;
+    delete m_pKeyboard;
+    delete m_pDisplay;
 }

@@ -18,7 +18,7 @@ struct DisplayPixelStruct_t
     uint8_t Blue;
 };
 
-class Display_t : public DisplayInterface_t
+class DisplayPlatform_t : public DisplayInterface_t
 {
 public:
     void Init( uint16_t xSize, uint16_t ySize );
@@ -29,7 +29,7 @@ public:
     void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue );
     void Flip( void );
     void Clear();
-    ~Display_t();
+    ~DisplayPlatform_t();
 
 private:
     void SurfaceLock( void );

@@ -4,10 +4,10 @@
     06/11/2012
 */
 
-#include "Display.h"
+#include "DisplayPlatform.h"
 #include <SDL_opengl.h>
 
-void Display_t::Clear()
+void DisplayPlatform_t::Clear()
 {
     uint32_t len = m_SurfaceSizeX * m_SurfaceSizeY;
     
@@ -19,12 +19,12 @@ void Display_t::Clear()
     }
 }
 
-void Display_t::Init( uint16_t xSize, uint16_t ySize )
+void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize )
 { 
    Init( xSize, ySize, xSize, ySize );
 }
 
-void Display_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize )
+void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize )
 {
     m_SurfaceSizeX = xSize;
     m_SurfaceSizeY = ySize;
@@ -44,7 +44,7 @@ void Display_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint
 }
     
 
-void Display_t::WindowResize( uint16_t xSize, uint16_t ySize )
+void DisplayPlatform_t::WindowResize( uint16_t xSize, uint16_t ySize )
 {
     m_WindowSizeX  = xSize;
     m_WindowSizeY  = ySize;
@@ -78,7 +78,7 @@ void Display_t::WindowResize( uint16_t xSize, uint16_t ySize )
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
-void Display_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue )
+void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue )
 {
     if( ( xPos <= m_SurfaceSizeX ) && ( yPos <= m_SurfaceSizeY ) )
     {
@@ -90,7 +90,7 @@ void Display_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t gr
     }
 }
 
-void Display_t::Flip( void )
+void DisplayPlatform_t::Flip( void )
 {
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_SurfaceSizeX, m_SurfaceSizeY, GL_RGB, GL_UNSIGNED_BYTE, m_pFrame[ m_CurrentFrame ] );
 
@@ -107,12 +107,12 @@ void Display_t::Flip( void )
 
 }
 
-void Display_t::SetTitle( const char* pTitle )
+void DisplayPlatform_t::SetTitle( const char* pTitle )
 {
     SDL_SetWindowTitle( m_pWindow, pTitle );
 }
 
-Display_t::~Display_t()
+DisplayPlatform_t::~DisplayPlatform_t()
 {
     SDL_GL_DeleteContext( m_pOpenGLContext );
     SDL_DestroyWindow( m_pWindow );
