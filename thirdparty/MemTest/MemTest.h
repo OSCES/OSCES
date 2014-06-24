@@ -1,6 +1,6 @@
 /**********************************************************************
  *
- * Filename:    MemTest.c
+ * Filename:    MemTest.h
  *
  * Description: General-purpose memory testing functions.
  *
