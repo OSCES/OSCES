@@ -20,7 +20,7 @@
 #include <stdint.h>
 
 
-typedef uint16_t datum; // Sdata bus width
+typedef uint16_t datum; // Data bus width
 
 /**********************************************************************
  *
