@@ -5,7 +5,7 @@
 
 typedef void ( *InterruptRoutine_t )( void* pContext );
 
-#define INTERRUPT_MANAGER_VECTORS_AMOUNT 97
+#define INTERRUPT_MANAGER_VECTORS_AMOUNT 105
 
 enum
 {
@@ -36,7 +36,18 @@ enum
     INTERRUPT_EXTI1_IRQ_VECTOR                ,                         
     INTERRUPT_EXTI2_IRQ_VECTOR                ,                          
     INTERRUPT_EXTI3_IRQ_VECTOR                ,                      
-    INTERRUPT_EXTI4_IRQ_VECTOR                ,                  
+    INTERRUPT_EXTI4_IRQ_VECTOR                ,
+    INTERRUPT_EXTI5_IRQ_VECTOR                ,
+    INTERRUPT_EXTI6_IRQ_VECTOR                ,
+    INTERRUPT_EXTI7_IRQ_VECTOR                ,
+    INTERRUPT_EXTI8_IRQ_VECTOR                ,
+    INTERRUPT_EXTI9_IRQ_VECTOR                ,
+    INTERRUPT_EXTI10_IRQ_VECTOR               ,
+    INTERRUPT_EXTI11_IRQ_VECTOR               ,
+    INTERRUPT_EXTI12_IRQ_VECTOR               ,
+    INTERRUPT_EXTI13_IRQ_VECTOR               ,
+    INTERRUPT_EXTI14_IRQ_VECTOR               ,
+    INTERRUPT_EXTI15_IRQ_VECTOR               ,
     INTERRUPT_DMA1_STREAM0_IRQ_VECTOR         ,                                   
     INTERRUPT_DMA1_STREAM1_IRQ_VECTOR         ,                                   
     INTERRUPT_DMA1_STREAM2_IRQ_VECTOR         ,                                  
@@ -48,8 +59,7 @@ enum
     INTERRUPT_CAN1_TX_IRQ_VECTOR              ,                                        
     INTERRUPT_CAN1_RX0_IRQ_VECTOR             ,                                     
     INTERRUPT_CAN1_RX1_IRQ_VECTOR             ,                                
-    INTERRUPT_CAN1_SCE_IRQ_VECTOR             ,                      
-    INTERRUPT_EXTI9_5_IRQ_VECTOR              ,                                    
+    INTERRUPT_CAN1_SCE_IRQ_VECTOR             ,                                                       
     INTERRUPT_TIM1_BRK_TIM9_IRQ_VECTOR        ,                   
     INTERRUPT_TIM1_UP_TIM10_IRQ_VECTOR        ,                 
     INTERRUPT_TIM1_TRG_COM_TIM11_IRQ_VECTOR   ,
@@ -65,8 +75,7 @@ enum
     INTERRUPT_SPI2_IRQ_VECTOR                 ,              
     INTERRUPT_USART1_IRQ_VECTOR               ,                         
     INTERRUPT_USART2_IRQ_VECTOR               ,                      
-    INTERRUPT_USART3_IRQ_VECTOR               ,                   
-    INTERRUPT_EXTI15_10_IRQ_VECTOR            ,                                 
+    INTERRUPT_USART3_IRQ_VECTOR               ,                                                  
     INTERRUPT_RTC_Alarm_IRQ_VECTOR            ,                  
     INTERRUPT_OTG_FS_WKUP_IRQ_VECTOR          ,                        
     INTERRUPT_TIM8_BRK_TIM12_IRQ_VECTOR       ,                  
@@ -126,7 +135,6 @@ private:
     static const HandlerItem_t m_InterruptVectorTable[];
     static void*               m_pContextTable[];
     static InterruptRoutine_t  fp_IntRoutineTable[];
-    
     
 private:
     static void DefaultInterruptRoutine( void* pContext );   

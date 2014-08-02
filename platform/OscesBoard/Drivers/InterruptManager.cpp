@@ -122,27 +122,52 @@ void InterruptManager_t::RccIrqHandler( void )
 
 void InterruptManager_t::Exti0IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI0_IRQ_VECTOR ] );
+    if(EXTI_GetITStatus(EXTI_Line0) != RESET)
+    {
+        fp_IntRoutineTable[ INTERRUPT_EXTI0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI0_IRQ_VECTOR ] );
+    }
+
+    EXTI_ClearITPendingBit(EXTI_Line0);
 }
 
 void InterruptManager_t::Exti1IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI1_IRQ_VECTOR ] );
+    if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+    {
+        fp_IntRoutineTable[ INTERRUPT_EXTI1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI1_IRQ_VECTOR ] );
+    }
+
+    EXTI_ClearITPendingBit(EXTI_Line1);
 }
 
 void InterruptManager_t::Exti2IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI2_IRQ_VECTOR ] );
+    if(EXTI_GetITStatus(EXTI_Line2) != RESET)
+    {
+        fp_IntRoutineTable[ INTERRUPT_EXTI2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI2_IRQ_VECTOR ] );
+    }
+
+    EXTI_ClearITPendingBit(EXTI_Line2);
 }
 
 void InterruptManager_t::Exti3IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI3_IRQ_VECTOR ] );
+    if(EXTI_GetITStatus(EXTI_Line3) != RESET)
+    {
+        fp_IntRoutineTable[ INTERRUPT_EXTI3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI3_IRQ_VECTOR ] );
+    }
+
+    EXTI_ClearITPendingBit(EXTI_Line3);
 }
 
 void InterruptManager_t::Exti4IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI4_IRQ_VECTOR ] );
+    if(EXTI_GetITStatus(EXTI_Line4) != RESET)
+    {
+        fp_IntRoutineTable[ INTERRUPT_EXTI4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI4_IRQ_VECTOR ] );
+    }
+
+    EXTI_ClearITPendingBit(EXTI_Line4);
 }
 
 void InterruptManager_t::Dma1Stream0IrqHandler( void )
@@ -207,7 +232,38 @@ void InterruptManager_t::Can1SceIrqHandler( void )
 
 void InterruptManager_t::Exti95IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI9_5_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI9_5_IRQ_VECTOR ] );
+    uint32_t line  = 0;
+    uint32_t index = 0;
+
+    if(EXTI_GetITStatus(EXTI_Line5) != RESET)
+    {
+        line  = EXTI_Line5;
+        index = INTERRUPT_EXTI5_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line6) != RESET)
+    {
+        line  = EXTI_Line6;
+        index = INTERRUPT_EXTI6_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line7) != RESET)
+    {
+        line  = EXTI_Line7;
+        index = INTERRUPT_EXTI7_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+    {
+        line  = EXTI_Line8;
+        index = INTERRUPT_EXTI8_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line9) != RESET)
+    {
+        line  = EXTI_Line9;
+        index = INTERRUPT_EXTI9_IRQ_VECTOR;
+    }
+
+    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
+
+    EXTI_ClearITPendingBit(line);
 }
 
 void InterruptManager_t::Tim1BrkTim9IrqHandler( void )
@@ -292,7 +348,43 @@ void InterruptManager_t::Usart3IrqHandler( void )
 
 void InterruptManager_t::Exti1510IrqHandler( void )
 {
-    fp_IntRoutineTable[ INTERRUPT_EXTI15_10_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI15_10_IRQ_VECTOR ] );
+    uint32_t line  = 0;
+    uint32_t index = 0;
+
+    if(EXTI_GetITStatus(EXTI_Line10) != RESET)
+    {
+        line  = EXTI_Line10;
+        index = INTERRUPT_EXTI10_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line11) != RESET)
+    {
+        line  = EXTI_Line11;
+        index = INTERRUPT_EXTI11_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line12) != RESET)
+    {
+        line  = EXTI_Line12;
+        index = INTERRUPT_EXTI12_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line13) != RESET)
+    {
+        line  = EXTI_Line13;
+        index = INTERRUPT_EXTI13_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line14) != RESET)
+    {
+        line  = EXTI_Line14;
+        index = INTERRUPT_EXTI14_IRQ_VECTOR;
+    }
+    else if(EXTI_GetITStatus(EXTI_Line15) != RESET)
+    {
+        line  = EXTI_Line15;
+        index = INTERRUPT_EXTI15_IRQ_VECTOR;
+    }
+
+    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
+
+    EXTI_ClearITPendingBit(line);
 }
 
 void InterruptManager_t::RtcAlarmIrqHandler( void )
@@ -521,11 +613,11 @@ __root const InterruptManager_t::HandlerItem_t InterruptManager_t::m_InterruptVe
     PendSvHandler                           ,  //PendSV_Handler
     SysTickHandler                          ,  //SysTick Handler
 
-             //External Interrupts
+    //External Interrupts
     WwdgIrqHandler                          ,  //WWDG_IRQHandler
-    PvdIRQHandler                           ,  //PVD_IRQHandler  //PVD through EXTI Line detection
-    TampStampIrqHandler                     ,  //TAMP_STAMP_IRQHandler //Tamper and TimeStamps through the EXTI line
-    RtcWkupIrqHandler                       ,  //RTC_WKUP_IRQHandler //RTC Wakeup through the EXTI line
+    PvdIRQHandler                           ,  //PVD_IRQHandler            //PVD through EXTI Line detection
+    TampStampIrqHandler                     ,  //TAMP_STAMP_IRQHandler     //Tamper and TimeStamps through the EXTI line
+    RtcWkupIrqHandler                       ,  //RTC_WKUP_IRQHandler       //RTC Wakeup through the EXTI line
     FlashIrqHandler                         ,  //FLASH_IRQHandler
     RccIrqHandler                           ,  //RCC_IRQHandler
     Exti0IrqHandler                         ,  //EXTI0_IRQHandler
@@ -540,12 +632,12 @@ __root const InterruptManager_t::HandlerItem_t InterruptManager_t::m_InterruptVe
     Dma1Stream4IrqHandler                   ,  //DMA1_Stream4_IRQHandler
     Dma1Stream5IrqHandler                   ,  //DMA1_Stream5_IRQHandler
     Dma1Stream6IrqHandler                   ,  //DMA1_Stream6_IRQHandler
-    AdcIrqHandler                           ,  //ADC_IRQHandler   //ADC1, ADC2 and ADC3s
+    AdcIrqHandler                           ,  //ADC_IRQHandler             //ADC1, ADC2 and ADC3s
     Can1TxIrqHandler                        ,  //CAN1_TX_IRQHandler
     Can1Rx0IrqHandler                       ,  //CAN1_RX0_IRQHandler
     Can1Rx1IrqHandler                       ,  //CAN1_RX1_IRQHandler
     Can1SceIrqHandler                       ,  //CAN1_SCE_IRQHandler
-    Exti95IrqHandler                        ,  //EXTI9_5_IRQHandler           //External Line[9:5]s
+    Exti95IrqHandler                        ,  //EXTI9_5_IRQHandler         //External Line[9:5]s
     Tim1BrkTim9IrqHandler                   ,  //TIM1_BRK_TIM9_IRQHandler   //TIM1 Break and TIM9
     Tim1UpTim10IrqHandler                   ,  //TIM1_UP_TIM10_IRQHandler   //TIM1 Update and TIM10
     Tim1TrgComTim11IrqHandler               ,  //TIM1_TRG_COM_TIM11_IRQHandler //TIM1 Trigger and Commutation and TIM11
@@ -562,21 +654,21 @@ __root const InterruptManager_t::HandlerItem_t InterruptManager_t::m_InterruptVe
     Usart1IrqHandler                        ,  //USART1_IRQHandler
     Usart2IrqHandler                        ,  //USART2_IRQHandler
     Usart3IrqHandler                        ,  //USART3_IRQHandler
-    Exti1510IrqHandler                      ,  //EXTI15_10_IRQHandler  //External Line[15:10]s
-    RtcAlarmIrqHandler                      ,  //RTC_Alarm_IRQHandler  //RTC Alarm (A and B) through EXTI Line
-    OtgFsWkupIrqHandler                     ,  //OTG_FS_WKUP_IRQHandler   //USB OTG FS Wakeup through EXTI line
+    Exti1510IrqHandler                      ,  //EXTI15_10_IRQHandler      //External Line[15:10]s
+    RtcAlarmIrqHandler                      ,  //RTC_Alarm_IRQHandler      //RTC Alarm (A and B) through EXTI Line
+    OtgFsWkupIrqHandler                     ,  //OTG_FS_WKUP_IRQHandler    //USB OTG FS Wakeup through EXTI line
     Tim8BrkTim12IrqHandler                  ,  //TIM8_BRK_TIM12_IRQHandler //TIM8 Break and TIM12
     Tim8UpTim13IrqHandler                   ,  //TIM8_UP_TIM13_IRQHandler  //TIM8 Update and TIM13
     Tim8TrgComTim14IrqHandler               ,  //TIM8_TRG_COM_TIM14_IRQHandler //TIM8 Trigger and Commutation and TIM14
-    Tim8CaptureCompareIrqHandler            ,  //TIM8_CC_IRQHandler       TIM8 Capture Compare
-    Dma1Stream7IrqHandler                   ,  //DMA1_Stream7_IRQHandler  //DMA1 Stream7
+    Tim8CaptureCompareIrqHandler            ,  //TIM8_CC_IRQHandler        //TIM8 Capture Compare
+    Dma1Stream7IrqHandler                   ,  //DMA1_Stream7_IRQHandler   //DMA1 Stream7
     FsmcIrqHandler                          ,  //FSMC_IRQHandler
     SdioIrqHandler                          ,  //SDIO_IRQHandler
     Tim5IrqHandler                          ,  //TIM5_IRQHandler
     Spi3IrqHandler                          ,  //SPI3_IRQHandler
     Uart4IrqHandler                         ,  //UART4_IRQHandler
     Uart5IrqHandler                         ,  //UART5_IRQHandler
-    Tim6DacIrqHandler                       ,  //TIM6_DAC_IRQHandler  //TIM6 and DAC1&2 underrun errors
+    Tim6DacIrqHandler                       ,  //TIM6_DAC_IRQHandler       //TIM6 and DAC1&2 underrun errors
     Tim7IrqHandler                          ,  //TIM7_IRQHandler
     Dma2Stream0IrqHandler                   ,  //DMA2_Stream0_IRQHandler
     Dma2Stream1IrqHandler                   ,  //DMA2_Stream1_IRQHandler
@@ -584,7 +676,7 @@ __root const InterruptManager_t::HandlerItem_t InterruptManager_t::m_InterruptVe
     Dma2Stream3IrqHandler                   ,  //DMA2_Stream3_IRQHandler
     Dma2Stream4IrqHandler                   ,  //DMA2_Stream4_IRQHandler
     EthIrqHandler                           ,  //ETH_IRQHandler
-    EthWkupIrqHandler                       ,  //ETH_WKUP_IRQHandler  //Ethernet Wakeup through EXTI line
+    EthWkupIrqHandler                       ,  //ETH_WKUP_IRQHandler       //Ethernet Wakeup through EXTI line
     Can2TxIrqHandler                        ,  //CAN2_TX_IRQHandler
     Can2Rx0IrqHandler                       ,  //CAN2_RX0_IRQHandler
     Can2Rx1IrqHandler                       ,  //CAN2_RX1_IRQHandler
@@ -598,11 +690,11 @@ __root const InterruptManager_t::HandlerItem_t InterruptManager_t::m_InterruptVe
     I2c3ErrorIrqHandler                     ,  //I2C3_ER_IRQHandler
     OtgHsEp1OutIrqHandler                   ,  //OTG_HS_EP1_OUT_IRQHandler //USB OTG HS End Point 1 Out
     OtgHsEp1InIrqHandler                    ,  //OTG_HS_EP1_IN_IRQHandler  //USB OTG HS End Point 1 In
-    OtgHsWkupIrqHandler                     ,  //OTG_HS_WKUP_IRQHandler   //USB OTG HS Wakeup through EXTI
-    OtgHsIrqHandler                         ,  //OTG_HS_IRQHandler //USB OTG HS
-    DcmiIrqHandler                          ,  //DCMI_IRQHandler  //DCMI
-    CrypIrqHandler                          ,  //CRYP_IRQHandler  //CRYP crypto
-    HashRngIrqHandler                          //HASH_RNG_IRQHandler //Hash and Rng
+    OtgHsWkupIrqHandler                     ,  //OTG_HS_WKUP_IRQHandler    //USB OTG HS Wakeup through EXTI
+    OtgHsIrqHandler                         ,  //OTG_HS_IRQHandler         //USB OTG HS
+    DcmiIrqHandler                          ,  //DCMI_IRQHandler           //DCMI
+    CrypIrqHandler                          ,  //CRYP_IRQHandler           //CRYP crypto
+    HashRngIrqHandler                          //HASH_RNG_IRQHandler       //Hash and Rng
 };
 
 //----------------------------------------------------------------------------//

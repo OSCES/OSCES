@@ -1,41 +1,44 @@
 #ifndef _KEYBOARD_INTERFACE_h_
 #define _KEYBOARD_INTERFACE_h_
 
+
 #include <stdint.h>
 
 
-enum KeyboardKeyCode_t
+enum KeyEvent_t
 {
-
-    KEYBOARD_KEYCODE_a     = 'a',
-
-    KEYBOARD_KEYCODE_RIGHT = 79,
-    KEYBOARD_KEYCODE_LEFT  = 80,
-    KEYBOARD_KEYCODE_DOWN  = 81,
-    KEYBOARD_KEYCODE_UP    = 82,
+    KEY_RELEASED = 0,
+    KEY_PRESSED  = 1
 };
 
-
-enum KeyboardEvent_t
+struct ModifKeysStates_t
 {
-    KEYBOARD_PRESSED,
-    KEYBOARD_UNPRESSED
+    uint8_t Alt        : 1; // 0 - KEY_RELEASED, 1 - KEY_PRESSED
+    uint8_t Ctrl       : 1;
+    uint8_t Shift      : 1;
+    uint8_t CapsLock   : 1;
+    uint8_t NumLock    : 1;
+    uint8_t ScrollLock : 1;
+    uint8_t Reserved   : 2;
 };
 
-enum KeyboardStatus_t
+struct Key_t
 {
-    KEYBOARD_SUCCESS_STATUS = 0,
-    KEYBOARD_FAILED_STATUS
+    uint16_t          Code;     // Unicode, ASCII etc.
+    uint8_t           KeyCode;
+    uint8_t           ScanCode;
+    uint8_t           ExtendedKeyFlag;
+    KeyEvent_t        Event;
+    ModifKeysStates_t ModifKeysStates;
 };
 
-typedef void ( *KeyboardCallBack_t )( void* pContext, KeyboardEvent_t event, uint8_t scanCode );
+typedef void ( *KeyboardCallBack_t )( void* pContext, Key_t key );
 
 class KeyboardInterface_t
 {
 public:
-    virtual KeyboardStatus_t RegisterCallBack( void* pContext, KeyboardCallBack_t fp_CallBack ) = 0;
-    virtual KeyboardStatus_t UnRegisterCallBack( KeyboardCallBack_t fp_CallBack ) = 0;
-
+    virtual void RegisterCallBack( void* pContext, KeyboardCallBack_t fp_CallBack ) = 0;
+    virtual void UnRegisterCallBack( KeyboardCallBack_t fp_CallBack ) = 0;
 
 };
 
