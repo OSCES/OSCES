@@ -15,15 +15,16 @@ enum DisplayBuffer_t
 class DisplayPlatform_t : public DisplayInterface_t
 {
 public:
+    DisplayPlatform_t();
+    virtual ~DisplayPlatform_t();
+
+public:
     void Init( uint16_t xSize, uint16_t ySize );
-    
-    void SetMousePos( uint16_t xPos, uint16_t yPos );
-  
+    void SetMousePos( uint16_t xPos, uint16_t yPos ); 
     void Present( PixelStruct_t* pData );
     void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue );
     void Flip();
     void Clear();
-    ~DisplayPlatform_t();
 
 private:
     void SelectBuffer( DisplayBuffer_t buffer );

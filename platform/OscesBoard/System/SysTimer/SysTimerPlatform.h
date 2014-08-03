@@ -6,8 +6,10 @@
 class SysTimerPlatform_t : public SysTimerInterface_t
 {
 public:
+    SysTimerPlatform_t();
+    virtual ~SysTimerPlatform_t();
+public:
     uint32_t GetSysTick();
-
 
 };
 

@@ -1,7 +1,9 @@
 
 #include "Keyboard.h"
+#include "CodePageTable.h"
 
 
+#define EXTEND_KEY_OFFSET 0x83
 static uint8_t Set2KeyCodeTable[] =
 {
     0x00, 0x40, 0x00, 0x3C, 0x3A, 0x38, 0x39, 0x43, 0x00, 0x41, 0x3F, 0x3D, 0x3B, 0x2B, 0x25, 0x00,
@@ -23,7 +25,10 @@ static uint8_t Set2KeyCodeTable[] =
     0x4A
 };
 
-Keyboard_t::Keyboard_t()
+Keyboard_t::Keyboard_t() :
+    m_CallBack(0),
+    m_Context(0),
+    m_CodePage(0)
 {
 }
 
@@ -43,17 +48,37 @@ void Keyboard_t::UnRegisterCallBack( KeyboardCallBack_t fp_CallBack )
     m_Context  = 0;
 }
 
+void Keyboard_t::SetCodePage(CodePage_t codePage)
+{
+    switch( codePage )
+    {
+        case CP_ASCII: m_CodePage = CPTable::AsciiTable ; break;
+        case CP_UTF8 : m_CodePage = CPTable::Utf8Table  ; break;
+        case CP_1251 : m_CodePage = CPTable::Cp1251Table; break;
+
+        default:
+            m_CodePage = 0;
+            break;
+    }
+}
+
 uint8_t Keyboard_t::ScanCodeToKeyCode(uint8_t scanCode, uint8_t extendKeyFlag)
 {
     if( extendKeyFlag )
     {
-        scanCode += 0x83; // + 131 - offset in lookup table
+        scanCode += EXTEND_KEY_OFFSET;
     }
 
     return Set2KeyCodeTable[ scanCode ];
 }
 
-uint8_t KeyCodeToAscii(uint8_t keyCode)
+uint8_t Keyboard_t::KeyCodeToCharCode(uint8_t keyCode)
 {
-    return 0xFF;
+    uint16_t CharCode = 0xFF;
+
+    if( m_CodePage )
+    {
+        CharCode = m_CodePage[ keyCode ];
+    }
+    return CharCode;
 }

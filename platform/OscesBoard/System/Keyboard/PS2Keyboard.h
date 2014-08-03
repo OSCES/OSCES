@@ -4,8 +4,7 @@
 
 #include <stdint.h>
 #include "GpioDriver.h"
-#include "Keyboard.h"
-
+#include "crossplatform/System/Keyboard/Keyboard.h"
 
 class PS2Keyboard_t : public Keyboard_t
 {   

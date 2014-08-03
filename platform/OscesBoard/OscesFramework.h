@@ -2,8 +2,9 @@
 #define OSCES_FRAMEWORK_H
 
 #include "OscesFrameworkInterface.h"
+#include "InterruptManager.h"
 #include "SysTimer/SysTimerPlatform.h"
-#include "KeyBoard/KeyBoardPlatform.h"
+#include "KeyBoard/PS2Keyboard.h"
 #include "Display/DisplayPlatform.h"
 
 class OscesFramework_t : public OscesFrameworkInterface_t
@@ -20,9 +21,10 @@ public:
 
 
 private:
-    DisplayPlatform_t*  m_pDisplay;
-    KeyboardPlatform_t* m_pKeyboard;
-    SysTimerPlatform_t* m_pSysTimer;
+    InterruptManager_t *m_pInterruptManager;
+    DisplayPlatform_t  *m_pDisplay;
+    PS2Keyboard_t      *m_pPS2Keyboard;
+    SysTimerPlatform_t *m_pSysTimer;
 
 private:
     bool m_IsApplicationRun;

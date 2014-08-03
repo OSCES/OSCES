@@ -16,14 +16,16 @@ public:
     void RegisterCallBack( void* pContext, KeyboardCallBack_t fp_CallBack );
     void UnRegisterCallBack( KeyboardCallBack_t fp_CallBack );
 
+    void    SetCodePage( CodePage_t codePage );
     uint8_t ScanCodeToKeyCode(uint8_t scanCode, uint8_t extendKeyFlag);
-    uint8_t KeyCodeToAscii(uint8_t keyCode);
+    uint8_t KeyCodeToCharCode(uint8_t keyCode);
 
 protected:
     KeyboardCallBack_t m_CallBack;
     void              *m_Context;
 
     Key_t              m_Key;
+    uint32_t          *m_CodePage;
 };
 
 #endif // KEYBOARD_H

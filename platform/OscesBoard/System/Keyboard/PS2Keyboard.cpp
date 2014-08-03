@@ -170,6 +170,7 @@ void PS2Keyboard_t::DecodeData( uint8_t data )
 
     if( m_CallBack )
     {
+        m_Key.CharCode        = KeyCodeToCharCode( data );
         m_Key.KeyCode         = ScanCodeToKeyCode( data, extendCode );
         m_Key.ScanCode        = data;
         m_Key.ExtendedKeyFlag = extendCode;

@@ -12,7 +12,6 @@ class SysTimerInterface_t
 public:
     virtual uint32_t GetSysTick() = 0;
 
-
 };
 
 #endif

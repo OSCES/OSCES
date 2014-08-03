@@ -21,7 +21,7 @@ DisplayInterface_t* OscesFramework_t::GetDisplay()
 
 KeyboardInterface_t* OscesFramework_t::GetKeyboard()
 {
-    return m_pKeyboard;
+    return m_pPS2Keyboard;
 }
 
 int main()
@@ -47,11 +47,12 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
 {
     OscesFrameworkStatus_t status = OSCES_FRAMEWORK_INIT_SUCCESS;
 
-    ClockManager_t clockManager;
+    //ClockManager_t clockManager;
         
-    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
+    //clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
     
-   
+    
+    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOA, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOE, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOB, ENABLE );
@@ -60,25 +61,30 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     SystemLed_t* led0 = new SystemLed_t( SYSTEM_LED_1 );
     SystemLed_t* led1 = new SystemLed_t( SYSTEM_LED_2 );
     
-    RCC_ClocksTypeDef freq;    
-    RCC_GetClocksFreq( &freq );
+    //RCC_ClocksTypeDef freq;    
+    //RCC_GetClocksFreq( &freq );
     
-    if( SysTick_Config( freq.HCLK_Frequency / 100 ) )
-    { 
-        while( 1 ){}; /* Capture error trap */ 
-    }
+    //if( SysTick_Config( freq.HCLK_Frequency / 100 ) )
+    //{ 
+    //    while( 1 ){}; /* Capture error trap */
+    //}
     
-    __disable_interrupt();
+    //__disable_interrupt();
     
     do
     {
+        m_pInterruptManager = new InterruptManager_t;
+        m_pDisplay          = new DisplayPlatform_t;
+        m_pPS2Keyboard      = new PS2Keyboard_t;
+        m_pSysTimer         = new SysTimerPlatform_t;
 
-        m_pDisplay  = new DisplayPlatform_t;
-        m_pKeyboard = new KeyboardPlatform_t;
-        m_pSysTimer = new SysTimerPlatform_t;
-
-    }while( false );
-
+    }
+    while( false );
+    
+    m_pInterruptManager->Init();
+    m_pInterruptManager->RegisterInterrupt( m_pPS2Keyboard, INTERRUPT_EXTI1_IRQ_VECTOR, PS2Keyboard_t::InterruptHandler );
+    
+    m_pPS2Keyboard->Init();
     m_pDisplay->Init( 400, 300);
 
     m_pDisplay->Clear();
@@ -89,10 +95,10 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     return status;
 }
 
-
 void OscesFramework_t::DeInit()
 {
     delete m_pSysTimer;
-    delete m_pKeyboard;
+    delete m_pPS2Keyboard;
     delete m_pDisplay;
+    delete m_pInterruptManager;
 }

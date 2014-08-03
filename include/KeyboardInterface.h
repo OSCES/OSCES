@@ -4,6 +4,12 @@
 
 #include <stdint.h>
 
+enum CodePage_t
+{
+    CP_ASCII = 0,
+    CP_UTF8  = 1,
+    CP_1251  = 2
+};
 
 enum KeyEvent_t
 {
@@ -11,7 +17,7 @@ enum KeyEvent_t
     KEY_PRESSED  = 1
 };
 
-struct ModifKeysStates_t
+struct ModifyKeysState_t
 {
     uint8_t Alt        : 1; // 0 - KEY_RELEASED, 1 - KEY_PRESSED
     uint8_t Ctrl       : 1;
@@ -24,12 +30,12 @@ struct ModifKeysStates_t
 
 struct Key_t
 {
-    uint16_t          Code;     // Unicode, ASCII etc.
+    uint16_t          CharCode;     // Unicode, ASCII etc.
     uint8_t           KeyCode;
     uint8_t           ScanCode;
     uint8_t           ExtendedKeyFlag;
     KeyEvent_t        Event;
-    ModifKeysStates_t ModifKeysStates;
+    ModifyKeysState_t ModifKeysStates;
 };
 
 typedef void ( *KeyboardCallBack_t )( void* pContext, Key_t key );

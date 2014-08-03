@@ -79,7 +79,7 @@
 #define KEY_HOME            0x49
 #define KEY_PAGE_UP         0x4A
 #define KEY_DELETE          0x4B
-#define KEY_END	0x4C
+#define KEY_END             0x4C
 #define KEY_PAGE_DOWN       0x4D
 
 #define KEY_UP              0x4E
@@ -92,7 +92,7 @@
 #define KEY_NUM_MULTIPLY    0x54
 #define KEY_NUM_MINUS       0x55
 #define KEY_NUM_ADD         0x56
-#define KEY_NUM_EN          0x57
+#define KEY_NUM_ENTER       0x57
 #define KEY_NUM_POINT       0x58
 #define KEY_NUM_0           0x59
 #define KEY_NUM_1           0x5A

@@ -25,7 +25,7 @@ public:
     virtual DisplayInterface_t*  GetDisplay() = 0;
     virtual KeyboardInterface_t* GetKeyboard() = 0;
     virtual SysTimerInterface_t* GetSysTimer() = 0;
-    virtual bool        IsApplicationRun() = 0;
+    virtual bool IsApplicationRun() = 0;
 
 };
 
