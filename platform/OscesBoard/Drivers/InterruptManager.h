@@ -121,8 +121,8 @@ enum
 class InterruptManager_t
 {
 public:
-    void Init();    
-    void RegisterInterrupt( void* pContext, uint16_t vector, InterruptRoutine_t fp_Routine );
+    static void Init();    
+    static void RegisterInterrupt( void* pContext, uint16_t vector, InterruptRoutine_t fp_Routine );
     
 private:
     

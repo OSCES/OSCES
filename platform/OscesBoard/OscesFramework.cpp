@@ -3,6 +3,8 @@
 #include "Leds/leds.h"
 #include "Buttons/Buttons.h"
 #include "ClockManager/ClockManager.h"
+#include "Drivers/InterruptManager.h"
+#include <stdlib.h>
 
 OscesFramework_t::OscesFramework_t()
 {
@@ -21,7 +23,16 @@ DisplayInterface_t* OscesFramework_t::GetDisplay()
 
 KeyboardInterface_t* OscesFramework_t::GetKeyboard()
 {
-    return m_pPS2Keyboard;
+    return m_pKeyboard;
+}
+
+void *operator new( size_t size )
+{
+    return malloc( size );
+}
+void operator delete(void *p)
+{
+    free( p );
 }
 
 int main()
@@ -32,6 +43,20 @@ int main()
 
     osces_main( m_pOscesFramework );
 
+    SysTimerInterface_t* timer = m_pOscesFramework->GetSysTimer();
+    
+//    for( ;; )
+//    {
+//        volatile uint32_t msec = timer->GetValueUsec();  
+//        asm("nop");
+//    
+//        if( msec )
+//        {
+//            asm("nop");
+//        }
+//    }
+    
+    
     m_pOscesFramework->DeInit();
 
     return 0;
@@ -47,58 +72,67 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
 {
     OscesFrameworkStatus_t status = OSCES_FRAMEWORK_INIT_SUCCESS;
 
-    //ClockManager_t clockManager;
+    __disable_interrupt();
+    InterruptManager_t::Init();
+    
+    
+    ClockManager_t clockManager;
         
-    //clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
+    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
     
-    
-    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOA, ENABLE );
+   
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOE, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOB, ENABLE );
 
-
-    SystemLed_t* led0 = new SystemLed_t( SYSTEM_LED_1 );
-    SystemLed_t* led1 = new SystemLed_t( SYSTEM_LED_2 );
     
-    //RCC_ClocksTypeDef freq;    
-    //RCC_GetClocksFreq( &freq );
-    
-    //if( SysTick_Config( freq.HCLK_Frequency / 100 ) )
-    //{ 
-    //    while( 1 ){}; /* Capture error trap */
-    //}
-    
-    //__disable_interrupt();
+    SystemLed_t* led0 = 0;
+    SystemLed_t* led1 = 0;
     
     do
     {
-        m_pInterruptManager = new InterruptManager_t;
-        m_pDisplay          = new DisplayPlatform_t;
-        m_pPS2Keyboard      = new PS2Keyboard_t;
-        m_pSysTimer         = new SysTimerPlatform_t;
 
-    }
-    while( false );
+        try
+        {
+            led0 = new SystemLed_t( SYSTEM_LED_1 );
+            led1 = new SystemLed_t( SYSTEM_LED_2 );
+ 
+          
+            m_pDisplay  = new DisplayPlatform_t;
+            m_pKeyboard = new KeyboardPlatform_t;
+            m_pSysTimer = new SysTimerPlatform_t;
+        }
+        catch(...)
+        {
+        
+          
+        }
+        
+        m_pDisplay->Init( 400, 300);
+
+        m_pDisplay->Clear();
+        m_pDisplay->Flip();
+        m_pDisplay->Clear();
+        m_pDisplay->Flip();
+
+        m_pSysTimer->Init();
+        
+    }while( false );
+
     
-    m_pInterruptManager->Init();
-    m_pInterruptManager->RegisterInterrupt( m_pPS2Keyboard, INTERRUPT_EXTI1_IRQ_VECTOR, PS2Keyboard_t::InterruptHandler );
+    led0->Off();
+    led1->Off();
+   
+
+    __enable_interrupt();
     
-    m_pPS2Keyboard->Init();
-    m_pDisplay->Init( 400, 300);
-
-    m_pDisplay->Clear();
-    m_pDisplay->Flip();
-    m_pDisplay->Clear();
-    m_pDisplay->Flip();
-
     return status;
 }
+
 
 void OscesFramework_t::DeInit()
 {
     delete m_pSysTimer;
-    delete m_pPS2Keyboard;
+    delete m_pKeyboard;
     delete m_pDisplay;
-    delete m_pInterruptManager;
 }

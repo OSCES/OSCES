@@ -235,27 +235,27 @@ void InterruptManager_t::Exti95IrqHandler( void )
     uint32_t line  = 0;
     uint32_t index = 0;
 
-    if(EXTI_GetITStatus(EXTI_Line5) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line5 ) != RESET )
     {
         line  = EXTI_Line5;
         index = INTERRUPT_EXTI5_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line6) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line6 ) != RESET )
     {
         line  = EXTI_Line6;
         index = INTERRUPT_EXTI6_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line7) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line7 ) != RESET )
     {
         line  = EXTI_Line7;
         index = INTERRUPT_EXTI7_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line8 ) != RESET )
     {
         line  = EXTI_Line8;
         index = INTERRUPT_EXTI8_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line9) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line9 ) != RESET )
     {
         line  = EXTI_Line9;
         index = INTERRUPT_EXTI9_IRQ_VECTOR;
@@ -263,7 +263,7 @@ void InterruptManager_t::Exti95IrqHandler( void )
 
     fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
 
-    EXTI_ClearITPendingBit(line);
+    EXTI_ClearITPendingBit( line );
 }
 
 void InterruptManager_t::Tim1BrkTim9IrqHandler( void )

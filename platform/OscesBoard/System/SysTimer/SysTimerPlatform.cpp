@@ -1,15 +1,29 @@
 #include "SysTimerPlatform.h"
+#include "SysTimerDriver.h"
 
-
-SysTimerPlatform_t::SysTimerPlatform_t()
+SysTimerPlatformInitStatus_t SysTimerPlatform_t::Init()
 {
+    SysTimerPlatformInitStatus_t status = SYSTIMER_PLATFORM_INIT_SUCCESS;  
+  
+    try
+    {
+        SysTimerDriver_t* pSysTimerDriver = new SysTimerDriver_t();
+        
+        m_pSysTimerDriver = pSysTimerDriver;
+        
+        pSysTimerDriver->Init();        
+    }
+    catch( ... )
+    {
+        status = SYSTIMER_PLATFORM_INIT_FAIL;
+    }
+        
+    return status;
 }
 
-SysTimerPlatform_t::~SysTimerPlatform_t()
+uint32_t SysTimerPlatform_t::GetValueUsec()
 {
-}
-
-uint32_t SysTimerPlatform_t::GetSysTick()
-{
-    return 0;  
+    SysTimerDriver_t* pSysTimerDriver = static_cast< SysTimerDriver_t* >( m_pSysTimerDriver );
+    uint32_t value = pSysTimerDriver->GetValueUsec();
+    return value;  
 }

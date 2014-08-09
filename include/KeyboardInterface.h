@@ -1,5 +1,5 @@
-#ifndef _KEYBOARD_INTERFACE_h_
-#define _KEYBOARD_INTERFACE_h_
+#ifndef _KEYBOARD_INTERFACE_H_
+#define _KEYBOARD_INTERFACE_H_
 
 
 #include <stdint.h>
@@ -45,7 +45,6 @@ class KeyboardInterface_t
 public:
     virtual void RegisterCallBack( void* pContext, KeyboardCallBack_t fp_CallBack ) = 0;
     virtual void UnRegisterCallBack( KeyboardCallBack_t fp_CallBack ) = 0;
-
 };
 
 #endif

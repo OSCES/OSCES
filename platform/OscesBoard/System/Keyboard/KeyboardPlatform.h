@@ -6,7 +6,7 @@
 #include "GpioDriver.h"
 #include "crossplatform/System/Keyboard/Keyboard.h"
 
-class PS2Keyboard_t : public Keyboard_t
+class KeyboardPlatform_t : public Keyboard_t
 {   
 public:
     void Init( void );

@@ -1,14 +1,5 @@
 #include "DisplayPlatform.h"
 
-DisplayPlatform_t::DisplayPlatform_t()
-{
-}
-
-DisplayPlatform_t::~DisplayPlatform_t()
-{
-    //delete m_pFrame;
-}
-
 void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize )
 { 
     m_DisplayBuffer = DISPLAY_PRIMARY_BUFFER;
@@ -39,13 +30,18 @@ void DisplayPlatform_t::Flip( void )
 
 void DisplayPlatform_t::Clear()
 {
-    uint8_t* pData = m_ExtSram.GetPointerBank1() + m_WindowSizeX * m_WindowSizeY * m_DisplayBuffer;
-    uint32_t len = m_WindowSizeX * m_WindowSizeY;
+     uint8_t* pData = m_ExtSram.GetPointerBank1() + m_WindowSizeX * m_WindowSizeY * m_DisplayBuffer;
+     uint32_t len = m_WindowSizeX * m_WindowSizeY;
+     
+     for( uint32_t idx = 0; idx < len; idx ++ )
+     {
+         *pData ++= 0;
+     }
+}
 
-    for( uint32_t idx = 0; idx < len; idx++ )
-    {
-            *pData++ = 0;
-    }
+DisplayPlatform_t::~DisplayPlatform_t()
+{
+//delete m_pFrame;
 }
 
 void DisplayPlatform_t::SelectBuffer( DisplayBuffer_t buffer )
@@ -69,4 +65,4 @@ void DisplayPlatform_t::SetMousePos( uint16_t xPos, uint16_t yPos )
     pData += 0x0007FFFE;
     *pData = xPos;
 }
-
+ 

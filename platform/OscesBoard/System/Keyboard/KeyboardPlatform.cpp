@@ -1,6 +1,6 @@
 
 
-#include "PS2Keyboard.h"
+#include "KeyboardPlatform.h"
 
 
 // Pin config
@@ -13,7 +13,7 @@
 #define SUB_PRIORITY        0x0F
 
 
-void PS2Keyboard_t::Init( void )
+void KeyboardPlatform_t::Init( void )
 {
     m_DataPin  = new GpioPin_t(DATA );
     m_ClockPin = new GpioPin_t(CLOCK);
@@ -43,7 +43,7 @@ void PS2Keyboard_t::Init( void )
     NVIC_Init(&NVIC_InitStruct);
 }
 
-void PS2Keyboard_t::OnInterrupt( void )
+void KeyboardPlatform_t::OnInterrupt( void )
 {
     static uint8_t started  = 0;
     static uint8_t bitCount = 0;
@@ -98,12 +98,12 @@ void PS2Keyboard_t::OnInterrupt( void )
     }
 }
 
-void PS2Keyboard_t::InterruptHandler( void* pContext )
+void KeyboardPlatform_t::InterruptHandler( void* pContext )
 {
-    reinterpret_cast< PS2Keyboard_t* >( pContext )->OnInterrupt();
+    reinterpret_cast< KeyboardPlatform_t* >( pContext )->OnInterrupt();
 }
 
-void PS2Keyboard_t::DecodeData( uint8_t data )
+void KeyboardPlatform_t::DecodeData( uint8_t data )
 {
     static uint8_t waitBytes  = 0;
     static uint8_t extendCode = 0;
