@@ -34,13 +34,13 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 int main()
 #endif
 {
-    OscesFramework_t*  m_pOscesFramework = new OscesFramework_t();
+    OscesFramework_t*  pOscesFramework = new OscesFramework_t();
 
-    m_pOscesFramework->Init();
+    pOscesFramework->Init();
 
-    osces_main( m_pOscesFramework );
+    osces_main( pOscesFramework );
 
-    m_pOscesFramework->DeInit();
+    pOscesFramework->DeInit();
 
     return 0;
 }
@@ -63,11 +63,11 @@ bool OscesFramework_t::IsApplicationRun()
 
         if( sdlEvent.type == SDL_KEYDOWN )
         {
-            m_pKeyboard->ReceiveEvent( KEYBOARD_PRESSED, sdlEvent.key.keysym.sym );
+//            m_pKeyboard->ReceiveEvent( KEYBOARD_PRESSED, sdlEvent.key.keysym.sym );
         }
         else if( sdlEvent.type == SDL_KEYUP )
         {
-            m_pKeyboard->ReceiveEvent( KEYBOARD_UNPRESSED, sdlEvent.key.keysym.sym );
+//            m_pKeyboard->ReceiveEvent( KEYBOARD_UNPRESSED, sdlEvent.key.keysym.sym );
         }
 
             

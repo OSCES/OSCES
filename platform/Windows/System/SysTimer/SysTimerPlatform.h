@@ -1,12 +1,12 @@
 #ifndef SYSTIMER_PLATFORM_H
 #define SYSTIMER_PLATFORM_H
 
-#include "SysTimerInterface.h"
+#include "crossplatform/System/SysTimer/SysTimer.h"
 
-class SysTimerPlatform_t : public SysTimerInterface_t
+class SysTimerPlatform_t : public SysTimer_t
 {
 public:
-    uint32_t GetSysTick();
+    uint32_t GetValueUsec();
 
 
 };

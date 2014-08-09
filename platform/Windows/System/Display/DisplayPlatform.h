@@ -9,7 +9,7 @@
 
 #include <stdint.h>
 #include "SDL.h"
-#include "include/DisplayInterface.h" 
+#include "crossplatform/System/Display/Display.h"
 
 struct DisplayPixelStruct_t
 {
@@ -18,7 +18,7 @@ struct DisplayPixelStruct_t
     uint8_t Blue;
 };
 
-class DisplayPlatform_t : public DisplayInterface_t
+class DisplayPlatform_t : public Display_t
 {
 public:
     void Init( uint16_t xSize, uint16_t ySize );
