@@ -175,21 +175,42 @@
     <group>
       <name>System</name>
       <group>
-        <name>Keyboard</name>
+        <name>Display</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\crossplatform\System\Keyboard\CodePageTable.h</name>
+          <name>$PROJ_DIR$\..\..\..\crossplatform\System\Display\Display.cpp</name>
         </file>
+      </group>
+      <group>
+        <name>Keyboard</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\crossplatform\System\Keyboard\Keyboard.cpp</name>
         </file>
+      </group>
+      <group>
+        <name>SysTick</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\crossplatform\System\Keyboard\Keyboard.h</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\crossplatform\System\Keyboard\KeyCode.h</name>
+          <name>$PROJ_DIR$\..\..\..\crossplatform\System\SysTimer\SysTimer.cpp</name>
         </file>
       </group>
     </group>
+  </group>
+  <group>
+    <name>include</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\DisplayInterface.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\KeyboardInterface.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\KeyCode.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\OscesFrameworkInterface.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\SysTimerInterface.h</name>
+    </file>
   </group>
   <group>
     <name>platform</name>
@@ -199,43 +220,22 @@
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\FsmcDriver.cpp</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\FsmcDriver.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\GpioDriver.cpp</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\GpioDriver.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\GpioTypes.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\InterruptManager.cpp</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\InterruptManager.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\SdioDriver.cpp</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\SdioDriver.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\SysTimerDriver.cpp</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\SysTimerDriver.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\VirtualPort.cpp</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\VirtualPort.h</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers\VirtualPortTypes.h</name>
       </file>
     </group>
     <group>
@@ -270,10 +270,7 @@
       <group>
         <name>Keyboard</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Keyboard\PS2Keyboard.cpp</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Keyboard\PS2Keyboard.h</name>
+          <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Keyboard\KeyboardPlatform.cpp</name>
         </file>
       </group>
       <group>
@@ -353,9 +350,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\stm32f2xx_conf.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</name>

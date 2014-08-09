@@ -23,6 +23,8 @@
 #IDE projects
 *.sdf
 *.opensdf
+settings
+private
 
 #Temporary directories
 build/

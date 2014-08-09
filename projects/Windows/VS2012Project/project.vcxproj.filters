@@ -42,11 +42,17 @@
     <ClCompile Include="..\..\..\platform\Windows\System\OscesFramework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.cpp">
-      <Filter>Header Files\SysTimer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\platform\Windows\System\Display\DisplayPlatform.cpp">
       <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.cpp">
+      <Filter>Source Files\SysTimer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\crossplatform\System\Display\Display.cpp">
+      <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\crossplatform\System\SysTimer\SysTimer.cpp">
+      <Filter>Source Files\SysTimer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +67,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\platform\Windows\System\Display\DisplayPlatform.h">
       <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\crossplatform\System\Display\Display.h">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\crossplatform\System\SysTimer\SysTimer.h">
+      <Filter>Header Files\SysTimer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\SysTimerInterface.h">
+      <Filter>Header Files\SysTimer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.h">
+      <Filter>Header Files\SysTimer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\KeyboardInterface.h">
+      <Filter>Header Files\Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,17 +11,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\crossplatform\System\Display\Display.cpp" />
     <ClCompile Include="..\..\..\crossplatform\System\Keyboard\Keyboard.cpp" />
+    <ClCompile Include="..\..\..\crossplatform\System\SysTimer\SysTimer.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\Display\DisplayPlatform.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\Keyboard\KeyboardPlatform.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\OscesFramework.cpp" />
     <ClCompile Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\crossplatform\System\Display\Display.h" />
     <ClInclude Include="..\..\..\crossplatform\System\Keyboard\Keyboard.h" />
+    <ClInclude Include="..\..\..\crossplatform\System\SysTimer\SysTimer.h" />
     <ClInclude Include="..\..\..\include\DisplayInterface.h" />
+    <ClInclude Include="..\..\..\include\KeyboardInterface.h" />
+    <ClInclude Include="..\..\..\include\SysTimerInterface.h" />
     <ClInclude Include="..\..\..\platform\Windows\System\Display\DisplayPlatform.h" />
     <ClInclude Include="..\..\..\platform\Windows\System\Keyboard\KeyboardPlatform.h" />
+    <ClInclude Include="..\..\..\platform\Windows\System\SysTimer\SysTimerPlatform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{44C2D06E-DF8C-42A5-8AAF-BC0883F088D2}</ProjectGuid>
