@@ -85,7 +85,7 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOE, ENABLE );
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOB, ENABLE );
-
+    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOA, ENABLE );
     
     SystemLed_t* led0 = 0;
     SystemLed_t* led1 = 0;

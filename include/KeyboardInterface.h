@@ -38,12 +38,12 @@ struct Key_t
     ModifyKeysState_t ModifKeysStates;
 };
 
-typedef void ( *KeyboardCallBack_t )( void* pContext, Key_t key );
+typedef void ( *KeyboardCallBack_t )( void* pContext, Key_t& key );
 
 class KeyboardInterface_t
 {
 public:
-    virtual void RegisterCallBack( void* pContext, KeyboardCallBack_t fp_CallBack ) = 0;
+    virtual void RegisterCallBack( void* pContext, KeyboardCallBack_t fpCallBack ) = 0;
     virtual void UnRegisterCallBack( KeyboardCallBack_t fp_CallBack ) = 0;
 };
 

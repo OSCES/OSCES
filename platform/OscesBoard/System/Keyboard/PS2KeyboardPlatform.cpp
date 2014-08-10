@@ -1,4 +1,4 @@
-#include "KeyboardPlatform.h"
+#include "PS2KeyboardPlatform.h"
 #include "InterruptManager.h"
 
 // Pin config
@@ -65,7 +65,7 @@ void KeyboardPlatform_t::OnInterrupt()
         }
         else if( bitCount == 8 ) // Parity bit
         {
-            if( !(parity % 2) == dataBit )
+            if( !( parity % 2 ) == dataBit )
             {
                 parity = 1;
             }
@@ -169,7 +169,7 @@ void KeyboardPlatform_t::DecodeData( uint8_t data )
         }
     }
 
-    if( 0 != fp_CallBack )
+    if( 0 != m_fpCallBack )
     {
         m_Key.CharCode        = KeyCodeToCharCode( data );
         m_Key.KeyCode         = ScanCodeToKeyCode( data, extendCode );
@@ -177,7 +177,7 @@ void KeyboardPlatform_t::DecodeData( uint8_t data )
         m_Key.ExtendedKeyFlag = extendCode;
         m_Key.Event           = breakCode ? KEY_RELEASED : KEY_PRESSED;
 
-        fp_CallBack( m_pContext, m_Key );
+        m_fpCallBack( m_pContext, m_Key );
     }
 
     waitBytes  = 0;

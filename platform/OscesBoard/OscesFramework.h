@@ -3,7 +3,7 @@
 
 #include "OscesFrameworkInterface.h"
 #include "SysTimer/SysTimerPlatform.h"
-#include "KeyBoard/KeyBoardPlatform.h"
+#include "KeyBoard/PS2KeyBoardPlatform.h"
 #include "Display/DisplayPlatform.h"
 
 class OscesFramework_t : public OscesFrameworkInterface_t
