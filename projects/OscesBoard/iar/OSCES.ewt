@@ -270,7 +270,7 @@
       <group>
         <name>Keyboard</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Keyboard\KeyboardPlatform.cpp</name>
+          <name>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Keyboard\PS2KeyboardPlatform.cpp</name>
         </file>
       </group>
       <group>
