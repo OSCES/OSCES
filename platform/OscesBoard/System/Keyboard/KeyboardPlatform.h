@@ -9,18 +9,18 @@
 class KeyboardPlatform_t : public Keyboard_t
 {   
 public:
-    void Init( void );
+    void Init();
+    void OnInterrupt();
 
-    void OnInterrupt( void );
-    static void InterruptHandler( void* pContext );
-
+private:
+    static void InterruptHandler( void* pContext );    
+    
 private:
     void DecodeData( uint8_t data );
 
 private:
-    GpioPin_t *m_DataPin;
-    GpioPin_t *m_ClockPin;
-
+    GpioPin_t* m_DataPin;
+    GpioPin_t* m_ClockPin;
 };
 
 #endif // KEYBOARD_H

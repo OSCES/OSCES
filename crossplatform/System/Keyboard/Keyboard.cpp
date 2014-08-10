@@ -26,9 +26,9 @@ static uint8_t Set2KeyCodeTable[] =
 };
 
 Keyboard_t::Keyboard_t() :
-    m_CallBack(0),
-    m_Context(0),
-    m_CodePage(0)
+    fp_CallBack(0),
+    m_pContext(0),
+    m_pCodePage(0)
 {
 }
 
@@ -38,27 +38,27 @@ Keyboard_t::~Keyboard_t()
 
 void Keyboard_t::RegisterCallBack( void* pContext, KeyboardCallBack_t fp_CallBack )
 {
-    m_CallBack = fp_CallBack;
-    m_Context  = pContext;
+    fp_CallBack = fp_CallBack;
+    m_pContext  = pContext;
 }
 
 void Keyboard_t::UnRegisterCallBack( KeyboardCallBack_t fp_CallBack )
 {
-    m_CallBack = 0;
-    m_Context  = 0;
+    fp_CallBack = 0;
+    m_pContext  = 0;
 }
 
-void Keyboard_t::SetCodePage(CodePage_t codePage)
+void Keyboard_t::SetCodePage( CodePage_t codePage )
 {
     switch( codePage )
     {
-        case CP_ASCII: m_CodePage = CPTable::AsciiTable ; break;
-        case CP_UTF8 : m_CodePage = CPTable::Utf8Table  ; break;
-        case CP_1251 : m_CodePage = CPTable::Cp1251Table; break;
+        case CP_ASCII: m_pCodePage = CPTable::AsciiTable ; break;
+        case CP_UTF8 : m_pCodePage = CPTable::Utf8Table  ; break;
+        case CP_1251 : m_pCodePage = CPTable::Cp1251Table; break;
 
         default:
-            m_CodePage = 0;
-            break;
+            m_pCodePage = 0;
+        break;
     }
 }
 
@@ -72,13 +72,13 @@ uint8_t Keyboard_t::ScanCodeToKeyCode(uint8_t scanCode, uint8_t extendKeyFlag)
     return Set2KeyCodeTable[ scanCode ];
 }
 
-uint8_t Keyboard_t::KeyCodeToCharCode(uint8_t keyCode)
+uint8_t Keyboard_t::KeyCodeToCharCode( uint8_t keyCode )
 {
     uint16_t CharCode = 0xFF;
 
-    if( m_CodePage )
+    if( m_pCodePage )
     {
-        CharCode = m_CodePage[ keyCode ];
+        CharCode = m_pCodePage[ keyCode ];
     }
     return CharCode;
 }

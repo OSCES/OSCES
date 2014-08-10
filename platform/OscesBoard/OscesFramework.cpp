@@ -2,6 +2,7 @@
 #include "GpioDriver.h"
 #include "Leds/leds.h"
 #include "Buttons/Buttons.h"
+
 #include "ClockManager/ClockManager.h"
 #include "Drivers/InterruptManager.h"
 #include <stdlib.h>
@@ -89,35 +90,34 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     SystemLed_t* led0 = 0;
     SystemLed_t* led1 = 0;
     
-    do
+    try
     {
+        led0 = new SystemLed_t( SYSTEM_LED_1 );
+        led1 = new SystemLed_t( SYSTEM_LED_2 );
 
-        try
-        {
-            led0 = new SystemLed_t( SYSTEM_LED_1 );
-            led1 = new SystemLed_t( SYSTEM_LED_2 );
- 
-          
-            m_pDisplay  = new DisplayPlatform_t;
-            m_pKeyboard = new KeyboardPlatform_t;
-            m_pSysTimer = new SysTimerPlatform_t;
-        }
-        catch(...)
-        {
+      
+        m_pDisplay  = new DisplayPlatform_t;
+        m_pKeyboard = new KeyboardPlatform_t;
+        m_pSysTimer = new SysTimerPlatform_t;
         
-          
-        }
         
-        m_pDisplay->Init( 400, 300);
+        m_pKeyboard->Init();
+    }
+    catch(...)
+    {
+    
+      
+    }
+    
+    m_pDisplay->Init( 400, 300);
 
-        m_pDisplay->Clear();
-        m_pDisplay->Flip();
-        m_pDisplay->Clear();
-        m_pDisplay->Flip();
+    m_pDisplay->Clear();
+    m_pDisplay->Flip();
+    m_pDisplay->Clear();
+    m_pDisplay->Flip();
 
-        m_pSysTimer->Init();
-        
-    }while( false );
+    m_pSysTimer->Init();
+
 
     
     led0->Off();

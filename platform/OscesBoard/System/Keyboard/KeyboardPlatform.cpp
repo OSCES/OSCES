@@ -1,7 +1,5 @@
-
-
 #include "KeyboardPlatform.h"
-
+#include "InterruptManager.h"
 
 // Pin config
 #define DATA                PORTA, PIN_0
@@ -13,10 +11,10 @@
 #define SUB_PRIORITY        0x0F
 
 
-void KeyboardPlatform_t::Init( void )
+void KeyboardPlatform_t::Init()
 {
-    m_DataPin  = new GpioPin_t(DATA );
-    m_ClockPin = new GpioPin_t(CLOCK);
+    m_DataPin  = new GpioPin_t( DATA  );
+    m_ClockPin = new GpioPin_t( CLOCK );
 
     m_DataPin->MakeInPullUp();
     m_ClockPin->MakeInPullUp();
@@ -41,9 +39,11 @@ void KeyboardPlatform_t::Init( void )
     NVIC_InitStruct.NVIC_IRQChannelSubPriority        = SUB_PRIORITY;
     NVIC_InitStruct.NVIC_IRQChannelCmd                = ENABLE;
     NVIC_Init(&NVIC_InitStruct);
+    
+    InterruptManager_t::RegisterInterrupt( this, INTERRUPT_EXTI1_IRQ_VECTOR, InterruptHandler );
 }
 
-void KeyboardPlatform_t::OnInterrupt( void )
+void KeyboardPlatform_t::OnInterrupt()
 {
     static uint8_t started  = 0;
     static uint8_t bitCount = 0;
@@ -100,7 +100,8 @@ void KeyboardPlatform_t::OnInterrupt( void )
 
 void KeyboardPlatform_t::InterruptHandler( void* pContext )
 {
-    reinterpret_cast< KeyboardPlatform_t* >( pContext )->OnInterrupt();
+    KeyboardPlatform_t* pKeyboardPlatform = static_cast< KeyboardPlatform_t* >( pContext );
+    pKeyboardPlatform->OnInterrupt();
 }
 
 void KeyboardPlatform_t::DecodeData( uint8_t data )
@@ -168,15 +169,15 @@ void KeyboardPlatform_t::DecodeData( uint8_t data )
         }
     }
 
-    if( m_CallBack )
+    if( 0 != fp_CallBack )
     {
         m_Key.CharCode        = KeyCodeToCharCode( data );
         m_Key.KeyCode         = ScanCodeToKeyCode( data, extendCode );
         m_Key.ScanCode        = data;
         m_Key.ExtendedKeyFlag = extendCode;
-        breakCode ? m_Key.Event = KEY_RELEASED : m_Key.Event = KEY_PRESSED;
+        m_Key.Event           = breakCode ? KEY_RELEASED : KEY_PRESSED;
 
-        m_CallBack( m_Context, m_Key );
+        fp_CallBack( m_pContext, m_Key );
     }
 
     waitBytes  = 0;

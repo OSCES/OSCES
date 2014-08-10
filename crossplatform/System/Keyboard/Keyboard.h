@@ -17,15 +17,15 @@ public:
     void UnRegisterCallBack( KeyboardCallBack_t fp_CallBack );
 
     void    SetCodePage( CodePage_t codePage );
-    uint8_t ScanCodeToKeyCode(uint8_t scanCode, uint8_t extendKeyFlag);
-    uint8_t KeyCodeToCharCode(uint8_t keyCode);
+    uint8_t ScanCodeToKeyCode( uint8_t scanCode, uint8_t extendKeyFlag );
+    uint8_t KeyCodeToCharCode( uint8_t keyCode );
 
 protected:
-    KeyboardCallBack_t m_CallBack;
-    void              *m_Context;
+    KeyboardCallBack_t fp_CallBack;
+    void              *m_pContext;
 
     Key_t              m_Key;
-    uint32_t          *m_CodePage;
+    uint32_t*          m_pCodePage;
 };
 
 #endif // KEYBOARD_H
