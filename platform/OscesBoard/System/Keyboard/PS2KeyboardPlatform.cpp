@@ -45,55 +45,50 @@ void KeyboardPlatform_t::Init()
 
 void KeyboardPlatform_t::OnInterrupt()
 {
-    static uint8_t started  = 0;
-    static uint8_t bitCount = 0;
-    static uint8_t data     = 0;
-    static uint8_t parity   = 0;
-
     uint8_t dataBit = m_DataPin->Read();
 
-    if( started == 1 )
+    if( m_started == 1 )
     {
-        if( bitCount < 8 ) // Data bit
+        if( m_bitCount < 8 ) // Data bit
         {
             data |= dataBit << bitCount;
 
             if( dataBit )
             {
-                parity++;
+                m_parity++;
             }
         }
-        else if( bitCount == 8 ) // Parity bit
+        else if( m_bitCount == 8 ) // Parity bit
         {
-            if( !( parity % 2 ) == dataBit )
+            if( !( m_parity % 2 ) == dataBit )
             {
-                parity = 1;
+                m_parity = 1;
             }
             else
             {
-                parity = 0;
+                m_parity = 0;
             }
         }
         else // Stop bit
         {
-            if( parity && dataBit )
+            if( m_parity && dataBit )
             {
                 DecodeData( data );
             }
 
-            started  = 0;
+            m_started = 0;
         }
 
-        bitCount++;
+        m_bitCount++;
     }
     else
     {
         if( dataBit == 0 )
         {
-            started  = 1;
-            bitCount = 0;
-            data     = 0;
-            parity   = 0;
+            m_started  = 1;
+            m_bitCount = 0;
+            m_data     = 0;
+            m_parity   = 0;
         }
     }
 }
