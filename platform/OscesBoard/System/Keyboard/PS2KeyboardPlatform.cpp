@@ -95,8 +95,7 @@ void KeyboardPlatform_t::OnInterrupt()
 
 void KeyboardPlatform_t::InterruptHandler( void* pContext )
 {
-    KeyboardPlatform_t* pKeyboardPlatform = static_cast< KeyboardPlatform_t* >( pContext );
-    pKeyboardPlatform->OnInterrupt();
+    static_cast< KeyboardPlatform_t* >( pContext )->OnInterrupt();
 }
 
 void KeyboardPlatform_t::DecodeData( uint8_t data )
