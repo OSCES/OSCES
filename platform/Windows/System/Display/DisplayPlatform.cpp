@@ -7,6 +7,8 @@
 #include "DisplayPlatform.h"
 #include <SDL_opengl.h>
 
+#include <cmath>
+
 void DisplayPlatform_t::Clear()
 {
     uint32_t len = m_SurfaceSizeX * m_SurfaceSizeY;
@@ -88,6 +90,149 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, ui
         pixel->Green = green;
         pixel->Blue  = blue;
     }
+}
+
+void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos )
+{
+    //DrawPixel( xPos, yPos, Color_t( 255, 255, 255 ));
+}
+
+void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color )
+{
+    DrawPixel( xPos, yPos, color.Red, color.Green, color.Blue );
+}
+
+void DisplayPlatform_t::DrawLine( uint16_t xStartPos, uint16_t yStartPos, uint16_t xEndPos, uint16_t yEndPos )
+{
+    //DrawLine( xStartPos, yStartPos, xEndPos, yEndPos, Color_t( 255, 255, 255 ));
+}
+
+void DisplayPlatform_t::DrawLine( uint16_t xStartPos, uint16_t yStartPos, uint16_t xEndPos, uint16_t yEndPos, Color_t& color )
+{
+    if( xStartPos > m_WindowSizeX - 1 || 
+        xEndPos   > m_WindowSizeX - 1 || 
+        yStartPos > m_WindowSizeY - 1 || 
+        yEndPos   > m_WindowSizeY - 1 )
+        return;
+
+    int deltax = abs( (long double)(xEndPos - xStartPos) ); //The difference between the x's
+    int deltay = abs( (long double)(yEndPos - yStartPos) ); //The difference between the y's
+    int x = xStartPos; //Start x off at the first pixel
+    int y = yStartPos; //Start y off at the first pixel
+    int xinc1, xinc2, yinc1, yinc2, den, num, numadd, numpixels, curpixel;
+
+    if( xEndPos >= xStartPos ) //The x-values are increasing
+    {
+        xinc1 = 1;
+        xinc2 = 1;
+    }
+    else //The x-values are decreasing
+    {
+        xinc1 = -1;
+        xinc2 = -1;
+    }
+    if( yEndPos >= yStartPos ) //The y-values are increasing
+    {
+        yinc1 = 1;
+        yinc2 = 1;
+    }
+    else //The y-values are decreasing
+    {
+        yinc1 = -1;
+        yinc2 = -1;
+    }
+    if( deltax >= deltay ) //There is at least one x-value for every y-value
+    {
+        xinc1 = 0; //Don't change the x when numerator >= denominator
+        yinc2 = 0; //Don't change the y for every iteration
+        den = deltax;
+        num = deltax / 2;
+        numadd = deltay;
+        numpixels = deltax; //There are more x-values than y-values
+    }
+    else //There is at least one y-value for every x-value
+    {
+        xinc2 = 0; //Don't change the x for every iteration
+        yinc1 = 0; //Don't change the y when numerator >= denominator
+        den = deltay;
+        num = deltay / 2;
+        numadd = deltax;
+        numpixels = deltay; //There are more y-values than x-values
+    }
+    for( curpixel = 0; curpixel <= numpixels; curpixel++ )
+    {
+        DrawPixel(x % m_WindowSizeX, y % m_WindowSizeY, color);  //Draw the current pixel
+        num += numadd;  //Increase the numerator by the top of the fraction
+        if( num >= den ) //Check if numerator >= denominator
+        {
+            num -= den; //Calculate the new numerator value
+            x += xinc1; //Change the x as appropriate
+            y += yinc1; //Change the y as appropriate
+        }
+        x += xinc2; //Change the x as appropriate
+        y += yinc2; //Change the y as appropriate
+    }
+}
+
+void DisplayPlatform_t::DrawVerticalLine( uint16_t xPos, uint16_t yStartPos, uint16_t yEndPos )
+{
+    //DrawVerticalLine( xPos, yStartPos, yEndPos, Color_t( 255, 255, 255 ));
+}
+
+void DisplayPlatform_t::DrawVerticalLine( uint16_t xPos, uint16_t yStartPos, uint16_t yEndPos, Color_t& color )
+{
+    // Swap yStartPos and yEndPos
+    if( yEndPos < yStartPos ) 
+    { 
+        yStartPos ^= yEndPos; 
+        yEndPos   ^= yStartPos; 
+        yStartPos ^= yEndPos;
+    } 
+
+    //no single point of the line is on screen
+    if( yEndPos < 0 || yStartPos >= m_WindowSizeY || 
+        xPos    < 0 || xPos      >= m_WindowSizeX ) 
+        return;
+
+    for( uint16_t yPos = yStartPos; yPos <= yEndPos; yPos++ )
+    {
+        DrawPixel( xPos, yPos, color );
+    }
+}
+
+void DisplayPlatform_t::DrawHorizontalLine( uint16_t yPos, uint16_t xStartPos, uint16_t xEndPos )
+{
+    Color_t color( 255, 255, 255 );
+    DrawHorizontalLine( yPos, xStartPos, xEndPos, color );
+}
+
+void DisplayPlatform_t::DrawHorizontalLine( uint16_t yPos, uint16_t xStartPos, uint16_t xEndPos, Color_t& color )
+{
+    // Swap yStartPos and yEndPos
+    if( xEndPos < xStartPos ) 
+    { 
+        xStartPos ^= xEndPos; 
+        xEndPos   ^= xStartPos; 
+        xStartPos ^= xEndPos;
+    } 
+
+    //no single point of the line is on screen
+    if( xEndPos >= m_WindowSizeX || xStartPos >= m_WindowSizeX || 
+        yPos    >= m_WindowSizeY || yPos      >= m_WindowSizeY ) 
+        return;
+
+    for( uint16_t xPos = xStartPos; xPos <= xEndPos; xPos++ )
+    {
+        DrawPixel(xPos, yPos, color);
+    }
+}
+
+void DisplayPlatform_t::Fill( uint16_t xPos, uint16_t yPos )
+{
+}
+
+void DisplayPlatform_t::Fill( uint16_t xPos, uint16_t yPos, Color_t& color )
+{
 }
 
 void DisplayPlatform_t::Flip( void )

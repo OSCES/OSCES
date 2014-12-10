@@ -17,15 +17,15 @@
         <debug>1</debug>
         <option>
           <name>ExePath</name>
-          <state>$PROJ_DIR$\..\..\..\build\OscesBoard</state>
+          <state>$PROJ_DIR$\..\..\..\build\bin\OscesBoard</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>$PROJ_DIR$\..\..\..\build\temp\OscesBoard\Debug\Obj</state>
+          <state>$PROJ_DIR$\..\..\..\build\out\OscesBoard\Debug\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>$PROJ_DIR$\..\..\..\build\temp\OscesBoard\Debug\List</state>
+          <state>$PROJ_DIR$\..\..\..\build\out\OscesBoard\Debug\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -954,7 +954,7 @@
         </option>
         <option>
           <name>IarchiveOutput</name>
-          <state>$PROJ_DIR$\..\..\..\build\OscesBoard\libOSCES.a</state>
+          <state>$PROJ_DIR$\..\..\..\build\bin\OscesBoard\libOSCES_d.lib</state>
         </option>
       </data>
     </settings>
@@ -979,15 +979,15 @@
         <debug>0</debug>
         <option>
           <name>ExePath</name>
-          <state>$PROJ_DIR$\..\..\build\Release\Exe</state>
+          <state>$PROJ_DIR$\..\..\..\build\bin\OscesBoard\</state>
         </option>
         <option>
           <name>ObjPath</name>
-          <state>$PROJ_DIR$\..\..\build\Release\Obj</state>
+          <state>$PROJ_DIR$\..\..\..\build\out\OscesBoard\Release\Obj</state>
         </option>
         <option>
           <name>ListPath</name>
-          <state>$PROJ_DIR$\..\..\build\Release\List</state>
+          <state>$PROJ_DIR$\..\..\..\build\out\OscesBoard\Release\List</state>
         </option>
         <option>
           <name>Variant</name>
@@ -1049,7 +1049,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>6.70.3.6347</state>
+          <state>7.20.2.7418</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1258,7 +1258,7 @@
         </option>
         <option>
           <name>PreInclude</name>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32F2xx_StdPeriph_Driver\stm32f2xx_conf.h</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\stm32f2xx_conf.h</state>
         </option>
         <option>
           <name>CompilerMisraOverride</name>
@@ -1266,25 +1266,26 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\thirdparty\CMSIS\Device\ST\STM32F2xx\Include</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32F2xx_StdPeriph_Driver</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32F2xx_StdPeriph_Driver\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Device_Library\Core\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Device_Library\Class\audio\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Device_Library\Class\cdc\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Device_Library\Class\dfu\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Device_Library\Class\hid\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Device_Library\Class\msc\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_HOST_Library\Class\HID\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_HOST_Library\Class\MSC\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_HOST_Library\Core\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_OTG_Driver\inc</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\STM32_USB_Desc_Conf</state>
-          <state>$PROJ_DIR$\..\..\thirdparty\CMSIS\Include</state>
-          <state>$PROJ_DIR$\..\..\src\Drivers</state>
-          <state>$PROJ_DIR$\..\..\src</state>
-          <state>$PROJ_DIR$\..\..\src\System</state>
-          <state>$PROJ_DIR$\..\..\src\System\Display</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\CMSIS\Device\ST\STM32F2xx\Include</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Core\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\audio\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\cdc\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\dfu\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\hid\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\msc\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_HOST_Library\Class\HID\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_HOST_Library\Class\MSC\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_HOST_Library\Core\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_OTG_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Desc_Conf</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers</state>
+          <state>$PROJ_DIR$\..\..\..\platform\OscesBoard\System</state>
+          <state>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Display</state>
+          <state>$PROJ_DIR$\..\..\..\</state>
+          <state>$PROJ_DIR$\..\..\..\include</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1351,7 +1352,7 @@
         </option>
         <option>
           <name>IccCppDialect</name>
-          <state>1</state>
+          <state>2</state>
         </option>
         <option>
           <name>IccExceptions</name>
@@ -1359,7 +1360,7 @@
         </option>
         <option>
           <name>IccRTTI</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IccStaticDestr</name>
@@ -1916,7 +1917,7 @@
         </option>
         <option>
           <name>IarchiveOutput</name>
-          <state>$PROJ_DIR$\..\..\lib\libOSCES.a</state>
+          <state>$PROJ_DIR$\..\..\..\build\bin\OscesBoard\libOSCES.lib</state>
         </option>
       </data>
     </settings>
@@ -1934,6 +1935,9 @@
         <name>Display</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\crossplatform\System\Display\Display.cpp</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\crossplatform\System\Display\Display.h</name>
         </file>
       </group>
       <group>
@@ -1954,6 +1958,9 @@
     <name>include</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\DisplayInterface.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\DisplayTypes.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\KeyboardInterface.h</name>

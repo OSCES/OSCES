@@ -3,6 +3,8 @@
 
 
 #include <stdint.h>
+#include "KeyCode.h"
+
 
 enum CodePage_t
 {
@@ -31,7 +33,7 @@ struct ModifyKeysState_t
 struct Key_t
 {
     uint16_t          CharCode;     // Unicode, ASCII etc.
-    uint8_t           KeyCode;
+    KeyCode_t         KeyCode;
     uint8_t           ScanCode;
     uint8_t           ExtendedKeyFlag;
     KeyEvent_t        Event;

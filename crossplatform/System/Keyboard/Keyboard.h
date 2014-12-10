@@ -16,9 +16,9 @@ public:
     void RegisterCallBack( void* pContext, KeyboardCallBack_t fpCallBack );
     void UnRegisterCallBack( KeyboardCallBack_t fpCallBack );
 
-    void    SetCodePage( CodePage_t codePage );
-    uint8_t ScanCodeToKeyCode( uint8_t scanCode, uint8_t extendKeyFlag );
-    uint8_t KeyCodeToCharCode( uint8_t keyCode );
+    void      SetCodePage( CodePage_t codePage );
+    KeyCode_t ScanCodeToKeyCode( uint8_t scanCode, uint8_t extendKeyFlag );
+    uint8_t   KeyCodeToCharCode( uint8_t keyCode );
 
 protected:
     KeyboardCallBack_t m_fpCallBack;

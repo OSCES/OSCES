@@ -158,13 +158,23 @@ void Fsmc_t::FsmcInit( void )
 
     FSMC_NORSRAMInitTypeDef        FSMC_NORSRAMInitStructure;
     FSMC_NORSRAMTimingInitTypeDef  FSMC_NORSRAMTimingStructure;
+
+#if 0    
+    FSMC_NORSRAMTimingStructure.FSMC_AddressSetupTime      = 0x00;
+    FSMC_NORSRAMTimingStructure.FSMC_AddressHoldTime       = 0x00;
+    FSMC_NORSRAMTimingStructure.FSMC_DataSetupTime         = 0x00;
+    FSMC_NORSRAMTimingStructure.FSMC_BusTurnAroundDuration = 0x00;
+    FSMC_NORSRAMTimingStructure.FSMC_CLKDivision           = 0x00;
+    FSMC_NORSRAMTimingStructure.FSMC_DataLatency           = 0x00;
+#else    
+    FSMC_NORSRAMTimingStructure.FSMC_AddressSetupTime      = 0x04;
+    FSMC_NORSRAMTimingStructure.FSMC_AddressHoldTime       = 0x04;
+    FSMC_NORSRAMTimingStructure.FSMC_DataSetupTime         = 0x05;
+    FSMC_NORSRAMTimingStructure.FSMC_BusTurnAroundDuration = 0x05;
+    FSMC_NORSRAMTimingStructure.FSMC_CLKDivision           = 0x00;
+    FSMC_NORSRAMTimingStructure.FSMC_DataLatency           = 0x00;
+#endif    
     
-    FSMC_NORSRAMTimingStructure.FSMC_AddressSetupTime      = 0;
-    FSMC_NORSRAMTimingStructure.FSMC_AddressHoldTime       = 0;
-    FSMC_NORSRAMTimingStructure.FSMC_DataSetupTime         = 0;
-    FSMC_NORSRAMTimingStructure.FSMC_BusTurnAroundDuration = 0;
-    FSMC_NORSRAMTimingStructure.FSMC_CLKDivision           = 0;
-    FSMC_NORSRAMTimingStructure.FSMC_DataLatency           = 0;
     FSMC_NORSRAMTimingStructure.FSMC_AccessMode            = FSMC_AccessMode_A;
 
     FSMC_NORSRAMInitStructure.FSMC_Bank                    = FSMC_Bank1_NORSRAM1;

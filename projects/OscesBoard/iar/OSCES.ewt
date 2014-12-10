@@ -179,6 +179,9 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\crossplatform\System\Display\Display.cpp</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\crossplatform\System\Display\Display.h</name>
+        </file>
       </group>
       <group>
         <name>Keyboard</name>
@@ -198,6 +201,9 @@
     <name>include</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\DisplayInterface.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\include\DisplayTypes.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\include\KeyboardInterface.h</name>

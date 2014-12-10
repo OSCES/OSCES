@@ -8,7 +8,7 @@
 class KeyboardPlatform_t : public Keyboard_t
 {
 public:
-  
+    void OnEvent(Key_t& key);
 };
 
 #endif // KEYBOARD_H

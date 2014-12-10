@@ -60,23 +60,27 @@ bool OscesFramework_t::IsApplicationRun()
             }
         }
             
-
         if( sdlEvent.type == SDL_KEYDOWN )
         {
-//            m_pKeyboard->ReceiveEvent( KEYBOARD_PRESSED, sdlEvent.key.keysym.sym );
+            Key_t key;
+            key.Event   = KEY_PRESSED;
+            key.KeyCode = (KeyCode_t)sdlEvent.key.keysym.scancode;
+
+            m_pKeyboard->OnEvent( key );
         }
         else if( sdlEvent.type == SDL_KEYUP )
         {
-//            m_pKeyboard->ReceiveEvent( KEYBOARD_UNPRESSED, sdlEvent.key.keysym.sym );
-        }
+            Key_t key;
+            key.Event   = KEY_RELEASED;
+            key.KeyCode = (KeyCode_t)sdlEvent.key.keysym.scancode;
 
-            
+            m_pKeyboard->OnEvent( key );
+        }
 
         if(  SDL_QUIT == sdlEvent.quit.type )
         {
             m_IsApplicationRun = false;
-        }
-            
+        }            
     }
 
     return m_IsApplicationRun;

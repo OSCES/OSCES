@@ -173,8 +173,8 @@ void KeyboardPlatform_t::DecodeData( uint8_t data )
     {
         m_Key.CharCode        = KeyCodeToCharCode( data );
         m_Key.KeyCode         = ScanCodeToKeyCode( data, extendCode );
-        m_Key.ScanCode        = data;
         m_Key.ExtendedKeyFlag = extendCode;
+        m_Key.ScanCode        = data;
         m_Key.Event           = breakCode ? KEY_RELEASED : KEY_PRESSED;
 
         m_fpCallBack( m_pContext, m_Key );
