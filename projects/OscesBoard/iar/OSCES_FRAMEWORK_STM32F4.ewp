@@ -29,7 +29,7 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>20</version>
+          <version>21</version>
           <state>38</state>
         </option>
         <option>
@@ -87,7 +87,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>7.20.2.7418</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -137,12 +137,12 @@
         </option>
         <option>
           <name>GFPUCoreSlave</name>
-          <version>20</version>
+          <version>21</version>
           <state>38</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>20</version>
+          <version>21</version>
           <state>38</state>
         </option>
         <option>
@@ -173,8 +173,7 @@
         <option>
           <name>CCDefines</name>
           <state>USE_STDPERIPH_DRIVER</state>
-          <state>STM32F2XX</state>
-          <state>USE_STM322xG_EVAL</state>
+          <state>STM32F4XX</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -295,7 +294,7 @@
         </option>
         <option>
           <name>PreInclude</name>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\stm32f2xx_conf.h</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\stm32f4xx_conf.h</state>
         </option>
         <option>
           <name>CompilerMisraOverride</name>
@@ -303,26 +302,16 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\CMSIS\Device\ST\STM32F2xx\Include</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Core\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\audio\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\cdc\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\dfu\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\hid\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Device_Library\Class\msc\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_HOST_Library\Class\HID\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_HOST_Library\Class\MSC\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_HOST_Library\Core\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_OTG_Driver\inc</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32_USB_Desc_Conf</state>
-          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\CMSIS\Include</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\CMSIS\Device\ST\STM32F4xx\Include</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\CMSIS\Device\ST\STM32F4xx\Include</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver</state>
+          <state>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\platform\OscesBoard\Drivers</state>
           <state>$PROJ_DIR$\..\..\..\platform\OscesBoard\System</state>
           <state>$PROJ_DIR$\..\..\..\platform\OscesBoard\System\Display</state>
-          <state>$PROJ_DIR$\..\..\..\</state>
           <state>$PROJ_DIR$\..\..\..\include</state>
+          <state>$PROJ_DIR$\..\..\..\</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -991,7 +980,7 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>20</version>
+          <version>21</version>
           <state>38</state>
         </option>
         <option>
@@ -1049,7 +1038,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>7.20.2.7418</state>
+          <state>7.30.1.7765</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -1099,12 +1088,12 @@
         </option>
         <option>
           <name>GFPUCoreSlave</name>
-          <version>20</version>
+          <version>21</version>
           <state>38</state>
         </option>
         <option>
           <name>GBECoreSlave</name>
-          <version>20</version>
+          <version>21</version>
           <state>38</state>
         </option>
         <option>
@@ -2068,135 +2057,99 @@
       </group>
     </group>
     <group>
-      <name>STM32_USB_Desc_Conf</name>
-    </group>
-    <group>
-      <name>STM32_USB_Device_Library</name>
-      <group>
-        <name>Class</name>
-        <group>
-          <name>Cdc</name>
-        </group>
-        <group>
-          <name>Hid</name>
-        </group>
-      </group>
-      <group>
-        <name>Core</name>
-      </group>
-    </group>
-    <group>
-      <name>STM32_USB_HOST_Library</name>
-      <group>
-        <name>Class</name>
-      </group>
-      <group>
-        <name>Core</name>
-      </group>
-    </group>
-    <group>
-      <name>STM32_USB_OTG_Driver</name>
-      <group>
-        <name>Class</name>
-      </group>
-      <group>
-        <name>Core</name>
-      </group>
-    </group>
-    <group>
-      <name>STM32F2xx_StdPeriph_Driver</name>
+      <name>STM32F4xx_StdPeriph_Driver</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\misc.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\misc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_adc.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_can.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_can.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_crc.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_crc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_aes.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_aes.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_des.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_des.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_cryp_tdes.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_tdes.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dac.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dac.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dbgmcu.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dbgmcu.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dcmi.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dcmi.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_dma.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_exti.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_flash.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_fsmc.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fsmc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_gpio.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_md5.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_md5.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_hash_sha1.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_sha1.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_i2c.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_iwdg.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_pwr.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_pwr.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rcc.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rng.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rng.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_rtc.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rtc.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_sdio.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sdio.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_spi.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_syscfg.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_tim.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_usart.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F2\STM32F2xx_StdPeriph_Driver\src\stm32f2xx_wwdg.c</name>
+        <name>$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_wwdg.c</name>
       </file>
     </group>
   </group>
