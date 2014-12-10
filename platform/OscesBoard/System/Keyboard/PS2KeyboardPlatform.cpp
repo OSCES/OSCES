@@ -51,7 +51,7 @@ void KeyboardPlatform_t::OnInterrupt()
     {
         if( m_bitCount < 8 ) // Data bit
         {
-            data |= dataBit << bitCount;
+            m_data |= dataBit << m_bitCount;
 
             if( dataBit )
             {
@@ -73,7 +73,7 @@ void KeyboardPlatform_t::OnInterrupt()
         {
             if( m_parity && dataBit )
             {
-                DecodeData( data );
+                DecodeData( m_data );
             }
 
             m_started = 0;
