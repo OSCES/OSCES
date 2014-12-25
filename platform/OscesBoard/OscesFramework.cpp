@@ -5,7 +5,23 @@
 
 #include "ClockManager/ClockManager.h"
 #include "Drivers/InterruptManager.h"
+#include "Drivers/DmaDriver.h"
 #include <stdlib.h>
+
+#include <intrinsics.h>
+#include <stdio.h>
+#include "SysTimerDriver.h"
+#include "Kernel/ThreadPlatform.h"
+#include "Kernel/Kernel.h"
+
+
+#define STANALONE
+
+#ifdef STANALONE
+extern void standalone_main( OscesFramework_t* pSystem );
+#endif
+
+Kernel_t m_Kernel;
 
 OscesFramework_t::OscesFramework_t()
 {
@@ -27,6 +43,28 @@ KeyboardInterface_t* OscesFramework_t::GetKeyboard()
     return m_pKeyboard;
 }
 
+ThreadInterface_t*  OscesFramework_t::CreateThread( uint32_t stackSize, ThreadRoutine_t fpThreadRoutine, void* pContext )
+{
+    ThreadPlatform_t* pThreadPlatform = new ThreadPlatform_t( &m_Kernel );
+
+    uint32_t threadId = m_pScheduler->ThreadCreate( stackSize, fpThreadRoutine, pThreadPlatform, pContext );
+  
+    pThreadPlatform->SetId( threadId );
+    
+    return pThreadPlatform;
+}
+
+void  OscesFramework_t::DestroyThread( ThreadInterface_t* pThread )
+{
+    ThreadPlatform_t* pThreadPlatform = static_cast< ThreadPlatform_t* >( pThread ); //TODO: delete cast !!!
+    
+    uint32_t threadId = pThreadPlatform->GetId();
+    
+    m_pScheduler->ThreadDestroy( threadId );
+ 
+    delete pThread;// pThreadPlatform;
+}
+
 void *operator new( size_t size )
 {
     return malloc( size );
@@ -36,30 +74,40 @@ void operator delete(void *p)
     free( p );
 }
 
+uint8_t ProcessStack[ 512 ];
+
+
+
+
+RCC_ClocksTypeDef freq;
+OscesFramework_t*  m_pOscesFramework;
+
+
+
 int main()
 {
-    OscesFramework_t*  m_pOscesFramework = new OscesFramework_t();
-
-    m_pOscesFramework->Init();
-
+  
+    ClockManager_t clockManager;
+        
+    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
+  
+    //__svc(SVC_00);
+  
+    //__svc( 0 );
+    
+    asm("nop");
+    
+    
+    m_Kernel.Init();
+    
+#ifdef STANALONE
+    standalone_main( m_pOscesFramework );
+#else
     osces_main( m_pOscesFramework );
-
-    SysTimerInterface_t* timer = m_pOscesFramework->GetSysTimer();
-    
-//    for( ;; )
-//    {
-//        volatile uint32_t msec = timer->GetValueUsec();  
-//        asm("nop");
-//    
-//        if( msec )
-//        {
-//            asm("nop");
-//        }
-//    }
-    
-    
+#endif
+   
     m_pOscesFramework->DeInit();
-
+    
     return 0;
 }
 
@@ -73,6 +121,8 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
 {
     OscesFrameworkStatus_t status = OSCES_FRAMEWORK_INIT_SUCCESS;
 
+    DmaInit();
+    
     __disable_interrupt();
     InterruptManager_t::Init();
     
@@ -96,10 +146,10 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
         led1 = new SystemLed_t( SYSTEM_LED_2 );
 
       
-        m_pDisplay  = new DisplayPlatform_t;
-        m_pKeyboard = new KeyboardPlatform_t;
-        m_pSysTimer = new SysTimerPlatform_t;
-        
+        m_pDisplay         = new DisplayPlatform_t;
+        m_pKeyboard        = new KeyboardPlatform_t;
+        m_pSysTimer        = new SysTimerPlatform_t;
+        m_pScheduler       = new SchedulerPlatform_t();
         
         m_pKeyboard->Init();
     }
@@ -109,22 +159,24 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
       
     }
     
+    led0->Off();
+    led1->Off();
+    
+   // __enable_interrupt();
+    
     m_pDisplay->Init( 400, 300);
 
     m_pDisplay->Clear();
     m_pDisplay->Flip();
     m_pDisplay->Clear();
     m_pDisplay->Flip();
-
-    m_pSysTimer->Init();
-
-
-    
-    led0->Off();
-    led1->Off();
    
-
-    __enable_interrupt();
+    m_pSysTimer->Init();
+    
+    
+    //m_pScheduler->Start( 10 );    
+   
+    //__enable_interrupt();
     
     return status;
 }
@@ -132,6 +184,7 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
 
 void OscesFramework_t::DeInit()
 {
+    delete m_pScheduler;
     delete m_pSysTimer;
     delete m_pKeyboard;
     delete m_pDisplay;
