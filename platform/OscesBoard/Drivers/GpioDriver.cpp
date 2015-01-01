@@ -1,13 +1,29 @@
 
 #include "GpioDriver.h"
-
+#include "ClockManager/ClockManager.h"
 
 GpioPin_t::GpioPin_t( Port_t port, Pin_t pin )
 {
     m_Port  = (GPIO_TypeDef*)port; 
     m_Pin   = pin;
 
-    //TODO: Enable appropriate peripheral
+    ClockManager_t &clockManager = ClockManager_t::GetInstance();
+    
+    switch (port)
+    {
+        case PORTA: clockManager.EnableGpioClock( GPIO_CLOCK__PORTA ); break;
+        case PORTB: clockManager.EnableGpioClock( GPIO_CLOCK__PORTB ); break;
+        case PORTC: clockManager.EnableGpioClock( GPIO_CLOCK__PORTC ); break;
+        case PORTD: clockManager.EnableGpioClock( GPIO_CLOCK__PORTD ); break;
+        case PORTE: clockManager.EnableGpioClock( GPIO_CLOCK__PORTE ); break;
+        case PORTF: clockManager.EnableGpioClock( GPIO_CLOCK__PORTF ); break;
+        case PORTG: clockManager.EnableGpioClock( GPIO_CLOCK__PORTG ); break;
+        case PORTH: clockManager.EnableGpioClock( GPIO_CLOCK__PORTH ); break;
+        case PORTI: clockManager.EnableGpioClock( GPIO_CLOCK__PORTI ); break;
+
+        default:
+            break;
+    }
 }
 
 GpioPin_t::~GpioPin_t()

@@ -15,7 +15,7 @@
 #include "Kernel/Kernel.h"
 
 
-#define STANALONE
+//#define STANALONE
 
 #ifdef STANALONE
 extern void standalone_main( OscesFramework_t* pSystem );
@@ -80,33 +80,30 @@ uint8_t ProcessStack[ 512 ];
 
 
 RCC_ClocksTypeDef freq;
-OscesFramework_t*  m_pOscesFramework;
+OscesFramework_t  m_OscesFramework;
 
 
 
 int main()
-{
-  
-    ClockManager_t clockManager;
-        
-    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
-  
+{  
     //__svc(SVC_00);
   
     //__svc( 0 );
+  
+    ClockManager_t &clockManager = ClockManager_t::GetInstance();   
+    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz );
     
-    asm("nop");
-    
-    
+    m_OscesFramework.Init();
     m_Kernel.Init();
     
 #ifdef STANALONE
-    standalone_main( m_pOscesFramework );
+    standalone_main( &m_OscesFramework );
 #else
-    osces_main( m_pOscesFramework );
+    osces_main( &m_OscesFramework );
 #endif
    
-    m_pOscesFramework->DeInit();
+    m_Kernel.DeInit();
+    m_OscesFramework.DeInit();
     
     return 0;
 }
@@ -124,28 +121,11 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     DmaInit();
     
     __disable_interrupt();
+    
     InterruptManager_t::Init();
     
-    
-    ClockManager_t clockManager;
-        
-    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
-    
-   
-    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD, ENABLE );
-    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOE, ENABLE );
-    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOB, ENABLE );
-    RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOA, ENABLE );
-    
-    SystemLed_t* led0 = 0;
-    SystemLed_t* led1 = 0;
-    
     try
-    {
-        led0 = new SystemLed_t( SYSTEM_LED_1 );
-        led1 = new SystemLed_t( SYSTEM_LED_2 );
-
-      
+    { 
         m_pDisplay         = new DisplayPlatform_t;
         m_pKeyboard        = new KeyboardPlatform_t;
         m_pSysTimer        = new SysTimerPlatform_t;
@@ -154,13 +134,8 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
         m_pKeyboard->Init();
     }
     catch(...)
-    {
-    
-      
+    { 
     }
-    
-    led0->Off();
-    led1->Off();
     
    // __enable_interrupt();
     
@@ -170,9 +145,8 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     m_pDisplay->Flip();
     m_pDisplay->Clear();
     m_pDisplay->Flip();
-   
+ 
     m_pSysTimer->Init();
-    
     
     //m_pScheduler->Start( 10 );    
    

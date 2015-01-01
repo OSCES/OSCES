@@ -13,6 +13,33 @@ PLL_VCO = 240 MHz
 SYSCLK = 120 MHz
 */
 
+ClockManager_t::ClockManager_t()
+{
+    uint8_t count = sizeof(m_IsEnabledGpioClock) / sizeof(bool);
+    for(uint8_t idx = 0; idx < count; idx++)
+    {
+        m_IsEnabledGpioClock[idx] = false;
+    }
+}
+
+ClockManager_t::~ClockManager_t()
+{
+}
+
+ClockManager_t::ClockManager_t(const ClockManager_t& value)
+{
+}
+
+ClockManager_t& ClockManager_t::operator = (const ClockManager_t& value)
+{
+    return ClockManager_t::GetInstance();
+}
+
+ClockManager_t& ClockManager_t::GetInstance()
+{
+    static ClockManager_t m_Instance;
+    return m_Instance;
+}
 
 void ClockManager_t::SetSystemClock( SystemClock_t clock )
 {
@@ -68,4 +95,33 @@ void ClockManager_t::SetSystemClock( SystemClock_t clock )
     RCC_GetClocksFreq( &RCC_Clocks );
    
     asm("nop");
+}
+
+void ClockManager_t::EnableGpioClock(GpioClock_t clock)
+{
+    if( m_IsEnabledGpioClock[clock] )
+    {
+        return;
+    }
+
+    uint32_t GpioPeriph = 0;
+
+    switch (clock)
+    {
+        case GPIO_CLOCK__PORTA: GpioPeriph = RCC_AHB1Periph_GPIOA; break;
+        case GPIO_CLOCK__PORTB: GpioPeriph = RCC_AHB1Periph_GPIOB; break;
+        case GPIO_CLOCK__PORTC: GpioPeriph = RCC_AHB1Periph_GPIOC; break;
+        case GPIO_CLOCK__PORTD: GpioPeriph = RCC_AHB1Periph_GPIOD; break;
+        case GPIO_CLOCK__PORTE: GpioPeriph = RCC_AHB1Periph_GPIOE; break;
+        case GPIO_CLOCK__PORTF: GpioPeriph = RCC_AHB1Periph_GPIOF; break;
+        case GPIO_CLOCK__PORTG: GpioPeriph = RCC_AHB1Periph_GPIOG; break;
+        case GPIO_CLOCK__PORTH: GpioPeriph = RCC_AHB1Periph_GPIOH; break;
+        case GPIO_CLOCK__PORTI: GpioPeriph = RCC_AHB1Periph_GPIOI; break;
+
+        default:
+            return;
+    }
+
+    RCC_AHB1PeriphClockCmd( GpioPeriph, ENABLE );
+    m_IsEnabledGpioClock[clock] = true;
 }
