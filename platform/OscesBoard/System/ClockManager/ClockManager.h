@@ -7,6 +7,7 @@ enum SystemClock_t
     SYSTEM_CLOCK_120MHz,
 };
 
+#define PORT_COUNT 9
 enum GpioClock_t
 {
     GPIO_CLOCK__PORTA = 0,
@@ -34,7 +35,7 @@ public:
     void EnableGpioClock(GpioClock_t clock);
 
 private:
-    bool m_IsEnabledGpioClock[9]; // A B C D E F G H I
+    bool m_IsEnabledGpioClock[PORT_COUNT];
 };
 
 #endif // SYSTIMER_H

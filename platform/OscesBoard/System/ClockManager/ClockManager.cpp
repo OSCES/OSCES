@@ -15,8 +15,7 @@ SYSCLK = 120 MHz
 
 ClockManager_t::ClockManager_t()
 {
-    uint8_t count = sizeof(m_IsEnabledGpioClock) / sizeof(bool);
-    for(uint8_t idx = 0; idx < count; idx++)
+    for(uint8_t idx = 0; idx < PORT_COUNT; idx++)
     {
         m_IsEnabledGpioClock[idx] = false;
     }
