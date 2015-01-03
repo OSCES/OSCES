@@ -1,4 +1,5 @@
 
+#include <assert.h>
 #include "GpioDriver.h"
 #include "ClockManager/ClockManager.h"
 
@@ -22,6 +23,7 @@ GpioPin_t::GpioPin_t( Port_t port, Pin_t pin )
         case PORTI: clockManager.EnableGpioClock( GPIO_CLOCK__PORTI ); break;
 
         default:
+            assert(false);
             break;
     }
 }
