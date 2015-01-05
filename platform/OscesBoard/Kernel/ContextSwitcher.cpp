@@ -21,7 +21,7 @@ void ContextSwitcher_t::SwitchToThreadMode()
     uint32_t* pProcessStack = ( uint32_t* )__get_PSP();
     
     
-    for( uint32_t idx = 0; idx < 6; idx++ )
+    for( uint32_t idx = 0; idx < 8; idx++ )
     {
         pProcessStack[ idx ] = pMainStack[ idx ];
     }
