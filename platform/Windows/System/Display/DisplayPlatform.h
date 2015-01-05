@@ -29,19 +29,13 @@ public:
     void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue );
     void Flip( void );
     void Clear();
+	void* GetFrameBuffer();
+	
     ~DisplayPlatform_t();
 
-    virtual void DrawPixel( uint16_t xPos, uint16_t yPos );
-	virtual void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
-	virtual void DrawLine( uint16_t xStartPos, uint16_t yStartPos, uint16_t xEndPos, uint16_t yEndPos );
-	virtual void DrawLine( uint16_t xStartPos, uint16_t yStartPos, uint16_t xEndPos, uint16_t yEndPos, Color_t& color );
-	virtual void DrawVerticalLine( uint16_t xPos, uint16_t yStartPos, uint16_t yEndPos );
-	virtual void DrawVerticalLine( uint16_t xPos, uint16_t yStartPos, uint16_t yEndPos, Color_t& color ); // Fast Line
-    virtual void DrawHorizontalLine( uint16_t yPos, uint16_t xStartPos, uint16_t xEndPos );
-    virtual void DrawHorizontalLine( uint16_t yPos, uint16_t xStartPos, uint16_t xEndPos, Color_t& color ); // Fast Line
-	virtual void Fill( uint16_t xPos, uint16_t yPos );
-	virtual void Fill( uint16_t xPos, uint16_t yPos, Color_t& color );
-
+    void DrawPixel( uint16_t xPos, uint16_t yPos );
+	void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
+	
 private:
     void SurfaceLock( void );
     void SurfaceUnock( void );

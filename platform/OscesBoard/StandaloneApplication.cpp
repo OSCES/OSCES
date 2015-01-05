@@ -21,18 +21,24 @@ uint32_t ThreadBCounter = 0;
 uint32_t ThreadCCounter = 0;
 uint32_t ThreadMCounter = 0;
 
-void ThreadA( ThreadInterface_t* pContextA, void* pContextB )
+void ThreadA( ThreadInterface_t* pThisThread, void* pContextB )
 {
+    ThreadInterface_t* pThread = pThisThread;
+  
+    asm("nop");
+  
     for( ;; )
     {
         ThreadACounter++;
         asm("nop");
+        
+        //pThisThread->Yield();
         SchedulerPlatform_t::ThreadYield( 0 );
         asm("nop");
     }
 }
 
-void ThreadB( ThreadInterface_t* pContextA, void* pContextB )
+void ThreadB( ThreadInterface_t* pThisThread, void* pContextB )
 {
     for( ;; )
     {
@@ -43,7 +49,7 @@ void ThreadB( ThreadInterface_t* pContextA, void* pContextB )
     }
 }
 
-void ThreadC( ThreadInterface_t* pContextA, void* pContextB )
+void ThreadC( ThreadInterface_t* pThisThread, void* pContextB )
 {
     for( ;; )
     {
@@ -56,12 +62,15 @@ void ThreadC( ThreadInterface_t* pContextA, void* pContextB )
 
 void standalone_main( OscesFramework_t* pSystem )
 {
-    asm("nop");
-      
-    SchedulerPlatform_t::ThreadCreate( 128, ThreadA, 0, 0 );
-    SchedulerPlatform_t::ThreadCreate( 128, ThreadB, 0, 0 );
-    SchedulerPlatform_t::ThreadCreate( 128, ThreadC, 0, 0 );
+    asm("nop");  
     
+    ThreadInterface_t* pThreadA = pSystem->ThreadCreate( 128, ThreadA, 0 );
+    ThreadInterface_t* pThreadB = pSystem->ThreadCreate( 128, ThreadB, 0 );
+    ThreadInterface_t* pThreadC = pSystem->ThreadCreate( 128, ThreadC, 0 );
+    
+    pThreadA->Start();
+    pThreadB->Start();
+    pThreadC->Start();
     
     //asm volatile("svc 0");
     
@@ -72,7 +81,7 @@ void standalone_main( OscesFramework_t* pSystem )
         //uint32_t usec = pSystem->GetSysTimer()->GetValueUsec();
         asm("nop");
         ThreadMCounter++;
-        SchedulerPlatform_t::ThreadYield( 0 );
+        pSystem->ThreadYield();
         //ThreadMCounter++;
         //asm("nop");
     }
