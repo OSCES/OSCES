@@ -9,17 +9,17 @@
 
 void* DisplayPlatform_t::GetFrameBuffer()
 {
-	return m_pFrame[ m_CurrentFrame ];
+    return m_pFrame[ m_CurrentFrame ];
 }
 
 uint32_t DisplayPlatform_t::GetSizeVertical()
 {
-	return m_WindowSizeY;
+    return m_WindowSizeY;
 }
 
 uint32_t DisplayPlatform_t::GetSizeHorizontal()
 {
-	return m_WindowSizeX;
+    return m_WindowSizeX;
 }
 
 void DisplayPlatform_t::Clear()

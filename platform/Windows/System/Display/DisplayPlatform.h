@@ -29,14 +29,14 @@ public:
     void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue );
     void Flip( void );
     void Clear();
-	void* GetFrameBuffer();
-	uint32_t GetSizeVertical();
-	uint32_t GetSizeHorizontal();
+    void* GetFrameBuffer();
+    uint32_t GetSizeVertical();
+    uint32_t GetSizeHorizontal();
     
-	~DisplayPlatform_t();
+    ~DisplayPlatform_t();
 
     void DrawPixel( uint16_t xPos, uint16_t yPos );
-	void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
+    void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
 	
 private:
     void SurfaceLock( void );

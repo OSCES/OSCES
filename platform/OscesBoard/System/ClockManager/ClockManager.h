@@ -23,7 +23,7 @@ enum GpioClock_t
 
 class ClockManager_t
 {
-private:
+public:
     ClockManager_t();
     ~ClockManager_t();
     ClockManager_t(const ClockManager_t& value);
