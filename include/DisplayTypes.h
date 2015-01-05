@@ -4,6 +4,10 @@
 
 #include <stdint.h>
 
+#define COLOR_DEFAULT_RED   0xFF
+#define COLOR_DEFAULT_GREEN 0xFF
+#define COLOR_DEFAULT_BLUE  0xFF
+
 
 struct PixelStruct_t
 {
@@ -31,7 +35,8 @@ enum PixelFormat_t
 {
     DISPLAY_PIXEL_FORMAT_RGB888  ,
     DISPLAY_PIXEL_FORMAT_RGBA8888,
-    DISPLAY_PIXEL_FORMAT_RGB332
+    DISPLAY_PIXEL_FORMAT_RGB332  ,
+	DISPLAY_PIXEL_FORMAT_DEFAULT
 };
 
 enum DisplayRectFormat_t
@@ -57,11 +62,19 @@ struct DisplayBitmap_t
 
 struct Color_t
 {
+public:
     Color_t() {};
 	Color_t( uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, PixelFormat_t format ) :
 		m_Red( red ), m_Green( green ), m_Blue( blue ), m_Alpha( alpha ), m_Format( format )
 	{}
 
+	uint8_t GetRed()  { return m_Red; };
+	uint8_t GetGreen(){ return m_Green; };
+	uint8_t GetBlue() { return m_Blue; };
+
+
+
+private:
 	uint8_t		  m_Red;
 	uint8_t		  m_Green;
 	uint8_t	      m_Blue;

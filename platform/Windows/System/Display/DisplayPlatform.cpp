@@ -12,6 +12,16 @@ void* DisplayPlatform_t::GetFrameBuffer()
 	return m_pFrame[ m_CurrentFrame ];
 }
 
+uint32_t DisplayPlatform_t::GetSizeVertical()
+{
+	return m_WindowSizeY;
+}
+
+uint32_t DisplayPlatform_t::GetSizeHorizontal()
+{
+	return m_WindowSizeX;
+}
+
 void DisplayPlatform_t::Clear()
 {
     uint32_t len = m_SurfaceSizeX * m_SurfaceSizeY;
@@ -102,7 +112,7 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos )
 
 void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color )
 {
-    DrawPixel( xPos, yPos, color.Red, color.Green, color.Blue );
+//    DrawPixel( xPos, yPos, color.Red, color.Green, color.Blue );
 }
 
 void DisplayPlatform_t::Flip( void )

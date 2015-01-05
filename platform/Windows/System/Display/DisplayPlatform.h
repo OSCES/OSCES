@@ -4,8 +4,8 @@
     06/11/2012
 */
 
-#ifndef _Display_h_
-#define _Display_h_
+#ifndef DISPLAY_PLATFORM_H
+#define DISPLAY_PLATFORM_H
 
 #include <stdint.h>
 #include "SDL.h"
@@ -30,8 +30,10 @@ public:
     void Flip( void );
     void Clear();
 	void* GetFrameBuffer();
-	
-    ~DisplayPlatform_t();
+	uint32_t GetSizeVertical();
+	uint32_t GetSizeHorizontal();
+    
+	~DisplayPlatform_t();
 
     void DrawPixel( uint16_t xPos, uint16_t yPos );
 	void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );

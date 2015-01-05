@@ -94,9 +94,9 @@ OscesFramework_t*  m_pOscesFramework;
 int main()
 {
   
-    ClockManager_t clockManager;
+    //ClockManager_t clockManager;
         
-    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
+    //clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
   
     //__svc(SVC_00);
   
@@ -136,7 +136,7 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     
     ClockManager_t clockManager;
         
-    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
+//    clockManager.SetSystemClock( SYSTEM_CLOCK_120MHz ); 
     
    
     RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD, ENABLE );

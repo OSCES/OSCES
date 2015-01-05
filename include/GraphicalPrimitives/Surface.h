@@ -18,8 +18,8 @@ public:
 
 	Surface_t( uint16_t sizeVertical, uint16_t sizeHorizontal );
 	
-	void GetSizeVertical();
-	void GetSizeHorizontal();
+	uint32_t GetSizeVertical();
+	uint32_t GetSizeHorizontal();
 	void* GetFrameBuffer();
 
 	
