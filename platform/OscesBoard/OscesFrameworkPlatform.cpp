@@ -1,4 +1,4 @@
-#include "OscesFramework.h"
+#include "OscesFrameworkPlatform.h"
 #include "GpioDriver.h"
 #include "Leds/leds.h"
 #include "Buttons/Buttons.h"
@@ -17,6 +17,32 @@
 
 extern OscesApplicationStatus_t osces_main( void );// OscesFrameworkInterface_t* system );
 Kernel_t m_Kernel;
+uint8_t ProcessStack[ 512 ];
+RCC_ClocksTypeDef freq;
+OscesFramework_t  m_pOscesFramework;
+
+namespace Sys
+{
+    DisplayInterface_t*  GetDisplay()
+    {
+        return m_pOscesFramework.GetDisplay();
+    }
+
+    KeyboardInterface_t* GetKeyboard()
+    {
+        return m_pOscesFramework.GetKeyboard();
+    }
+
+    SysTimerInterface_t* GetSysTimer()
+    {
+        return m_pOscesFramework.GetSysTimer();
+    }
+
+    bool IsApplicationRun()
+    {
+        return m_pOscesFramework.IsApplicationRun();
+    }
+};
 
 OscesFramework_t::OscesFramework_t()
 {
@@ -75,16 +101,6 @@ void operator delete(void *p)
 {
     free( p );
 }
-
-uint8_t ProcessStack[ 512 ];
-
-
-
-
-RCC_ClocksTypeDef freq;
-OscesFramework_t  m_pOscesFramework;
-
-
 
 int main()
 {
