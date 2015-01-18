@@ -11,13 +11,6 @@
 #include "SDL.h"
 #include "crossplatform/System/Display/Display.h"
 
-struct DisplayPixelStruct_t
-{
-    uint8_t Red;
-    uint8_t Green;
-    uint8_t Blue;
-};
-
 class DisplayPlatform_t : public Display_t
 {
 public:
@@ -44,14 +37,14 @@ private:
         
 
 private:
-    SDL_Window*           m_pWindow;   
-    SDL_GLContext         m_pOpenGLContext;
-    DisplayPixelStruct_t* m_pFrame[ 2 ];
-    uint16_t              m_WindowSizeX;
-    uint16_t              m_WindowSizeY;
-    uint16_t              m_SurfaceSizeX;
-    uint16_t              m_SurfaceSizeY;
-    uint8_t               m_CurrentFrame;
+    SDL_Window*            m_pWindow;   
+    SDL_GLContext          m_pOpenGLContext;
+    PixelStructRGBA8888_t* m_pFrame[ 2 ];
+    uint16_t               m_WindowSizeX;
+    uint16_t               m_WindowSizeY;
+    uint16_t               m_SurfaceSizeX;
+    uint16_t               m_SurfaceSizeY;
+    uint8_t                m_CurrentFrame;
 };
 
 #endif

@@ -28,6 +28,7 @@ public:
     void* GetFrameBuffer();
     uint32_t GetSizeVertical();
     uint32_t GetSizeHorizontal();
+    void SetTitle( const char* pTitle );
     
 public:
     void Flip();

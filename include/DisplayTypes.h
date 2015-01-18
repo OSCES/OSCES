@@ -7,6 +7,8 @@
 #define COLOR_DEFAULT_RED   0xFF
 #define COLOR_DEFAULT_GREEN 0xFF
 #define COLOR_DEFAULT_BLUE  0xFF
+#define COLOR_DEFAULT_ALPHA 0xFF
+
 
 
 struct PixelStruct_t
@@ -14,13 +16,6 @@ struct PixelStruct_t
   uint8_t Red   : 3;
   uint8_t Green : 3;
   uint8_t Blue  : 2;
-};
-
-struct PixelStructRGB888_t
-{
-  uint8_t Red  ;
-  uint8_t Green;
-  uint8_t Blue ;
 };
 
 struct PixelStructRGBA8888_t
@@ -33,7 +28,7 @@ struct PixelStructRGBA8888_t
 
 enum PixelFormat_t
 {
-    DISPLAY_PIXEL_FORMAT_RGB888  ,
+    DISPLAY_PIXEL_FORMAT_RGB888   = 0,
     DISPLAY_PIXEL_FORMAT_RGBA8888,
     DISPLAY_PIXEL_FORMAT_RGB332  ,
 	DISPLAY_PIXEL_FORMAT_DEFAULT
@@ -68,9 +63,10 @@ public:
 		m_Red( red ), m_Green( green ), m_Blue( blue ), m_Alpha( alpha ), m_Format( format )
 	{}
 
-	uint8_t GetRed()  { return m_Red; };
-	uint8_t GetGreen(){ return m_Green; };
-	uint8_t GetBlue() { return m_Blue; };
+	uint8_t GetRed()   { return m_Red;   };
+	uint8_t GetGreen() { return m_Green; };
+	uint8_t GetBlue()  { return m_Blue;  };
+	uint8_t GetAlpha() { return m_Alpha; };
 
 
 

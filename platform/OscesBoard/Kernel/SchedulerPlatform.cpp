@@ -1,7 +1,7 @@
 #include "SchedulerPlatform.h"
 #include <string.h>
 #include <intrinsics.h>
-
+#include <misc.h>
 #include "MemoryManager.h"
 
 uint32_t Stack[ 4096 ];

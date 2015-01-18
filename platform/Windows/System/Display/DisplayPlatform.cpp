@@ -7,6 +7,7 @@
 #include "DisplayPlatform.h"
 #include <SDL_opengl.h>
 
+
 void* DisplayPlatform_t::GetFrameBuffer()
 {
     return m_pFrame[ m_CurrentFrame ];
@@ -51,8 +52,8 @@ void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSi
         delete m_pFrame;
     }*/
 
-    m_pFrame[ 0 ] = new DisplayPixelStruct_t[ m_SurfaceSizeX * m_SurfaceSizeY ];
-    m_pFrame[ 1 ] = new DisplayPixelStruct_t[ m_SurfaceSizeX * m_SurfaceSizeY ];
+    m_pFrame[ 0 ] = new PixelStructRGBA8888_t[ m_SurfaceSizeX * m_SurfaceSizeY ];
+    m_pFrame[ 1 ] = new PixelStructRGBA8888_t[ m_SurfaceSizeX * m_SurfaceSizeY ];
 
     SDL_Init( SDL_INIT_VIDEO );
     WindowResize( xWindowSize, yWindowSize );   
@@ -85,7 +86,7 @@ void DisplayPlatform_t::WindowResize( uint16_t xSize, uint16_t ySize )
     glLoadIdentity();
 
     glEnable(GL_TEXTURE_2D);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_SurfaceSizeX, m_SurfaceSizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_SurfaceSizeX, m_SurfaceSizeY, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
    
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -97,11 +98,12 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, ui
 {
     if( ( xPos <= m_SurfaceSizeX ) && ( yPos <= m_SurfaceSizeY ) )
     {
-        DisplayPixelStruct_t* pixel = &m_pFrame[ m_CurrentFrame ][ xPos + m_SurfaceSizeX * yPos ];
+        PixelStructRGBA8888_t* pixel = &m_pFrame[ m_CurrentFrame ][ xPos + m_SurfaceSizeX * yPos ];
 
         pixel->Red   = red;
         pixel->Green = green;
         pixel->Blue  = blue;
+		pixel->Alpha = 0x00;
     }
 }
 
@@ -117,7 +119,7 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color 
 
 void DisplayPlatform_t::Flip( void )
 {
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_SurfaceSizeX, m_SurfaceSizeY, GL_RGB, GL_UNSIGNED_BYTE, m_pFrame[ m_CurrentFrame ] );
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_SurfaceSizeX, m_SurfaceSizeY, GL_RGBA, GL_UNSIGNED_BYTE, m_pFrame[ m_CurrentFrame ] );
 
     glBegin( GL_QUADS );
         glTexCoord2d(0.0, 0.0);  glVertex2d(0.0, 0.0);

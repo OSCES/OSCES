@@ -1,6 +1,7 @@
 #include "SysTimerDriver.h"
 //#include "stm32fxx_tim.h"
 #include "InterruptManager.h"
+#include "stm32f4xx_rcc.h"
 
 void SysTimerDriver_t::Init()
 {

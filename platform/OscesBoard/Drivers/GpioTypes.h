@@ -1,6 +1,7 @@
 #ifndef GPIOTYPES_H
 #define GPIOTYPES_H
 
+#include "stm32f4xx_gpio.h"
 
 enum Port_t
 {

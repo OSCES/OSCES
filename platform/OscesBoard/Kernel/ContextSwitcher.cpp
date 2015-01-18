@@ -2,6 +2,7 @@
 #include <string.h>
 #include <intrinsics.h>
 #include "MemoryManager.h"
+#include "misc.h"
 
 ContextSwitcher_t::ContextSwitcher_t( SchedulerPlatform_t* pScheduler )
 {

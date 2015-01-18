@@ -47,6 +47,11 @@ static uint8_t BLUE[] =
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
 };
 
+void DisplayPlatform_t::SetTitle( const char* pTitle )
+{
+    pTitle = pTitle;
+}
+
 void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize )
 { 
     m_DisplayBuffer = DISPLAY_PRIMARY_BUFFER;

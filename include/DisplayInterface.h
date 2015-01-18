@@ -16,7 +16,7 @@ public:
 	virtual void* GetFrameBuffer() = 0;
 	virtual uint32_t GetSizeVertical() = 0;
 	virtual uint32_t GetSizeHorizontal() = 0;
-	
+	virtual void SetTitle( const char* pTitle ) = 0;
 
 public:
     //virtual void CopyBitmapToSurface( const DisplayBitmap_t* pDestinationRect, uint32_t xPosInSurface, uint32_t yPosInSurface ) = 0;

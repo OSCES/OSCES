@@ -1,6 +1,8 @@
 #ifndef CLOCK_MANAGER_H
 #define CLOCK_MANAGER_H
 
+#include <stdint.h>
+
 enum SystemClock_t
 {
     SYSTEM_CLOCK_24MHz,

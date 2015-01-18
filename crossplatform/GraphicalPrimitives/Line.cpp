@@ -5,10 +5,30 @@ Line_t::Line_t( Surface_t* pSurface )
 {
     m_pSurface = pSurface;
 
-    fp_DrawHorizontal = &Line_t::DrawHorizontal322To888;
-    fp_DrawVertical   = &Line_t::DrawVertical322To888;
+	switch( pSurface->GetPixelFormat() )
+	{
+		case DISPLAY_PIXEL_FORMAT_RGB888:
+		//TODO:
+		break;
+
+		case DISPLAY_PIXEL_FORMAT_RGBA8888:
+			fp_DrawHorizontal = &Line_t::DrawHorizontal888ATo888A;
+		    fp_DrawVertical   = &Line_t::DrawVertical888ATo888A;
+		break;
 	
-    m_Color = Color_t( COLOR_DEFAULT_RED, COLOR_DEFAULT_GREEN, COLOR_DEFAULT_BLUE, 0, DISPLAY_PIXEL_FORMAT_DEFAULT );
+		case DISPLAY_PIXEL_FORMAT_RGB332:
+		//TODO:
+		break;
+
+		default:
+			fp_DrawHorizontal = &Line_t::DrawHorizontal888ATo888A;
+		    fp_DrawVertical   = &Line_t::DrawVertical888ATo888A;
+		break;
+	}
+	//
+
+	
+    m_Color = Color_t( COLOR_DEFAULT_RED, COLOR_DEFAULT_GREEN, COLOR_DEFAULT_BLUE, COLOR_DEFAULT_ALPHA, DISPLAY_PIXEL_FORMAT_DEFAULT );
 }
 
 void Line_t::SetColor( Color_t& color )
@@ -66,8 +86,13 @@ void Line_t::Draw( uint16_t xStartPos, uint16_t yStartPos, uint16_t xEndPos, uin
         numpixels = deltay; //There are more y-values than x-values
     }
 
-    PixelStructRGB888_t pixel =  { m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue() };
-    PixelStructRGB888_t* pPixel = static_cast< PixelStructRGB888_t* >( m_pSurface->GetFrameBuffer() );
+    PixelStructRGBA8888_t pixel;
+    
+    pixel.Red   = m_Color.GetRed();
+    pixel.Green = m_Color.GetGreen();
+    pixel.Blue  = m_Color.GetBlue();
+    
+    PixelStructRGBA8888_t* pPixel = static_cast< PixelStructRGBA8888_t* >( m_pSurface->GetFrameBuffer() );
 	
     int xPos = xStartPos;
     int yPos = yStartPos;
@@ -104,23 +129,17 @@ void Line_t::DrawHorizontal( uint16_t xPos, uint16_t yPos, uint16_t size )
 
 // ----------------------------------------- Drawing factory -----------------------------------------
 
-void Line_t::DrawHorizontal888To888( uint16_t xPos, uint16_t yPos, uint16_t size )
+void Line_t::DrawHorizontal888ATo888A( uint16_t xPos, uint16_t yPos, uint16_t size )
 {
-
-}
-
-void Line_t::DrawHorizontal322To322( uint16_t xPos, uint16_t yPos, uint16_t size )
-{
-
-}
-
-void Line_t::DrawHorizontal322To888( uint16_t xPos, uint16_t yPos, uint16_t size )
-{
-    PixelStructRGB888_t* pPixel = static_cast< PixelStructRGB888_t* >( m_pSurface->GetFrameBuffer() );
+    PixelStructRGBA8888_t* pPixel = static_cast< PixelStructRGBA8888_t* >( m_pSurface->GetFrameBuffer() );
 
     pPixel += xPos + yPos * m_pSurface->GetSizeHorizontal();
 
-    PixelStructRGB888_t pixel =  { m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue() };
+    PixelStructRGBA8888_t pixel;
+   
+    pixel.Red   = m_Color.GetRed();
+    pixel.Green = m_Color.GetGreen();
+    pixel.Blue  = m_Color.GetBlue();
 
     for( uint32_t idx = 0; idx < size; idx++ )
     {
@@ -128,24 +147,43 @@ void Line_t::DrawHorizontal322To888( uint16_t xPos, uint16_t yPos, uint16_t size
     }
 }
 
-void Line_t::DrawVertical322To888( uint16_t xPos, uint16_t yPos, uint16_t size )
+void Line_t::DrawHorizontal322To322( uint16_t xPos, uint16_t yPos, uint16_t size )
 {
-    PixelStructRGB888_t* pPixel = static_cast< PixelStructRGB888_t* >( m_pSurface->GetFrameBuffer() );
+
+}
+
+void Line_t::DrawHorizontal322To888A( uint16_t xPos, uint16_t yPos, uint16_t size )
+{
+   /* PixelStructRGBA8888_t* pPixel = static_cast< PixelStructRGBA8888_t* >( m_pSurface->GetFrameBuffer() );
+
+    pPixel += xPos + yPos * m_pSurface->GetSizeHorizontal();
+
+    PixelStructRGBA8888_t pixel =  { m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue() };
+
+    for( uint32_t idx = 0; idx < size; idx++ )
+    {
+        *pPixel ++= pixel;
+    }*/
+}
+
+void Line_t::DrawVertical322To888A( uint16_t xPos, uint16_t yPos, uint16_t size )
+{
+   /* PixelStructRGBA8888_t* pPixel = static_cast< PixelStructRGBA8888_t* >( m_pSurface->GetFrameBuffer() );
 
     uint32_t sizeHorizontal = m_pSurface->GetSizeHorizontal();
 
     pPixel += xPos + yPos * sizeHorizontal;
 
-    PixelStructRGB888_t pixel =  { m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue() };
+    PixelStructRGBA8888_t pixel =  { m_Color.GetRed(), m_Color.GetGreen(), m_Color.GetBlue() };
 
     for( uint32_t idx = 0; idx < size; idx++ )
     {
         *pPixel = pixel;
         pPixel += sizeHorizontal;
-    }
+    }*/
 }
 
-void Line_t::DrawVertical888To888( uint16_t xPos, uint16_t yPos, uint16_t size )
+void Line_t::DrawVertical888ATo888A( uint16_t xPos, uint16_t yPos, uint16_t size )
 {
 
 }

@@ -4,6 +4,8 @@
 #define HZ_IN_MHZ               1000000
 #define SYS_TICK_TIMER_INT_FREQ 10
 
+#include <stdint.h>
+
 class SysTimerDriver_t
 {
 public:

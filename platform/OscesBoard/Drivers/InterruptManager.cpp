@@ -1,4 +1,5 @@
 #include "InterruptManager.h"
+#include "stm32f4xx_exti.h"
 
 extern "C" void __iar_program_start( void );
 extern "C" void __main( void );

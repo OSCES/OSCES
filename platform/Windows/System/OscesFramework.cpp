@@ -5,6 +5,8 @@
 #include "SDL_timer.h"
 #include <stdio.h>
 
+extern OscesApplicationStatus_t osces_main( void );// OscesFrameworkInterface_t* system );
+
 OscesFramework_t::OscesFramework_t()
 {
     m_IsApplicationRun = true;
@@ -25,6 +27,32 @@ KeyboardInterface_t* OscesFramework_t::GetKeyboard()
     return m_pKeyboard;
 }
 
+static OscesFramework_t*  pOscesFramework;
+
+namespace Sys
+{
+	DisplayInterface_t*  GetDisplay()
+	{
+		return pOscesFramework->GetDisplay();
+	}
+
+	KeyboardInterface_t* GetKeyboard()
+	{
+		return pOscesFramework->GetKeyboard();
+	}
+
+	SysTimerInterface_t* GetSysTimer()
+	{
+		return pOscesFramework->GetSysTimer();
+	}
+
+	bool IsApplicationRun()
+	{
+		return pOscesFramework->IsApplicationRun();
+	}
+
+};
+
 
 #ifdef WIN32
 #include <windows.h>
@@ -34,11 +62,11 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmd
 int main()
 #endif
 {
-    OscesFramework_t*  pOscesFramework = new OscesFramework_t();
+    pOscesFramework = new OscesFramework_t();
 
     pOscesFramework->Init();
 
-    osces_main( pOscesFramework );
+    osces_main( );//pOscesFramework );
 
     pOscesFramework->DeInit();
 
