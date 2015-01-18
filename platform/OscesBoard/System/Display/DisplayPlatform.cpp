@@ -52,7 +52,7 @@ void DisplayPlatform_t::SetTitle( const char* pTitle )
     pTitle = pTitle;
 }
 
-void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize )
+void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable )
 { 
     m_DisplayBuffer = DISPLAY_PRIMARY_BUFFER;
     m_WindowSizeX = xSize;

@@ -15,7 +15,8 @@ enum DisplayBuffer_t
 class DisplayPlatform_t : public Display_t
 {
 public:
-    void Init( uint16_t xSize, uint16_t ySize );
+    void Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable );
+   
     ~DisplayPlatform_t();
 
 public:
