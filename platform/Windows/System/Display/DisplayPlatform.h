@@ -11,40 +11,36 @@
 #include "SDL.h"
 #include "crossplatform/System/Display/Display.h"
 
-class DisplayPlatform_t : public Display_t
+class DisplayPlatform_t : public DisplayInterface_t
 {
 public:
-    void Init( uint16_t xSize, uint16_t ySize );
-    void Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize );
+    void Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable );
+    void Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize, bool isVsyncEnable );
     void WindowResize( uint16_t xSize, uint16_t ySize );
     void SetTitle( const char* pTitle );
-    void Present( PixelStruct_t* pData );
-    void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue );
-    void Flip( void );
+    void DrawPixel( uint16_t xPos, uint16_t yPos );
+	void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
+	void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue ); // compability issue
+	void Flip( void );
     void Clear();
     void* GetFrameBuffer();
     uint32_t GetSizeVertical();
     uint32_t GetSizeHorizontal();
-    
+ 
+    DisplayPlatform_t();
     ~DisplayPlatform_t();
 
-    void DrawPixel( uint16_t xPos, uint16_t yPos );
-    void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
-	
 private:
-    void SurfaceLock( void );
-    void SurfaceUnock( void );
-        
+    SDL_Window*    m_pWindow;
+    SDL_Texture *  m_Texture;
+    SDL_Renderer * m_Renderer;
 
-private:
-    SDL_Window*            m_pWindow;   
-    SDL_GLContext          m_pOpenGLContext;
-    PixelStructRGBA8888_t* m_pFrame[ 2 ];
-    uint16_t               m_WindowSizeX;
-    uint16_t               m_WindowSizeY;
-    uint16_t               m_SurfaceSizeX;
-    uint16_t               m_SurfaceSizeY;
-    uint8_t                m_CurrentFrame;
+    uint32_t*      m_pFrame[ 2 ];   
+    uint16_t       m_WindowSizeX;
+    uint16_t       m_WindowSizeY;
+    uint16_t       m_SurfaceSizeX;
+    uint16_t       m_SurfaceSizeY;
+    uint8_t        m_CurrentFrame;
 };
 
 #endif

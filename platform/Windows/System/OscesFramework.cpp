@@ -139,7 +139,7 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
 
     }while( false );
 
-    m_pDisplay->Init( 400, 300);
+    m_pDisplay->Init( 400, 300, false );
 
     m_pDisplay->Clear();
     m_pDisplay->Flip();

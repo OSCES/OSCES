@@ -20,10 +20,10 @@ struct PixelStruct_t
 
 struct PixelStructRGBA8888_t
 {
-  uint32_t Red   : 8;
-  uint32_t Green : 8;
-  uint32_t Blue  : 8;
-  uint32_t Alpha : 8;
+	uint32_t Alpha : 8;
+	uint32_t Blue  : 8;
+	uint32_t Green : 8;
+	uint32_t Red   : 8;
 };
 
 enum PixelFormat_t
