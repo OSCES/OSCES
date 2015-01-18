@@ -10,6 +10,7 @@
 class DisplayInterface_t
 {
 public:
+    virtual void Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable ) = 0;
     virtual void DrawPixel( uint16_t xPos, uint16_t yPos ) = 0;
     virtual void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color ) = 0;
     virtual void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue ) = 0; // compability issue

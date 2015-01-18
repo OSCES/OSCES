@@ -59,16 +59,14 @@ struct Color_t
 {
 public:
     Color_t() {};
-    Color_t( uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, PixelFormat_t format ) :
-            m_Red( red ), m_Green( green ), m_Blue( blue ), m_Alpha( alpha ), m_Format( format )
+    Color_t( uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, PixelFormat_t format ) 
+      : m_Red( red ), m_Green( green ), m_Blue( blue ), m_Alpha( alpha ), m_Format( format )
     {}
 
     uint8_t GetRed()   { return m_Red;   };
     uint8_t GetGreen() { return m_Green; };
     uint8_t GetBlue()  { return m_Blue;  };
     uint8_t GetAlpha() { return m_Alpha; };
-
-
 
 private:
     uint8_t	  m_Red;

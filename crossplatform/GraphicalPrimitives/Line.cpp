@@ -5,29 +5,29 @@ Line_t::Line_t( Surface_t* pSurface )
 {
     m_pSurface = pSurface;
 
-	switch( pSurface->GetPixelFormat() )
-	{
-		case DISPLAY_PIXEL_FORMAT_RGB888:
-		//TODO:
-		break;
+    m_pSurface->GetPixelFormat();
+    
+    switch( pSurface->GetPixelFormat() )
+    {
+        case DISPLAY_PIXEL_FORMAT_RGB888:
+        //TODO:
+        break;
 
-		case DISPLAY_PIXEL_FORMAT_RGBA8888:
-			fp_DrawHorizontal = &Line_t::DrawHorizontal888ATo888A;
-		    fp_DrawVertical   = &Line_t::DrawVertical888ATo888A;
-		break;
-	
-		case DISPLAY_PIXEL_FORMAT_RGB332:
-		//TODO:
-		break;
+        case DISPLAY_PIXEL_FORMAT_RGBA8888:
+            fp_DrawHorizontal = &Line_t::DrawHorizontal888ATo888A;
+            fp_DrawVertical   = &Line_t::DrawVertical888ATo888A;
+        break;
 
-		default:
-			fp_DrawHorizontal = &Line_t::DrawHorizontal888ATo888A;
-		    fp_DrawVertical   = &Line_t::DrawVertical888ATo888A;
-		break;
-	}
-	//
+        case DISPLAY_PIXEL_FORMAT_RGB332:
+        //TODO:
+        break;
 
-	
+        default:
+            fp_DrawHorizontal = &Line_t::DrawHorizontal888ATo888A;
+            fp_DrawVertical   = &Line_t::DrawVertical888ATo888A;
+        break;
+    }
+ 	
     m_Color = Color_t( COLOR_DEFAULT_RED, COLOR_DEFAULT_GREEN, COLOR_DEFAULT_BLUE, COLOR_DEFAULT_ALPHA, DISPLAY_PIXEL_FORMAT_DEFAULT );
 }
 

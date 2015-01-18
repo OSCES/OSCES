@@ -8,7 +8,7 @@ Surface_t::Surface_t( SurfeceLocation_t location, PixelFormat_t pixelFormat, Dis
 
 PixelFormat_t Surface_t::GetPixelFormat()
 {
-	return m_PixelFormat;
+    return m_PixelFormat;
 }
 	
 
