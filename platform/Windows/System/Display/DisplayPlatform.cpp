@@ -40,7 +40,7 @@ void DisplayPlatform_t::Clear()
 
 void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable  )
 { 
-   Init( xSize, ySize, xSize, ySize, isVsyncEnable );
+    Init( xSize, ySize, xSize, ySize, isVsyncEnable );
 }
 
 void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize, bool isVsyncEnable  )

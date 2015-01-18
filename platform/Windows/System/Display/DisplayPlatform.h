@@ -19,9 +19,9 @@ public:
     void WindowResize( uint16_t xSize, uint16_t ySize );
     void SetTitle( const char* pTitle );
     void DrawPixel( uint16_t xPos, uint16_t yPos );
-	void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
-	void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue ); // compability issue
-	void Flip( void );
+    void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
+    void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue ); // compability issue
+    void Flip( void );
     void Clear();
     void* GetFrameBuffer();
     uint32_t GetSizeVertical();
