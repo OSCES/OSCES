@@ -13,7 +13,7 @@
 #include "SysTimerDriver.h"
 #include "Kernel/ThreadPlatform.h"
 #include "Kernel/Kernel.h"
-
+#include "UDA1334_Driver.h"
 
 extern OscesApplicationStatus_t osces_main( void );// OscesFrameworkInterface_t* system );
 Kernel_t m_Kernel;
@@ -102,6 +102,10 @@ void operator delete(void *p)
     free( p );
 }
 
+
+
+
+
 int main()
 {
   
@@ -164,7 +168,7 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
       
         m_pDisplay         = new DisplayPlatform_t;
         //m_pKeyboard        = new KeyboardPlatform_t;
-        //m_pSysTimer        = new SysTimerPlatform_t;
+        m_pSysTimer        = new SysTimerPlatform_t;
        // m_pScheduler       = new SchedulerPlatform_t();
         
         //m_pKeyboard->Init();
@@ -191,12 +195,14 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     m_pDisplay->Clear();
     m_pDisplay->Flip();
    
-  //  m_pSysTimer->Init();
+    m_pSysTimer->Init();
     
+    
+    UDA1334_DriverInit();
     
     //m_pScheduler->Start( 10 );    
    
-    //__enable_interrupt();
+    __enable_interrupt();
     
     return status;
 }
