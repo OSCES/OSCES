@@ -72,7 +72,7 @@ KeyCode_t Keyboard_t::ScanCodeToKeyCode(uint8_t scanCode, uint8_t extendKeyFlag)
     return Set2KeyCodeTable[scanCode];
 }
 
-uint8_t Keyboard_t::KeyCodeToCharCode(uint8_t keyCode)
+uint16_t Keyboard_t::KeyCodeToCharCode(uint8_t keyCode)
 {
     uint16_t CharCode = 0xFF;
 

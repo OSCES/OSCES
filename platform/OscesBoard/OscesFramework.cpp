@@ -130,8 +130,6 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
         m_pKeyboard        = new KeyboardPlatform_t;
         m_pSysTimer        = new SysTimerPlatform_t;
         m_pScheduler       = new SchedulerPlatform_t();
-        
-        m_pKeyboard->Init();
     }
     catch(...)
     { 
@@ -139,18 +137,18 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
     
    // __enable_interrupt();
     
-    m_pDisplay->Init( 400, 300);
+    //m_pSysTimer->Init();
+    m_pKeyboard->Init();
+    m_pDisplay->Init(400, 300);
 
     m_pDisplay->Clear();
     m_pDisplay->Flip();
     m_pDisplay->Clear();
     m_pDisplay->Flip();
- 
-    m_pSysTimer->Init();
     
     //m_pScheduler->Start( 10 );    
    
-    //__enable_interrupt();
+    __enable_interrupt();
     
     return status;
 }

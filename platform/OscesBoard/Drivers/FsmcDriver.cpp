@@ -169,7 +169,7 @@ void Fsmc_t::FsmcInit( void )
 #else    
     FSMC_NORSRAMTimingStructure.FSMC_AddressSetupTime      = 0x04;
     FSMC_NORSRAMTimingStructure.FSMC_AddressHoldTime       = 0x04;
-    FSMC_NORSRAMTimingStructure.FSMC_DataSetupTime         = 0x05;
+    FSMC_NORSRAMTimingStructure.FSMC_DataSetupTime         = 0x07;
     FSMC_NORSRAMTimingStructure.FSMC_BusTurnAroundDuration = 0x05;
     FSMC_NORSRAMTimingStructure.FSMC_CLKDivision           = 0x00;
     FSMC_NORSRAMTimingStructure.FSMC_DataLatency           = 0x00;

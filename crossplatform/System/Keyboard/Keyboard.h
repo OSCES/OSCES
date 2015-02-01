@@ -18,7 +18,7 @@ public:
 
     void      SetCodePage( CodePage_t codePage );
     KeyCode_t ScanCodeToKeyCode( uint8_t scanCode, uint8_t extendKeyFlag );
-    uint8_t   KeyCodeToCharCode( uint8_t keyCode );
+    uint16_t   KeyCodeToCharCode( uint8_t keyCode );
 
 protected:
     KeyboardCallBack_t m_fpCallBack;
