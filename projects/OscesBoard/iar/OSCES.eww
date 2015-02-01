@@ -2,9 +2,6 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\..\..\..\..\OSCES-APPLICATIONS\Snake\projects\OscesBoard\iar\OSCES.ewp</path>
-  </project>
-  <project>
     <path>$WS_DIR$\OSCES_FRAMEWORK_STM32F2.ewp</path>
   </project>
   <project>

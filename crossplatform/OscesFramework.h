@@ -15,8 +15,10 @@ public:
     KeyboardInterface_t* GetKeyboard();
     SysTimerInterface_t* GetSysTimer();
     bool                 IsApplicationRun();
-    ThreadInterface_t*   CreateThread( uint32_t stackSize, ThreadRoutine_t fpThreadRoutine, void* pContext );
-    void                 DestroyThread( ThreadInterface_t* pThread );   
+    ThreadInterface_t*   ThreadCreate( uint32_t stackSize, ThreadRoutine_t fpThreadRoutine, void* pContext );
+    void                 ThreadDestroy( ThreadInterface_t* pThread );   
+    void                 ThreadYield();   
+    
     
     OscesFrameworkStatus_t Init();
     void DeInit();

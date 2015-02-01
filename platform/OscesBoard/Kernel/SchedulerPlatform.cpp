@@ -1,7 +1,7 @@
 #include "SchedulerPlatform.h"
 #include <string.h>
 #include <intrinsics.h>
-
+#include <misc.h>
 #include "MemoryManager.h"
 
 uint32_t Stack[ 4096 ];
@@ -44,10 +44,14 @@ void SchedulerPlatform_t::Start()
  
 }
 
+uint32_t ThreadId = 0;
+
 uint32_t SchedulerPlatform_t::ThreadCreate( uint32_t stackSize, ThreadRoutine_t pThreadRoutine, void* pContextA, void* pContextB )
 {
-    uint32_t threadId = 0;
+    uint32_t threadId = ThreadId;
   
+    ThreadId++;
+    
    //__disable_interrupt();
     
     uint32_t* pStack = ( uint32_t* )AllocateThreadStack( stackSize );
@@ -59,13 +63,13 @@ uint32_t SchedulerPlatform_t::ThreadCreate( uint32_t stackSize, ThreadRoutine_t 
     *pStack --= 0x00000000;                 // R12
     *pStack --= 0x00000000;                 // R3
     *pStack --= 0x00000000;                 // R2
-    *pStack --= ( uint32_t )pContextB;      // R1
-    *pStack   = ( uint32_t )pContextA;      // R0   
+    *pStack --= 0xBBBBBBBB;//( uint32_t )pContextB;      // R1
+    *pStack --= 0xAAAAAAAA;//( uint32_t )pContextA;      // R0   
 // ----------------------------------------------------------- 
  
-    for( uint32_t idx = 0; idx < 8; idx ++ ) // R11 - R4
+    for( uint32_t idx = 0; idx < 7; idx ++ ) // R11 - R4
     {
-        *pStack --= 0;
+        *pStack --= 0xAAAAAAAA;
     }
     
     pStack += 8;

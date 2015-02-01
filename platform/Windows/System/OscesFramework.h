@@ -6,7 +6,7 @@
 #include "KeyBoard/KeyBoardPlatform.h"
 #include "Display/DisplayPlatform.h"
 
-class OscesFramework_t : public OscesFrameworkInterface_t
+class OscesFramework_t// : public OscesFrameworkInterface_t
 {
 public:
     OscesFramework_t();

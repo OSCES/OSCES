@@ -1,6 +1,8 @@
 #ifndef CLOCK_MANAGER_H
 #define CLOCK_MANAGER_H
 
+#include <stdint.h>
+
 enum SystemClock_t
 {
     SYSTEM_CLOCK_24MHz,
@@ -23,7 +25,7 @@ enum GpioClock_t
 
 class ClockManager_t
 {
-private:
+public:
     ClockManager_t();
     ~ClockManager_t();
     ClockManager_t(const ClockManager_t& value);

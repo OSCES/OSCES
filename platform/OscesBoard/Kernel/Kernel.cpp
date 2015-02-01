@@ -21,6 +21,7 @@ void Kernel_t::PentSvInterruptRoutine( void* pContext )
 
 void Kernel_t::Yield()
 {
+    m_SchedulerPlatform.ThreadYield( 0 );
     m_pContextSwitcher->ForceSwitchContext();
 }
 

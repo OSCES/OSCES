@@ -1,4 +1,5 @@
 #include "FsmcDriver.h"
+#include "stm32f4xx_gpio.h"
 
 Fsmc_t::Fsmc_t()
 {
