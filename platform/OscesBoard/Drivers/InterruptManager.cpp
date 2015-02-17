@@ -123,52 +123,52 @@ void InterruptManager_t::RccIrqHandler( void )
 
 void InterruptManager_t::Exti0IrqHandler( void )
 {
-    if(EXTI_GetITStatus(EXTI_Line0) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line0 ) != RESET )
     {
+        EXTI_ClearITPendingBit( EXTI_Line0 );
+
         fp_IntRoutineTable[ INTERRUPT_EXTI0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI0_IRQ_VECTOR ] );
     }
-
-    EXTI_ClearITPendingBit(EXTI_Line0);
 }
 
 void InterruptManager_t::Exti1IrqHandler( void )
 {
-    if(EXTI_GetITStatus(EXTI_Line1) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line1 ) != RESET )
     {
+        EXTI_ClearITPendingBit( EXTI_Line1 );
+
         fp_IntRoutineTable[ INTERRUPT_EXTI1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI1_IRQ_VECTOR ] );
     }
-
-    EXTI_ClearITPendingBit(EXTI_Line1);
 }
 
 void InterruptManager_t::Exti2IrqHandler( void )
 {
-    if(EXTI_GetITStatus(EXTI_Line2) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line2 ) != RESET )
     {
+        EXTI_ClearITPendingBit( EXTI_Line2 );
+
         fp_IntRoutineTable[ INTERRUPT_EXTI2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI2_IRQ_VECTOR ] );
     }
-
-    EXTI_ClearITPendingBit(EXTI_Line2);
 }
 
 void InterruptManager_t::Exti3IrqHandler( void )
 {
-    if(EXTI_GetITStatus(EXTI_Line3) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line3 ) != RESET )
     {
+        EXTI_ClearITPendingBit( EXTI_Line3 );
+
         fp_IntRoutineTable[ INTERRUPT_EXTI3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI3_IRQ_VECTOR ] );
     }
-
-    EXTI_ClearITPendingBit(EXTI_Line3);
 }
 
 void InterruptManager_t::Exti4IrqHandler( void )
 {
-    if(EXTI_GetITStatus(EXTI_Line4) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line4 ) != RESET )
     {
+        EXTI_ClearITPendingBit( EXTI_Line4 );
+
         fp_IntRoutineTable[ INTERRUPT_EXTI4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI4_IRQ_VECTOR ] );
     }
-
-    EXTI_ClearITPendingBit(EXTI_Line4);
 }
 
 void InterruptManager_t::Dma1Stream0IrqHandler( void )
@@ -262,9 +262,9 @@ void InterruptManager_t::Exti95IrqHandler( void )
         index = INTERRUPT_EXTI9_IRQ_VECTOR;
     }
 
-    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
-
     EXTI_ClearITPendingBit( line );
+
+    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
 }
 
 void InterruptManager_t::Tim1BrkTim9IrqHandler( void )
@@ -352,40 +352,40 @@ void InterruptManager_t::Exti1510IrqHandler( void )
     uint32_t line  = 0;
     uint32_t index = 0;
 
-    if(EXTI_GetITStatus(EXTI_Line10) != RESET)
+    if( EXTI_GetITStatus( EXTI_Line10 ) != RESET)
     {
         line  = EXTI_Line10;
         index = INTERRUPT_EXTI10_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line11) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line11 ) != RESET)
     {
         line  = EXTI_Line11;
         index = INTERRUPT_EXTI11_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line12) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line12 ) != RESET)
     {
         line  = EXTI_Line12;
         index = INTERRUPT_EXTI12_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line13) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line13 ) != RESET)
     {
         line  = EXTI_Line13;
         index = INTERRUPT_EXTI13_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line14) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line14 ) != RESET)
     {
         line  = EXTI_Line14;
         index = INTERRUPT_EXTI14_IRQ_VECTOR;
     }
-    else if(EXTI_GetITStatus(EXTI_Line15) != RESET)
+    else if( EXTI_GetITStatus( EXTI_Line15 ) != RESET)
     {
         line  = EXTI_Line15;
         index = INTERRUPT_EXTI15_IRQ_VECTOR;
     }
 
-    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
+    EXTI_ClearITPendingBit( line );
 
-    EXTI_ClearITPendingBit(line);
+    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
 }
 
 void InterruptManager_t::RtcAlarmIrqHandler( void )
