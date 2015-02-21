@@ -5,7 +5,8 @@
 #include "SDL_timer.h"
 #include <stdio.h>
 
-extern OscesApplicationStatus_t osces_main( void );// OscesFrameworkInterface_t* system );
+//extern OscesApplicationStatus_t osces_main( void );// OscesFrameworkInterface_t* system );
+extern OscesApplicationStatus_t osces_main( OscesFrameworkInterface_t* system );
 
 OscesFramework_t::OscesFramework_t()
 {
@@ -26,53 +27,6 @@ KeyboardInterface_t* OscesFramework_t::GetKeyboard()
 {
     return m_pKeyboard;
 }
-
-static OscesFramework_t*  pOscesFramework;
-
-namespace Sys
-{
-	DisplayInterface_t*  GetDisplay()
-	{
-		return pOscesFramework->GetDisplay();
-	}
-
-	KeyboardInterface_t* GetKeyboard()
-	{
-		return pOscesFramework->GetKeyboard();
-	}
-
-	SysTimerInterface_t* GetSysTimer()
-	{
-		return pOscesFramework->GetSysTimer();
-	}
-
-	bool IsApplicationRun()
-	{
-		return pOscesFramework->IsApplicationRun();
-	}
-
-};
-
-
-#ifdef WIN32
-#include <windows.h>
-int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow ) //For VS2012
-//int SDL_main(int argc, char *argv[])
-#else
-int main()
-#endif
-{
-    pOscesFramework = new OscesFramework_t();
-
-    pOscesFramework->Init();
-
-    osces_main( );//pOscesFramework );
-
-    pOscesFramework->DeInit();
-
-    return 0;
-}
-
 
 bool OscesFramework_t::IsApplicationRun()
 {
@@ -155,4 +109,24 @@ void OscesFramework_t::DeInit()
     delete m_pSysTimer;
     delete m_pKeyboard;
     delete m_pDisplay;
+}
+
+
+#ifdef WIN32
+#include <windows.h>
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) //For Visual Studio
+//int SDL_main(int argc, char *argv[])
+#else
+int main()
+#endif
+{
+    OscesFramework_t *System = new OscesFramework_t;
+
+    System->Init();
+
+    osces_main(System);//pOscesFramework );
+
+    System->DeInit();
+
+    return 0;
 }

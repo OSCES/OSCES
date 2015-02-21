@@ -18,23 +18,13 @@ enum OscesFrameworkStatus_t
     OSCES_FRAMEWORK_INIT_FAILED = 0,
 };
 
-namespace Sys
-{
-      DisplayInterface_t*  GetDisplay();
-      KeyboardInterface_t* GetKeyboard();
-      SysTimerInterface_t* GetSysTimer();
-
-      bool IsApplicationRun();
-
-};
-
 class OscesFrameworkInterface_t
 {
 public:
     virtual DisplayInterface_t*  GetDisplay() = 0;
     virtual KeyboardInterface_t* GetKeyboard() = 0;
     virtual SysTimerInterface_t* GetSysTimer() = 0;
-    virtual bool        IsApplicationRun() = 0;
+    virtual bool IsApplicationRun() = 0;
 
 };
 

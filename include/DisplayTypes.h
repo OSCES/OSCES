@@ -59,6 +59,11 @@ struct Color_t
 {
 public:
     Color_t() {};
+    
+    Color_t( uint8_t red, uint8_t green, uint8_t blue ) :
+        m_Red( red ), m_Green( green ), m_Blue( blue ), m_Alpha( 0 ), m_Format( DISPLAY_PIXEL_FORMAT_RGBA8888 )
+    {}
+
     Color_t( uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha, PixelFormat_t format ) 
       : m_Red( red ), m_Green( green ), m_Blue( blue ), m_Alpha( alpha ), m_Format( format )
     {}

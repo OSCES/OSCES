@@ -1,8 +1,4 @@
-/*
-    NES Emulator Project
-    Created by Igor Belorus
-    06/11/2012
-*/
+
 
 #include "DisplayPlatform.h"
 
@@ -102,9 +98,9 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, ui
     {
         uint32_t pixel = 0;
 
-        pixel |= red   << 16;
-        pixel |= green << 8;
-        pixel |= blue;
+        pixel |= red   << 24;
+        pixel |= green << 16;
+        pixel |= blue  << 8;
 
         m_pFrame[ m_CurrentFrame ][ xPos + m_SurfaceSizeX * yPos ] = pixel;
     }
@@ -112,10 +108,12 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, ui
 
 void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos )
 {
+    DrawPixel( xPos, yPos, 255, 255, 255 );
 }
 
 void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color )
 {
+    DrawPixel( xPos, yPos, color.GetRed(), color.GetGreen(), color.GetBlue() );
 }
 
 
