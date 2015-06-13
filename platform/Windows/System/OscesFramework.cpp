@@ -86,7 +86,6 @@ OscesFrameworkStatus_t OscesFramework_t::Init()
             break;
         }
 
-
         m_pDisplay  = new DisplayPlatform_t;
         m_pKeyboard = new KeyboardPlatform_t;
         m_pSysTimer = new SysTimerPlatform_t;
