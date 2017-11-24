@@ -1,51 +1,55 @@
 #include "ThreadPlatform.h"
+#include "Kernel.h"
 
-ThreadPlatform_t::~ThreadPlatform_t()
+ThreadPlatform::ThreadPlatform(Kernel* kernel) :
+    m_threadId(-1),
+    m_kernel(kernel)
 {
-
 }
 
-ThreadPlatform_t::ThreadPlatform_t( Kernel_t* pKernel )
+ThreadPlatform::~ThreadPlatform()
 {
-    m_pKernel = pKernel;
 }
 
-void ThreadPlatform_t::SetId( uint32_t threadId )
+void ThreadPlatform::setId(uint32_t threadId)
 {
-    m_ThreadId = threadId;
+    if (m_threadId == threadId)
+        return;
+
+    m_threadId = threadId;
 }
 
-void ThreadPlatform_t::Start()
+void ThreadPlatform::start()
 {
-    //m_pScheduler->ThreadStart( m_ThreadId );
+//    m_scheduler->threadStart(m_threadId);
 }
 
-void ThreadPlatform_t::Stop()
+void ThreadPlatform::stop()
 {
-    //m_pScheduler->ThreadStop( m_ThreadId );
+//    m_scheduler->threadStop(m_threadId);
 }
 
-uint32_t ThreadPlatform_t::GetId()
+uint32_t ThreadPlatform::id()
 {
-    return m_ThreadId;
+    return m_threadId;
 }
 
-void ThreadPlatform_t::Sleep( uint32_t seconds )
+void ThreadPlatform::sleep(uint32_t seconds)
 {
-    //m_pScheduler->ThreadSleep( m_ThreadId, seconds );
+//    m_scheduler->threadSleep(m_threadId, seconds);
 }
 
-void ThreadPlatform_t::SleepMsec( uint32_t mSeconds )
+void ThreadPlatform::sleepMsec(uint32_t mSeconds)
 {
-    //m_pScheduler->ThreadSleepMsec( m_ThreadId, mSeconds );
+//    m_scheduler->threadSleepMsec(m_threadId, mSeconds);
 }
 
-void ThreadPlatform_t::SetPriority( uint8_t priority )
+void ThreadPlatform::setPriority(uint8_t priority)
 {
-    //m_pScheduler->ThreadSetPriority( m_ThreadId, priority );
+//    m_scheduler->threadSetPriority(m_threadId, priority);
 }
 
-void ThreadPlatform_t::Yield()
+void ThreadPlatform::yield()
 {
-    m_pKernel->Yield();
+    m_kernel->yield();
 }

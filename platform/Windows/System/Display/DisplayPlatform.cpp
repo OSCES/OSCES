@@ -3,43 +3,44 @@
 #include "DisplayPlatform.h"
 
 
-DisplayPlatform_t::DisplayPlatform_t()
+DisplayPlatform::DisplayPlatform()
 {
     m_Texture  = 0;
     m_Renderer = 0;
 }
 
-void* DisplayPlatform_t::GetFrameBuffer()
+void* DisplayPlatform::frameBuffer()
 {
     return m_pFrame[ m_CurrentFrame ];
 }
 
-uint32_t DisplayPlatform_t::GetSizeVertical()
+uint32_t DisplayPlatform::height() const
 {
     return m_SurfaceSizeY;
 }
 
-uint32_t DisplayPlatform_t::GetSizeHorizontal()
+uint32_t DisplayPlatform::width() const
 {
     return m_SurfaceSizeX;
 }
 
-void DisplayPlatform_t::Clear()
+void DisplayPlatform::clear()
 {
     uint32_t len = m_SurfaceSizeX * m_SurfaceSizeY;
-    
+
     for( uint32_t idx = 0; idx < len; idx ++ )
     {
         m_pFrame[ m_CurrentFrame ][ idx ] = 0;
     }
 }
 
-void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable  )
-{ 
-    Init( xSize, ySize, xSize, ySize, isVsyncEnable );
+bool DisplayPlatform::init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable  )
+{
+    init( xSize, ySize, xSize, ySize, isVsyncEnable );
+    return true;
 }
 
-void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize, bool isVsyncEnable  )
+void DisplayPlatform::init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSize, uint16_t yWindowSize, bool isVsyncEnable  )
 {
     m_SurfaceSizeX = xSize;
     m_SurfaceSizeY = ySize;
@@ -61,9 +62,9 @@ void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSi
         m_pWindow = SDL_CreateWindow( "Display", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, xWindowSize, yWindowSize, SDL_WINDOW_RESIZABLE );
     }
 
-    if( 0 == m_Renderer )
+    if (0 == m_Renderer)
     {
-		uint32_t additionFlags = ( true == isVsyncEnable ) ? SDL_RENDERER_PRESENTVSYNC : 0;
+        uint32_t additionFlags = isVsyncEnable ? SDL_RENDERER_PRESENTVSYNC : 0;
         m_Renderer = SDL_CreateRenderer( m_pWindow, -1, SDL_RENDERER_ACCELERATED | additionFlags );
     }
 
@@ -76,7 +77,7 @@ void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, uint16_t xWindowSi
 }
 
 
-void DisplayPlatform_t::WindowResize( uint16_t xSize, uint16_t ySize )
+void DisplayPlatform::WindowResize( uint16_t xSize, uint16_t ySize )
 {
     m_WindowSizeX  = xSize;
     m_WindowSizeY  = ySize;
@@ -92,7 +93,7 @@ void DisplayPlatform_t::WindowResize( uint16_t xSize, uint16_t ySize )
     }
 }
 
-void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue )
+void DisplayPlatform::drawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue )
 {
     if( ( xPos <= m_SurfaceSizeX ) && ( yPos <= m_SurfaceSizeY ) )
     {
@@ -106,18 +107,18 @@ void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, ui
     }
 }
 
-void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos )
+void DisplayPlatform::drawPixel( uint16_t xPos, uint16_t yPos )
 {
-    DrawPixel( xPos, yPos, 255, 255, 255 );
+    drawPixel( xPos, yPos, 255, 255, 255 );
 }
 
-void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color )
+void DisplayPlatform::drawPixel( uint16_t xPos, uint16_t yPos, const Color &color )
 {
-    DrawPixel( xPos, yPos, color.GetRed(), color.GetGreen(), color.GetBlue() );
+    drawPixel( xPos, yPos, color.red(), color.green(), color.blue() );
 }
 
 
-void DisplayPlatform_t::Flip( void )
+void DisplayPlatform::flip( void )
 {
     SDL_UpdateTexture( m_Texture, NULL, m_pFrame[ m_CurrentFrame ], m_SurfaceSizeX * sizeof( uint32_t ) );
 
@@ -127,12 +128,12 @@ void DisplayPlatform_t::Flip( void )
     m_CurrentFrame = !m_CurrentFrame;
 }
 
-void DisplayPlatform_t::SetTitle( const char* pTitle )
+void DisplayPlatform::setTitle( const char* pTitle )
 {
     SDL_SetWindowTitle( m_pWindow, pTitle );
 }
 
-DisplayPlatform_t::~DisplayPlatform_t()
+DisplayPlatform::~DisplayPlatform()
 {
     SDL_DestroyTexture( m_Texture );
     SDL_DestroyRenderer( m_Renderer );

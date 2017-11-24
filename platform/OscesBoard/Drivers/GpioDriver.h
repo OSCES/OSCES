@@ -5,31 +5,30 @@
 #include <stdint.h>
 //#include "stm32f2xx_conf.h"
 #include "GpioTypes.h"
+#include "NonCopyable.h"
 
-
-class GpioPin_t
+class GpioPin : NonCopyable
 {
 public:
-    GpioPin_t( Port_t port, Pin_t pin );
-    ~GpioPin_t();
+    GpioPin(Port port, Pin pin);
+    ~GpioPin();
 
-    void MakeOut( void );
-    void MakeOutOd( void );
-    void MakeInNonPull( void );
-    void MakeInPullUp( void );
-    void MakeInPullDown( void );
+    void makeOut();
+    void makeOutOd();
+    void makeInNonPull();
+    void makeInPullUp();
+    void makeInPullDown();
 
-    void    Set( void );
-    void    Clear( void );
-    uint8_t Read( void );
+    void set();
+    void clear();
+    uint8_t read();
 
 private:
-    void InitPin( PinMode_t pinMode, OutType_t outType, PullType_t pullType );
+    void initPin(PinMode pinMode, OutType outType, PullType pullType);
 
-private:  
-    GPIO_TypeDef* m_Port;
-    Pin_t         m_Pin;
-
-}; 
+private:
+    GPIO_TypeDef *m_port;
+    Pin m_pin;
+};
 
 #endif // GpioDriver_h

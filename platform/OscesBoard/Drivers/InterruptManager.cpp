@@ -1,603 +1,607 @@
 #include "InterruptManager.h"
 #include "stm32f4xx_exti.h"
 
-extern "C" void __iar_program_start( void );
-extern "C" void __main( void );
+extern "C" void __iar_program_start(void);
+extern "C" void __main(void);
 
-void* InterruptManager_t::m_pContextTable[ INTERRUPT_MANAGER_VECTORS_AMOUNT ] = 
-{ 
-  0
-};
-
-InterruptRoutine_t InterruptManager_t::fp_IntRoutineTable[ INTERRUPT_MANAGER_VECTORS_AMOUNT ] = 
-{ 
-    DefaultInterruptRoutine 
-};
-
-void InterruptManager_t::Init()
+void* InterruptManager::m_pContextTable[InterruptVector::VectorsCount] =
 {
-    for( uint8_t idx = 0; idx < INTERRUPT_MANAGER_VECTORS_AMOUNT; idx++ )
+    0
+};
+
+InterruptRoutine InterruptManager::m_IntRoutineTable[InterruptVector::VectorsCount] =
+{
+    DefaultInterruptRoutine
+};
+
+void InterruptManager::init()
+{
+    for (uint8_t index = 0; index < InterruptVector::VectorsCount; ++index)
     {
-        m_pContextTable   [ idx ] = 0;
-        fp_IntRoutineTable[ idx ] = DefaultInterruptRoutine;
+        m_pContextTable[index] = 0;
+        m_IntRoutineTable[index] = DefaultInterruptRoutine;
     }
 }
 
-void InterruptManager_t::RegisterInterrupt( void* pContext, uint16_t vector, InterruptRoutine_t fp_Routine )
+void InterruptManager::registerInterrupt(void *context, uint16_t vector, InterruptRoutine routine)
 {
-    if( vector < INTERRUPT_MANAGER_VECTORS_AMOUNT )
-    {
-        m_pContextTable   [ vector ] = pContext;
-        fp_IntRoutineTable[ vector ] = fp_Routine;
-    }
+    if (vector < 0 && vector >= InterruptVector::VectorsCount)
+        return;
+
+    m_pContextTable[vector] = context;
+    m_IntRoutineTable[vector] = routine;
 }
- 
-void InterruptManager_t::DefaultInterruptRoutine( void* pContext )
+
+void InterruptManager::disableInterrupt()
 {
-    for( ;; ) // Trap
+    __disable_interrupt();
+}
+
+void InterruptManager::enableInterrupt()
+{
+    __enable_interrupt();
+}
+
+void InterruptManager::DefaultInterruptRoutine(void* context)
+{
+    while (true) // Trap
     {
         asm("nop");
     }
 }
 
-
 // --------------------------- Interrupt Handlers --------------------------- //
-void InterruptManager_t::ResetHandler( void )
+#define CALL_VECTOR(vector) \
+    m_IntRoutineTable[vector](m_pContextTable[vector])
+
+void InterruptManager::ResetHandler()
 {
     __iar_program_start();
 }
 
-void InterruptManager_t::NmiHandler( void )
+void InterruptManager::NmiHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_NMI_VECTOR ]( m_pContextTable[ INTERRUPT_NMI_VECTOR ] );
+    CALL_VECTOR(InterruptVector::NmiVector);
 }
 
-void InterruptManager_t::HardFaultHandler( void )
+void InterruptManager::HardFaultHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_HARD_FAULT_VECTOR ]( m_pContextTable[ INTERRUPT_HARD_FAULT_VECTOR ] );
+    CALL_VECTOR(InterruptVector::HardFaultVector);
 }
 
-void InterruptManager_t::MemManageHandler( void )
+void InterruptManager::MemManageHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_MEM_MANAGE_VECTOR ]( m_pContextTable[ INTERRUPT_MEM_MANAGE_VECTOR ] );
+    CALL_VECTOR(InterruptVector::MemManageVector);
 }
 
-void InterruptManager_t::BusFaultHandler( void )
+void InterruptManager::BusFaultHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_BUS_FAULT_VECTOR ]( m_pContextTable[ INTERRUPT_BUS_FAULT_VECTOR ] );
+    CALL_VECTOR(InterruptVector::BusFaultVector);
 }
 
-void InterruptManager_t::UsageFaultHandler( void )
+void InterruptManager::UsageFaultHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_USAGE_FAULT_VECTOR ]( m_pContextTable[ INTERRUPT_USAGE_FAULT_VECTOR ] );
+    CALL_VECTOR(InterruptVector::UsageFaultVector);
 }
 
-void InterruptManager_t::SvCallHandler( void )
+void InterruptManager::SvCallHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_SVCALL_VECTOR ]( m_pContextTable[ INTERRUPT_SVCALL_VECTOR ] );
+    CALL_VECTOR(InterruptVector::SvCallVector);
 }
 
-void InterruptManager_t::DebugMonitorHandler( void )
+void InterruptManager::DebugMonitorHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DEBUG_MONITOR_VECTOR ]( m_pContextTable[ INTERRUPT_DEBUG_MONITOR_VECTOR ] );
+    CALL_VECTOR(InterruptVector::DebugMonitorVector);
 }
 
-void InterruptManager_t::PendSvHandler( void )
+void InterruptManager::PendSvHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_PENDSV_VECTOR ]( m_pContextTable[ INTERRUPT_PENDSV_VECTOR ] );
+    CALL_VECTOR(InterruptVector::PendSvVector);
 }
 
-void InterruptManager_t::SysTickHandler( void )
+void InterruptManager::SysTickHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_SYSTICK_VECTOR ]( m_pContextTable[ INTERRUPT_SYSTICK_VECTOR ] );
+    CALL_VECTOR(InterruptVector::SysTickVector);
 }
 
-void InterruptManager_t::WwdgIrqHandler( void )
+void InterruptManager::WwdgIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_WWDG_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_WWDG_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::WwdgIrqVector);
 }
 
-void InterruptManager_t::PvdIRQHandler( void )
+void InterruptManager::PvdIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_PVD_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_PVD_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::PvdIrqVector);
 }
-void InterruptManager_t::TampStampIrqHandler( void )
+void InterruptManager::TampStampIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TAMP_STAMP_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TAMP_STAMP_IRQ_VECTOR ] );
-}
-
-void InterruptManager_t::RtcWkupIrqHandler( void )
-{
-    fp_IntRoutineTable[ INTERRUPT_RTC_WKUP_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_RTC_WKUP_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::TampStampIrqVector);
 }
 
-void InterruptManager_t::FlashIrqHandler( void )
+void InterruptManager::RtcWkupIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_FLASH_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_FLASH_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::RtcWkupIrqVector);
 }
 
-void InterruptManager_t::RccIrqHandler( void )
+void InterruptManager::FlashIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_RCC_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_RCC_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::FlashIrqVector);
 }
 
-void InterruptManager_t::Exti0IrqHandler( void )
+void InterruptManager::RccIrqHandler()
 {
-    if( EXTI_GetITStatus( EXTI_Line0 ) != RESET )
+    CALL_VECTOR(InterruptVector::RccIrqVector);
+}
+
+void InterruptManager::Exti0IrqHandler()
+{
+    if (EXTI_GetITStatus(EXTI_Line0) != RESET)
     {
-        EXTI_ClearITPendingBit( EXTI_Line0 );
-
-        fp_IntRoutineTable[ INTERRUPT_EXTI0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI0_IRQ_VECTOR ] );
+        EXTI_ClearITPendingBit(EXTI_Line0);
+        CALL_VECTOR(InterruptVector::Exti0IrqVector);
     }
 }
 
-void InterruptManager_t::Exti1IrqHandler( void )
+void InterruptManager::Exti1IrqHandler()
 {
-    if( EXTI_GetITStatus( EXTI_Line1 ) != RESET )
+    if (EXTI_GetITStatus(EXTI_Line1) != RESET)
     {
-        EXTI_ClearITPendingBit( EXTI_Line1 );
-
-        fp_IntRoutineTable[ INTERRUPT_EXTI1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI1_IRQ_VECTOR ] );
+        EXTI_ClearITPendingBit(EXTI_Line1);
+        CALL_VECTOR(InterruptVector::Exti1IrqVector);
     }
 }
 
-void InterruptManager_t::Exti2IrqHandler( void )
+void InterruptManager::Exti2IrqHandler()
 {
-    if( EXTI_GetITStatus( EXTI_Line2 ) != RESET )
+    if (EXTI_GetITStatus(EXTI_Line2) != RESET)
     {
-        EXTI_ClearITPendingBit( EXTI_Line2 );
-
-        fp_IntRoutineTable[ INTERRUPT_EXTI2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI2_IRQ_VECTOR ] );
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        CALL_VECTOR(InterruptVector::Exti2IrqVector);
     }
 }
 
-void InterruptManager_t::Exti3IrqHandler( void )
+void InterruptManager::Exti3IrqHandler()
 {
-    if( EXTI_GetITStatus( EXTI_Line3 ) != RESET )
+    if (EXTI_GetITStatus(EXTI_Line3) != RESET)
     {
-        EXTI_ClearITPendingBit( EXTI_Line3 );
-
-        fp_IntRoutineTable[ INTERRUPT_EXTI3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI3_IRQ_VECTOR ] );
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        CALL_VECTOR(InterruptVector::Exti3IrqVector);
     }
 }
 
-void InterruptManager_t::Exti4IrqHandler( void )
+void InterruptManager::Exti4IrqHandler()
 {
-    if( EXTI_GetITStatus( EXTI_Line4 ) != RESET )
+    if (EXTI_GetITStatus(EXTI_Line4) != RESET)
     {
-        EXTI_ClearITPendingBit( EXTI_Line4 );
-
-        fp_IntRoutineTable[ INTERRUPT_EXTI4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_EXTI4_IRQ_VECTOR ] );
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        CALL_VECTOR(InterruptVector::Exti4IrqVector);
     }
 }
 
-void InterruptManager_t::Dma1Stream0IrqHandler( void )
+void InterruptManager::Dma1Stream0IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM0_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream0IrqVector);
 }
 
-void InterruptManager_t::Dma1Stream1IrqHandler( void )
+void InterruptManager::Dma1Stream1IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM1_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream1IrqVector);
 }
 
-void InterruptManager_t::Dma1Stream2IrqHandler( void )
+void InterruptManager::Dma1Stream2IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM2_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream2IrqVector);
 }
 
-void InterruptManager_t::Dma1Stream3IrqHandler( void )
+void InterruptManager::Dma1Stream3IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM3_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream3IrqVector);
 }
 
-void InterruptManager_t::Dma1Stream4IrqHandler( void )
+void InterruptManager::Dma1Stream4IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM4_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream4IrqVector);
 }
 
-void InterruptManager_t::Dma1Stream5IrqHandler( void )
+void InterruptManager::Dma1Stream5IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM5_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM5_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream5IrqVector);
 }
 
-void InterruptManager_t::Dma1Stream6IrqHandler( void )
+void InterruptManager::Dma1Stream6IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM6_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM6_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream6IrqVector);
 }
 
-void InterruptManager_t::AdcIrqHandler( void )
+void InterruptManager::AdcIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_ADC1_ADC2_ADC3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_ADC1_ADC2_ADC3_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Adc1Adc2Adc3IrqVector);
 }
 
-void InterruptManager_t::Can1TxIrqHandler( void )
+void InterruptManager::Can1TxIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN1_TX_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN1_TX_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can1TxIrqVector);
 }
 
-void InterruptManager_t::Can1Rx0IrqHandler( void )
+void InterruptManager::Can1Rx0IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN1_RX0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN1_RX0_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can1Rx0IrqVector);
 }
 
-void InterruptManager_t::Can1Rx1IrqHandler( void )
+void InterruptManager::Can1Rx1IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN1_RX1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN1_RX1_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can1Rx1IrqVector);
 }
 
-void InterruptManager_t::Can1SceIrqHandler( void )
+void InterruptManager::Can1SceIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN1_SCE_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN1_SCE_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can1SceIrqVector);
 }
 
-void InterruptManager_t::Exti95IrqHandler( void )
+void InterruptManager::Exti95IrqHandler()
 {
     uint32_t line  = 0;
-    uint32_t index = 0;
+    uint32_t vector = 0;
 
-    if( EXTI_GetITStatus( EXTI_Line5 ) != RESET )
+    if (EXTI_GetITStatus(EXTI_Line5) != RESET)
     {
         line  = EXTI_Line5;
-        index = INTERRUPT_EXTI5_IRQ_VECTOR;
+        vector = Exti5IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line6 ) != RESET )
+    else if (EXTI_GetITStatus(EXTI_Line6) != RESET)
     {
         line  = EXTI_Line6;
-        index = INTERRUPT_EXTI6_IRQ_VECTOR;
+        vector = Exti6IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line7 ) != RESET )
+    else if (EXTI_GetITStatus(EXTI_Line7) != RESET )
     {
         line  = EXTI_Line7;
-        index = INTERRUPT_EXTI7_IRQ_VECTOR;
+        vector = Exti7IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line8 ) != RESET )
+    else if (EXTI_GetITStatus(EXTI_Line8) != RESET )
     {
         line  = EXTI_Line8;
-        index = INTERRUPT_EXTI8_IRQ_VECTOR;
+        vector = Exti8IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line9 ) != RESET )
+    else if (EXTI_GetITStatus(EXTI_Line9) != RESET )
     {
         line  = EXTI_Line9;
-        index = INTERRUPT_EXTI9_IRQ_VECTOR;
+        vector = Exti9IrqVector;
     }
 
-    EXTI_ClearITPendingBit( line );
-
-    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
+    EXTI_ClearITPendingBit(line);
+    CALL_VECTOR(vector);
 }
 
-void InterruptManager_t::Tim1BrkTim9IrqHandler( void )
+void InterruptManager::Tim1BrkTim9IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM1_BRK_TIM9_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM1_BRK_TIM9_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim1BrkTim9IrqVector);
 }
 
-void InterruptManager_t::Tim1UpTim10IrqHandler( void )
+void InterruptManager::Tim1UpTim10IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM1_UP_TIM10_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM1_UP_TIM10_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim1UpTim10IqrVector);
 }
 
-void InterruptManager_t::Tim1TrgComTim11IrqHandler( void )
+void InterruptManager::Tim1TrgComTim11IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM1_TRG_COM_TIM11_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM1_TRG_COM_TIM11_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim1TrgComTim11IrqVector);
 }
 
-void InterruptManager_t::Tim1CaptureCompareIrqHandler( void )
+void InterruptManager::Tim1CaptureCompareIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM1_CAPTURE_COMPARE_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM1_CAPTURE_COMPARE_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim1CaptureCompareIrqVector);
 }
 
-void InterruptManager_t::Tim2IrqHandler( void )
+void InterruptManager::Tim2IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM2_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim2IrqVector);
 }
 
-void InterruptManager_t::Tim3IrqHandler( void )
+void InterruptManager::Tim3IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM3_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim3IrqVector);
 }
 
-void InterruptManager_t::Tim4IrqHandler( void )
+void InterruptManager::Tim4IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM4_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim4IrqVector);
 }
 
-void InterruptManager_t::I2c1EventIrqHandler( void )
+void InterruptManager::I2c1EventIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_I2C1_EVENT_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_I2C1_EVENT_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::I2c1EventIrqVector);
 }
 
-void InterruptManager_t::I2c1ErrorIrqHandler( void )
+void InterruptManager::I2c1ErrorIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_I2C1_ERROR_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_I2C1_ERROR_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::I2c1ErrorIrqVector);
 }
 
-void InterruptManager_t::I2c2EventIrqHandler( void )
+void InterruptManager::I2c2EventIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_I2C2_EVENT_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_I2C2_EVENT_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::I2c2EventIrqVector);
 }
 
-void InterruptManager_t::I2c2ErrorIrqHandler( void )
+void InterruptManager::I2c2ErrorIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_I2C2_ERROR_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_I2C2_ERROR_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::I2c2ErrorIrqVector);
 }
 
-void InterruptManager_t::Spi1IrqHandler( void )
+void InterruptManager::Spi1IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_SPI1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_SPI1_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Spi1IrqVector);
 }
 
-void InterruptManager_t::Spi2IrqHandler( void )
+void InterruptManager::Spi2IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_SPI2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_SPI2_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Spi2IrqVector);
 }
 
-void InterruptManager_t::Usart1IrqHandler( void )
+void InterruptManager::Usart1IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_USART1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_USART1_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Usart1IrqVector);
 }
 
-void InterruptManager_t::Usart2IrqHandler( void )
+void InterruptManager::Usart2IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_USART2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_USART2_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Usart2IrqVector);
 }
 
-void InterruptManager_t::Usart3IrqHandler( void )
+void InterruptManager::Usart3IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_USART3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_USART3_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Usart3IrqVector);
 }
 
-void InterruptManager_t::Exti1510IrqHandler( void )
+void InterruptManager::Exti1510IrqHandler()
 {
     uint32_t line  = 0;
-    uint32_t index = 0;
+    uint32_t vector = 0;
 
-    if( EXTI_GetITStatus( EXTI_Line10 ) != RESET)
+    if (EXTI_GetITStatus(EXTI_Line10) != RESET)
     {
         line  = EXTI_Line10;
-        index = INTERRUPT_EXTI10_IRQ_VECTOR;
+        vector = Exti10IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line11 ) != RESET)
+    else if (EXTI_GetITStatus(EXTI_Line11) != RESET)
     {
         line  = EXTI_Line11;
-        index = INTERRUPT_EXTI11_IRQ_VECTOR;
+        vector = Exti11IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line12 ) != RESET)
+    else if (EXTI_GetITStatus(EXTI_Line12) != RESET)
     {
         line  = EXTI_Line12;
-        index = INTERRUPT_EXTI12_IRQ_VECTOR;
+        vector = Exti12IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line13 ) != RESET)
+    else if (EXTI_GetITStatus(EXTI_Line13) != RESET)
     {
         line  = EXTI_Line13;
-        index = INTERRUPT_EXTI13_IRQ_VECTOR;
+        vector = Exti13IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line14 ) != RESET)
+    else if (EXTI_GetITStatus(EXTI_Line14) != RESET)
     {
         line  = EXTI_Line14;
-        index = INTERRUPT_EXTI14_IRQ_VECTOR;
+        vector = Exti14IrqVector;
     }
-    else if( EXTI_GetITStatus( EXTI_Line15 ) != RESET)
+    else if (EXTI_GetITStatus(EXTI_Line15) != RESET)
     {
         line  = EXTI_Line15;
-        index = INTERRUPT_EXTI15_IRQ_VECTOR;
+        vector = Exti15IrqVector;
     }
 
-    EXTI_ClearITPendingBit( line );
-
-    fp_IntRoutineTable[ index ]( m_pContextTable[ index ] );
+    EXTI_ClearITPendingBit(line);
+    CALL_VECTOR(vector);
 }
 
-void InterruptManager_t::RtcAlarmIrqHandler( void )
+void InterruptManager::RtcAlarmIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_RTC_Alarm_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_RTC_Alarm_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::RtcAlarmIrqVector);
 }
 
-void InterruptManager_t::OtgFsWkupIrqHandler( void )
+void InterruptManager::OtgFsWkupIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_OTG_FS_WKUP_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_OTG_FS_WKUP_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::OtgFsWkupIrqVector);
 }
 
-void InterruptManager_t::Tim8BrkTim12IrqHandler( void )
+void InterruptManager::Tim8BrkTim12IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM8_BRK_TIM12_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM8_BRK_TIM12_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim8BrkTim12IrqVector);
 }
 
-void InterruptManager_t::Tim8UpTim13IrqHandler( void )
+void InterruptManager::Tim8UpTim13IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM8_UP_TIM13_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM8_UP_TIM13_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim8UpTim13IrqVector);
 }
 
-void InterruptManager_t::Tim8TrgComTim14IrqHandler( void )
+void InterruptManager::Tim8TrgComTim14IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM8_TRG_COM_TIM14_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM8_TRG_COM_TIM14_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim8TrgComTim14IrqVector);
 }
 
-void InterruptManager_t::Tim8CaptureCompareIrqHandler( void )
+void InterruptManager::Tim8CaptureCompareIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM8_CC_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM8_CC_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim8CcIrqVector);
 }
 
-void InterruptManager_t::Dma1Stream7IrqHandler( void )
+void InterruptManager::Dma1Stream7IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA1_STREAM7_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA1_STREAM7_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma1Stream7IrqVector);
 }
 
-void InterruptManager_t::FsmcIrqHandler( void )
+void InterruptManager::FsmcIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_FSMC_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_FSMC_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::FsmcIrqVector);
 }
 
-void InterruptManager_t::SdioIrqHandler( void )
+void InterruptManager::SdioIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_SDIO_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_SDIO_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::SdioIrqVector);
 }
 
-void InterruptManager_t::Tim5IrqHandler( void )
+void InterruptManager::Tim5IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM5_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM5_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim5IrqVector);
 }
 
-void InterruptManager_t::Spi3IrqHandler( void )
+void InterruptManager::Spi3IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_SPI3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_SPI3_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Spi3IrqVector);
 }
 
-void InterruptManager_t::Uart4IrqHandler( void )
+void InterruptManager::Uart4IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_UART4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_UART4_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Uart4IrqVector);
 }
 
-void InterruptManager_t::Uart5IrqHandler( void )
+void InterruptManager::Uart5IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_UART5_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_UART5_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Uart5IrqVector);
 }
 
-void InterruptManager_t::Tim6DacIrqHandler( void )
+void InterruptManager::Tim6DacIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM6_DAC_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM6_DAC_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim6DacIrqVector);
 }
 
-void InterruptManager_t::Tim7IrqHandler( void )
+void InterruptManager::Tim7IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_TIM7_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_TIM7_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Tim7IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream0IrqHandler( void )
+void InterruptManager::Dma2Stream0IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM0_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream0IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream1IrqHandler( void )
+void InterruptManager::Dma2Stream1IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM1_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream1IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream2IrqHandler( void )
+void InterruptManager::Dma2Stream2IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM2_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM2_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream2IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream3IrqHandler( void )
+void InterruptManager::Dma2Stream3IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM3_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM3_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream3IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream4IrqHandler( void )
+void InterruptManager::Dma2Stream4IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM4_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM4_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream4IrqVector);
 }
 
-void InterruptManager_t::EthIrqHandler( void )
+void InterruptManager::EthIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_ETH_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_ETH_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::EthIrqVector);
 }
 
-void InterruptManager_t::EthWkupIrqHandler( void )
+void InterruptManager::EthWkupIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_ETH_WKUP_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_ETH_WKUP_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::EthWkupIrqVector);
 }
 
-void InterruptManager_t::Can2TxIrqHandler( void )
+void InterruptManager::Can2TxIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN2_TX_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN2_TX_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can2TxIrqVector);
 }
 
-void InterruptManager_t::Can2Rx0IrqHandler( void )
+void InterruptManager::Can2Rx0IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN2_RX0_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN2_RX0_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can2Rx0IrqVector);
 }
 
-void InterruptManager_t::Can2Rx1IrqHandler( void )
+void InterruptManager::Can2Rx1IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN2_RX1_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN2_RX1_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can2Rx1IrqVector);
 }
 
-void InterruptManager_t::Can2SceIrqHandler( void )
+void InterruptManager::Can2SceIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CAN2_SCE_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CAN2_SCE_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Can2SceIrqVector);
 }
 
-void InterruptManager_t::UsbOtgFsIrqHandler( void )
+void InterruptManager::UsbOtgFsIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_USB_OTG_FS_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_USB_OTG_FS_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::UsbOtgFsIrqVector);
 }
 
-void InterruptManager_t::Dma2Stream5IrqHandler( void )
+void InterruptManager::Dma2Stream5IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM5_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM5_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream5IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream6IrqHandler( void )
+void InterruptManager::Dma2Stream6IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM6_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM6_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream6IrqVector);
 }
 
-void InterruptManager_t::Dma2Stream7IrqHandler( void )
+void InterruptManager::Dma2Stream7IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DMA2_STREAM7_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DMA2_STREAM7_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Dma2Stream7IrqVector);
 }
 
-void InterruptManager_t::Usart6IrqHandler( void )
+void InterruptManager::Usart6IrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_USART6_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_USART6_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::Usart6IrqVector);
 }
 
-void InterruptManager_t::I2c3EventIrqHandler( void )
+void InterruptManager::I2c3EventIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_I2C3_EV_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_I2C3_EV_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::I2c3EventIrqVector);
 }
 
-void InterruptManager_t::I2c3ErrorIrqHandler( void )
+void InterruptManager::I2c3ErrorIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_I2C3_ER_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_I2C3_ER_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::I2c3ErrorIrqVector);
 }
 
-void InterruptManager_t::OtgHsEp1OutIrqHandler( void )
+void InterruptManager::OtgHsEp1OutIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_OTG_HS_EP1_OUT_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_OTG_HS_EP1_OUT_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::OtgHsEp1OutIrqVector);
 }
 
-void InterruptManager_t::OtgHsEp1InIrqHandler( void )
+void InterruptManager::OtgHsEp1InIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_OTG_HS_EP1_IN_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_OTG_HS_EP1_IN_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::OtgHsEp1InIrqVector);
 }
 
-void InterruptManager_t::OtgHsWkupIrqHandler( void )
+void InterruptManager::OtgHsWkupIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_OTG_HS_WKUP_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_OTG_HS_WKUP_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::OtgHsWkupIrqVector);
 }
 
-void InterruptManager_t::OtgHsIrqHandler( void )
+void InterruptManager::OtgHsIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_OTG_HS_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_OTG_HS_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::OtgHsIrqVector);
 }
 
-void InterruptManager_t::DcmiIrqHandler( void )
+void InterruptManager::DcmiIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_DCMI_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_DCMI_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::DcmiIrqVector);
 }
 
-void InterruptManager_t::CrypIrqHandler( void )
+void InterruptManager::CrypIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_CRYP_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_CRYP_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::CrypIrqVector);
 }
 
-void InterruptManager_t::HashRngIrqHandler( void )
+void InterruptManager::HashRngIrqHandler()
 {
-    fp_IntRoutineTable[ INTERRUPT_HASH_RNG_IRQ_VECTOR ]( m_pContextTable[ INTERRUPT_HASH_RNG_IRQ_VECTOR ] );
+    CALL_VECTOR(InterruptVector::HashRngIrqVector);
 }
 //--------------------------------------------------------------------------- //
 
 
 // --------------------------- Interrupt Handlers Table ----------------------//
-
-#pragma language = extended   
+#pragma language = extended
 #pragma segment  = "CSTACK"
 #pragma location = ".intvec"
-__root const InterruptManager_t::HandlerItem_t InterruptManager_t::m_InterruptVectorTable[] = 
+__root const InterruptManager::HandlerItem InterruptManager::m_InterruptVectorTable[InterruptVector::VectorsCount] =
 {
-    { .pHandler = __sfe( "CSTACK" ) }       ,   
+    { .handler = __sfe("CSTACK") }          ,
     ResetHandler                            ,  //Reset Handler
     NmiHandler                              ,  //NMI_Handler
     HardFaultHandler                        ,  //HardFault_Handler

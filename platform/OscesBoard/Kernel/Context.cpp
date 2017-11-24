@@ -2,18 +2,24 @@
 #include <string.h>
 #include <intrinsics.h>
 
-void Context_t::SaveStackPointer( uint32_t stackPointer )
+void Context::setNext(Context *context)
 {
-    m_StackPointer = stackPointer;
 }
 
-void Context_t::SetRoutine( Routine_t* pRoutine )
+void Context::saveStackPointer(uint32_t stackPointer)
 {
-    m_fpRoutine = pRoutine;
+    m_stackPointer = stackPointer;
 }
 
-uint32_t Context_t::RetrieveStackPointer()
+void Context::setRoutine(Routine routine)
 {
-    return m_StackPointer;
+    if (m_routine == routine)
+        return;
+
+    m_routine = routine;
 }
-    
+
+uint32_t Context::retrieveStackPointer()
+{
+    return m_stackPointer;
+}

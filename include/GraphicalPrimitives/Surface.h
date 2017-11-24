@@ -4,28 +4,27 @@
 #include "include/DisplayInterface.h"
 #include <stdint.h>
 
-
-enum SurfeceLocation_t
+enum SurfeceLocation
 {
     SURFACE_ALLOCATE_IN_FRAME_BUFFER,
     SURFACE_ALLOCATE_IN_SYSTEM_RAM,
 };
 
-class Surface_t
+class Surface
 {
 public:
-    Surface_t( SurfeceLocation_t location, PixelFormat_t pixelFormat, DisplayInterface_t* pDisplay );
-    Surface_t( uint16_t sizeVertical, uint16_t sizeHorizontal );
+    Surface(SurfeceLocation location, PixelFormat pixelFormat, DisplayInterface *display);
+    Surface(uint16_t width, uint16_t height);
 
-    uint32_t GetSizeVertical();
-    uint32_t GetSizeHorizontal();
-    void* GetFrameBuffer();
-    PixelFormat_t GetPixelFormat();
+    uint32_t height() const;
+    uint32_t width() const;
+    void* frameBuffer() const;
+    PixelFormat pixelFormat() const;
 
 private:
-    SurfeceLocation_t   m_Location;
-    PixelFormat_t       m_PixelFormat;
-    DisplayInterface_t* m_pDisplay;
+    SurfeceLocation m_location;
+    PixelFormat m_pixelFormat;
+    DisplayInterface *m_display;
 };
 
 #endif // SURFACE_H

@@ -4,11 +4,10 @@
 #include "include/DisplayInterface.h"
 
 
-class Display_t : public DisplayInterface_t
+class Display : public DisplayInterface
 {
 public:
-    virtual ~Display_t();  
-  
+    virtual ~Display();
 };
 
 #endif // DISPLAY_H

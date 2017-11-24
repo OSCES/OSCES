@@ -1,54 +1,53 @@
 #include "ContextSwitcher.h"
-#include <string.h>
-#include <intrinsics.h>
 #include "MemoryManager.h"
 #include "misc.h"
+#include <string.h>
+#include <intrinsics.h>
 
-ContextSwitcher_t::ContextSwitcher_t( SchedulerPlatform_t* pScheduler )
+ContextSwitcher::ContextSwitcher(SchedulerPlatform *scheduler) :
+    m_scheduler(scheduler)
 {
-    m_pScheduler = pScheduler;
 }
 
-void ContextSwitcher_t::ForceSwitchContext()
+void ContextSwitcher::forceSwitchContext()
 {
+    // not portable
     SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
 }
 
-void ContextSwitcher_t::SwitchToThreadMode()
+void ContextSwitcher::switchToThreadMode()
 {
-    __set_PSP( AllocateThreadStack( 128 ) );
-    
-    uint32_t* pMainStack = ( uint32_t* )__get_MSP();
-    uint32_t* pProcessStack = ( uint32_t* )__get_PSP();
-    
-    
-    for( uint32_t idx = 0; idx < 8; idx++ )
-    {
-        pProcessStack[ idx ] = pMainStack[ idx ];
-    }
-    
-    __set_CONTROL( 0x02 );  
+    // __set* __get* functions should be as HAL
+    __set_PSP(AllocateThreadStack(28));
+
+    uint32_t *mainStack = static_cast<uint32_t *>(__get_MSP());
+    uint32_t *processStack = static_cast<uint32_t *>(__get_PSP());
+
+    // 8 - some magic? why 8?
+    for (uint32_t i = 0; i < 8; ++i)
+        processStack[i] = mainStack[i];
+
+    __set_CONTROL(0x02);
 }
 
-void ContextSwitcher_t::PendSvInterruptRoutine()
+void ContextSwitcher::pendSvInterruptRoutine()
 {
-    asm( "MRS R0, PSP" );
-    asm( "STMDB R0!, {R4-R11}" );
-  
-    m_pScheduler->GetCurrentThreadContext()->SaveStackPointer( __get_PSP() );
-    
-    __set_PSP( m_pScheduler->GetNextThreadContext()->RetrieveStackPointer() );
+    // not portable
+    asm("MRS R0, PSP");
+    asm("STMDB R0!, {R4-R11}");
 
-    asm( "MRS R0, PSP" );
-    asm( "LDMIA R0!, {R4-R11}" );
+    m_scheduler->currentThreadContext()->saveStackPointer(__get_PSP());
 
+    __set_PSP( m_scheduler->nextThreadContext()->retrieveStackPointer());
+
+    asm("MRS R0, PSP");
+    asm("LDMIA R0!, {R4-R11}");
 }
 
-uint32_t ContextSwitcher_t::PrepareExeptionStackFrame( uint32_t stackAddr )
+uint32_t ContextSwitcher::prepareExeptionStackFrame(uint32_t stackAddr)
 {
-
 }
 
-void ContextSwitcher_t::SysTimerInterruptRoutine()
+void ContextSwitcher::sysTimerInterruptRoutine()
 {
 }

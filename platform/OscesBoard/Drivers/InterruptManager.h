@@ -3,234 +3,236 @@
 
 #include <stdint.h>
 
-typedef void ( *InterruptRoutine_t )( void* pContext );
+typedef void (*InterruptRoutine)(void *context);
 
-#define INTERRUPT_MANAGER_VECTORS_AMOUNT 105
-
-enum
+enum InterruptVector
 {
-    INTERRUPT_RESET_VECTOR                 = 0,
-    INTERRUPT_NMI_VECTOR                      ,
-    INTERRUPT_HARD_FAULT_VECTOR               ,
-    INTERRUPT_MEM_MANAGE_VECTOR               ,
-    INTERRUPT_BUS_FAULT_VECTOR                , 
-    INTERRUPT_USAGE_FAULT_VECTOR              ,
-    INTERRUPT_RESERVED_VECTOR0                ,
-    INTERRUPT_RESERVED_VECTOR1                ,
-    INTERRUPT_RESERVED_VECTOR2                ,
-    INTERRUPT_RESERVED_VECTOR3                ,
-    INTERRUPT_SVCALL_VECTOR                   ,
-    INTERRUPT_DEBUG_MONITOR_VECTOR            ,
-    INTERRUPT_RESERVED_VECTOR4                ,
-    INTERRUPT_PENDSV_VECTOR                   ,
-    INTERRUPT_SYSTICK_VECTOR                  ,
+    ResetVector = 0,
+    NmiVector,
+    HardFaultVector,
+    MemManageVector,
+    BusFaultVector,
+    UsageFaultVector,
+    ReservedVector0,
+    ReservedVector1,
+    ReservedVector2,
+    ReservedVector3,
+    SvCallVector,
+    DebugMonitorVector,
+    ReservedVector4,
+    PendSvVector,
+    SysTickVector,
 
     //External Interrupts
-    INTERRUPT_WWDG_IRQ_VECTOR                 ,                         
-    INTERRUPT_PVD_IRQ_VECTOR                  ,                
-    INTERRUPT_TAMP_STAMP_IRQ_VECTOR           ,         
-    INTERRUPT_RTC_WKUP_IRQ_VECTOR             ,            
-    INTERRUPT_FLASH_IRQ_VECTOR                ,                        
-    INTERRUPT_RCC_IRQ_VECTOR                  ,                           
-    INTERRUPT_EXTI0_IRQ_VECTOR                , 
-    INTERRUPT_EXTI1_IRQ_VECTOR                ,                         
-    INTERRUPT_EXTI2_IRQ_VECTOR                ,                          
-    INTERRUPT_EXTI3_IRQ_VECTOR                ,                      
-    INTERRUPT_EXTI4_IRQ_VECTOR                ,
-    INTERRUPT_EXTI5_IRQ_VECTOR                ,
-    INTERRUPT_EXTI6_IRQ_VECTOR                ,
-    INTERRUPT_EXTI7_IRQ_VECTOR                ,
-    INTERRUPT_EXTI8_IRQ_VECTOR                ,
-    INTERRUPT_EXTI9_IRQ_VECTOR                ,
-    INTERRUPT_EXTI10_IRQ_VECTOR               ,
-    INTERRUPT_EXTI11_IRQ_VECTOR               ,
-    INTERRUPT_EXTI12_IRQ_VECTOR               ,
-    INTERRUPT_EXTI13_IRQ_VECTOR               ,
-    INTERRUPT_EXTI14_IRQ_VECTOR               ,
-    INTERRUPT_EXTI15_IRQ_VECTOR               ,
-    INTERRUPT_DMA1_STREAM0_IRQ_VECTOR         ,                                   
-    INTERRUPT_DMA1_STREAM1_IRQ_VECTOR         ,                                   
-    INTERRUPT_DMA1_STREAM2_IRQ_VECTOR         ,                                  
-    INTERRUPT_DMA1_STREAM3_IRQ_VECTOR         ,                                   
-    INTERRUPT_DMA1_STREAM4_IRQ_VECTOR         ,                                  
-    INTERRUPT_DMA1_STREAM5_IRQ_VECTOR         ,                                 
-    INTERRUPT_DMA1_STREAM6_IRQ_VECTOR         ,                        
-    INTERRUPT_ADC1_ADC2_ADC3_IRQ_VECTOR       ,                            
-    INTERRUPT_CAN1_TX_IRQ_VECTOR              ,                                        
-    INTERRUPT_CAN1_RX0_IRQ_VECTOR             ,                                     
-    INTERRUPT_CAN1_RX1_IRQ_VECTOR             ,                                
-    INTERRUPT_CAN1_SCE_IRQ_VECTOR             ,                                                       
-    INTERRUPT_TIM1_BRK_TIM9_IRQ_VECTOR        ,                   
-    INTERRUPT_TIM1_UP_TIM10_IRQ_VECTOR        ,                 
-    INTERRUPT_TIM1_TRG_COM_TIM11_IRQ_VECTOR   ,
-    INTERRUPT_TIM1_CAPTURE_COMPARE_IRQ_VECTOR ,                                 
-    INTERRUPT_TIM2_IRQ_VECTOR                 ,              
-    INTERRUPT_TIM3_IRQ_VECTOR                 ,                      
-    INTERRUPT_TIM4_IRQ_VECTOR                 ,                  
-    INTERRUPT_I2C1_EVENT_IRQ_VECTOR           ,                              
-    INTERRUPT_I2C1_ERROR_IRQ_VECTOR           ,                             
-    INTERRUPT_I2C2_EVENT_IRQ_VECTOR           ,                           
-    INTERRUPT_I2C2_ERROR_IRQ_VECTOR           ,                               
-    INTERRUPT_SPI1_IRQ_VECTOR                 ,                     
-    INTERRUPT_SPI2_IRQ_VECTOR                 ,              
-    INTERRUPT_USART1_IRQ_VECTOR               ,                         
-    INTERRUPT_USART2_IRQ_VECTOR               ,                      
-    INTERRUPT_USART3_IRQ_VECTOR               ,                                                  
-    INTERRUPT_RTC_Alarm_IRQ_VECTOR            ,                  
-    INTERRUPT_OTG_FS_WKUP_IRQ_VECTOR          ,                        
-    INTERRUPT_TIM8_BRK_TIM12_IRQ_VECTOR       ,                  
-    INTERRUPT_TIM8_UP_TIM13_IRQ_VECTOR        ,                 
-    INTERRUPT_TIM8_TRG_COM_TIM14_IRQ_VECTOR   ,
-    INTERRUPT_TIM8_CC_IRQ_VECTOR              ,                                   
-    INTERRUPT_DMA1_STREAM7_IRQ_VECTOR         ,                                           
-    INTERRUPT_FSMC_IRQ_VECTOR                 ,       
-    INTERRUPT_SDIO_IRQ_VECTOR                 ,           
-    INTERRUPT_TIM5_IRQ_VECTOR                 ,          
-    INTERRUPT_SPI3_IRQ_VECTOR                 ,               
-    INTERRUPT_UART4_IRQ_VECTOR                ,              
-    INTERRUPT_UART5_IRQ_VECTOR                ,              
-    INTERRUPT_TIM6_DAC_IRQ_VECTOR             ,                   
-    INTERRUPT_TIM7_IRQ_VECTOR                 ,               
-    INTERRUPT_DMA2_STREAM0_IRQ_VECTOR         ,                      
-    INTERRUPT_DMA2_STREAM1_IRQ_VECTOR         ,                      
-    INTERRUPT_DMA2_STREAM2_IRQ_VECTOR         ,                     
-    INTERRUPT_DMA2_STREAM3_IRQ_VECTOR         ,                      
-    INTERRUPT_DMA2_STREAM4_IRQ_VECTOR         ,                     
-    INTERRUPT_ETH_IRQ_VECTOR                  ,                              
-    INTERRUPT_ETH_WKUP_IRQ_VECTOR             ,                       
-    INTERRUPT_CAN2_TX_IRQ_VECTOR              ,                              
-    INTERRUPT_CAN2_RX0_IRQ_VECTOR             ,                                
-    INTERRUPT_CAN2_RX1_IRQ_VECTOR             ,                          
-    INTERRUPT_CAN2_SCE_IRQ_VECTOR             ,                               
-    INTERRUPT_USB_OTG_FS_IRQ_VECTOR           ,                        
-    INTERRUPT_DMA2_STREAM5_IRQ_VECTOR         ,                      
-    INTERRUPT_DMA2_STREAM6_IRQ_VECTOR         ,                        
-    INTERRUPT_DMA2_STREAM7_IRQ_VECTOR         ,                   
-    INTERRUPT_USART6_IRQ_VECTOR               ,                  
-    INTERRUPT_I2C3_EV_IRQ_VECTOR              ,                      
-    INTERRUPT_I2C3_ER_IRQ_VECTOR              ,                     
-    INTERRUPT_OTG_HS_EP1_OUT_IRQ_VECTOR       ,                      
-    INTERRUPT_OTG_HS_EP1_IN_IRQ_VECTOR        ,                       
-    INTERRUPT_OTG_HS_WKUP_IRQ_VECTOR          ,                         
-    INTERRUPT_OTG_HS_IRQ_VECTOR               ,                                      
-    INTERRUPT_DCMI_IRQ_VECTOR                 ,                                            
-    INTERRUPT_CRYP_IRQ_VECTOR                 ,                                     
-    INTERRUPT_HASH_RNG_IRQ_VECTOR
+    WwdgIrqVector,
+    PvdIrqVector,
+    TampStampIrqVector,
+    RtcWkupIrqVector,
+    FlashIrqVector,
+    RccIrqVector,
+    Exti0IrqVector,
+    Exti1IrqVector,
+    Exti2IrqVector,
+    Exti3IrqVector,
+    Exti4IrqVector,
+    Exti5IrqVector,
+    Exti6IrqVector,
+    Exti7IrqVector,
+    Exti8IrqVector,
+    Exti9IrqVector,
+    Exti10IrqVector,
+    Exti11IrqVector,
+    Exti12IrqVector,
+    Exti13IrqVector,
+    Exti14IrqVector,
+    Exti15IrqVector,
+    Dma1Stream0IrqVector,
+    Dma1Stream1IrqVector,
+    Dma1Stream2IrqVector,
+    Dma1Stream3IrqVector,
+    Dma1Stream4IrqVector,
+    Dma1Stream5IrqVector,
+    Dma1Stream6IrqVector,
+    Adc1Adc2Adc3IrqVector,
+    Can1TxIrqVector,
+    Can1Rx0IrqVector,
+    Can1Rx1IrqVector,
+    Can1SceIrqVector,
+    Tim1BrkTim9IrqVector,
+    Tim1UpTim10IqrVector,
+    Tim1TrgComTim11IrqVector,
+    Tim1CaptureCompareIrqVector,
+    Tim2IrqVector,
+    Tim3IrqVector,
+    Tim4IrqVector,
+    I2c1EventIrqVector,
+    I2c1ErrorIrqVector,
+    I2c2EventIrqVector,
+    I2c2ErrorIrqVector,
+    Spi1IrqVector,
+    Spi2IrqVector,
+    Usart1IrqVector,
+    Usart2IrqVector,
+    Usart3IrqVector,
+    RtcAlarmIrqVector,
+    OtgFsWkupIrqVector,
+    Tim8BrkTim12IrqVector,
+    Tim8UpTim13IrqVector,
+    Tim8TrgComTim14IrqVector,
+    Tim8CcIrqVector,
+    Dma1Stream7IrqVector,
+    FsmcIrqVector,
+    SdioIrqVector,
+    Tim5IrqVector,
+    Spi3IrqVector,
+    Uart4IrqVector,
+    Uart5IrqVector,
+    Tim6DacIrqVector,
+    Tim7IrqVector,
+    Dma2Stream0IrqVector,
+    Dma2Stream1IrqVector,
+    Dma2Stream2IrqVector,
+    Dma2Stream3IrqVector,
+    Dma2Stream4IrqVector,
+    EthIrqVector,
+    EthWkupIrqVector,
+    Can2TxIrqVector,
+    Can2Rx0IrqVector,
+    Can2Rx1IrqVector,
+    Can2SceIrqVector,
+    UsbOtgFsIrqVector,
+    Dma2Stream5IrqVector,
+    Dma2Stream6IrqVector,
+    Dma2Stream7IrqVector,
+    Usart6IrqVector,
+    I2c3EventIrqVector,
+    I2c3ErrorIrqVector,
+    OtgHsEp1OutIrqVector,
+    OtgHsEp1InIrqVector,
+    OtgHsWkupIrqVector,
+    OtgHsIrqVector,
+    DcmiIrqVector,
+    CrypIrqVector,
+    HashRngIrqVector,
+
+    VectorsCount
 };
 
-class InterruptManager_t
+class InterruptManager
 {
 public:
-    static void Init();    
-    static void RegisterInterrupt( void* pContext, uint16_t vector, InterruptRoutine_t fp_Routine );
-    
+    static void init();
+    static void registerInterrupt(void* context, uint16_t Vector, InterruptRoutine routine );
+
+    static void disableInterrupt();
+    static void enableInterrupt();
+
 private:
-    
-    union HandlerItem_t
+
+    union HandlerItem
     {
-        void ( *fp_Handler )( void );
-        void *pHandler;
+        void (*fp_Handler)(void);
+        void *handler;
     };
 
-    static const HandlerItem_t m_InterruptVectorTable[];
-    static void*               m_pContextTable[];
-    static InterruptRoutine_t  fp_IntRoutineTable[];
-    
+    static void *m_pContextTable[];
+    static const HandlerItem m_InterruptVectorTable[];
+    static InterruptRoutine m_IntRoutineTable[];
+
 private:
-    static void DefaultInterruptRoutine( void* pContext );   
+    static void DefaultInterruptRoutine(void *context);
 
-    static void ResetHandler( void );
-    static void NmiHandler( void );
-    static void HardFaultHandler( void );
-    static void MemManageHandler( void );
-    static void BusFaultHandler( void );
-    static void UsageFaultHandler( void );
-    static void SvCallHandler( void );
-    static void DebugMonitorHandler( void );
-    static void PendSvHandler( void );
-    static void SysTickHandler( void );
-    static void WwdgIrqHandler( void );
-    static void PvdIRQHandler( void );
-    static void TampStampIrqHandler( void );
-    static void RtcWkupIrqHandler( void );
-    static void FlashIrqHandler( void );
-    static void RccIrqHandler( void );
-    static void Exti0IrqHandler( void );
-    static void Exti1IrqHandler( void );
-    static void Exti2IrqHandler( void );
-    static void Exti3IrqHandler( void );
-    static void Exti4IrqHandler( void );
-    static void Dma1Stream0IrqHandler( void );
-    static void Dma1Stream1IrqHandler( void );
-    static void Dma1Stream2IrqHandler( void );
-    static void Dma1Stream3IrqHandler( void );
-    static void Dma1Stream4IrqHandler( void );
-    static void Dma1Stream5IrqHandler( void );
-    static void Dma1Stream6IrqHandler( void );
-    static void AdcIrqHandler( void );
-    static void Can1TxIrqHandler( void );
-    static void Can1Rx0IrqHandler( void );
-    static void Can1Rx1IrqHandler( void );
-    static void Can1SceIrqHandler( void );
-    static void Exti95IrqHandler( void );
-    static void Tim1BrkTim9IrqHandler( void );
-    static void Tim1UpTim10IrqHandler( void );
-    static void Tim1TrgComTim11IrqHandler( void );
-    static void Tim1CaptureCompareIrqHandler( void );
-    static void Tim2IrqHandler( void );
-    static void Tim3IrqHandler( void );
-    static void Tim4IrqHandler( void );
-    static void I2c1EventIrqHandler( void );
-    static void I2c1ErrorIrqHandler( void );
-    static void I2c2EventIrqHandler( void );
-    static void I2c2ErrorIrqHandler( void );
-    static void Spi1IrqHandler( void );
-    static void Spi2IrqHandler( void );
-    static void Usart1IrqHandler( void );
-    static void Usart2IrqHandler( void );
-    static void Usart3IrqHandler( void );
-    static void Exti1510IrqHandler( void );
-    static void RtcAlarmIrqHandler( void );
-    static void OtgFsWkupIrqHandler( void );
-    static void Tim8BrkTim12IrqHandler( void );
-    static void Tim8UpTim13IrqHandler( void );
-    static void Tim8TrgComTim14IrqHandler( void );
-    static void Tim8CaptureCompareIrqHandler( void );
-    static void Dma1Stream7IrqHandler( void );
-    static void FsmcIrqHandler( void );
-    static void SdioIrqHandler( void );
-    static void Tim5IrqHandler( void );
-    static void Spi3IrqHandler( void );
-    static void Uart4IrqHandler( void );
-    static void Uart5IrqHandler( void );
-    static void Tim6DacIrqHandler( void );
-    static void Tim7IrqHandler( void );
-    static void Dma2Stream0IrqHandler( void );
-    static void Dma2Stream1IrqHandler( void );
-    static void Dma2Stream2IrqHandler( void );
-    static void Dma2Stream3IrqHandler( void );
-    static void Dma2Stream4IrqHandler( void );
-    static void EthIrqHandler( void );
-    static void EthWkupIrqHandler( void );
-    static void Can2TxIrqHandler( void );
-    static void Can2Rx0IrqHandler( void );
-    static void Can2Rx1IrqHandler( void );
-    static void Can2SceIrqHandler( void );
-    static void UsbOtgFsIrqHandler( void );
-    static void Dma2Stream5IrqHandler( void );
-    static void Dma2Stream6IrqHandler( void );
-    static void Dma2Stream7IrqHandler( void );
-    static void Usart6IrqHandler( void );
-    static void I2c3EventIrqHandler( void );
-    static void I2c3ErrorIrqHandler( void );
-    static void OtgHsEp1OutIrqHandler( void );
-    static void OtgHsEp1InIrqHandler( void );
-    static void OtgHsWkupIrqHandler( void );
-    static void OtgHsIrqHandler( void );
-    static void DcmiIrqHandler( void );
-    static void CrypIrqHandler( void );
-    static void HashRngIrqHandler( void );
+    static void ResetHandler();
+    static void NmiHandler();
+    static void HardFaultHandler();
+    static void MemManageHandler();
+    static void BusFaultHandler();
+    static void UsageFaultHandler();
+    static void SvCallHandler();
+    static void DebugMonitorHandler();
+    static void PendSvHandler();
+    static void SysTickHandler();
+    static void WwdgIrqHandler();
+    static void PvdIrqHandler();
+    static void TampStampIrqHandler();
+    static void RtcWkupIrqHandler();
+    static void FlashIrqHandler();
+    static void RccIrqHandler();
+    static void Exti0IrqHandler();
+    static void Exti1IrqHandler();
+    static void Exti2IrqHandler();
+    static void Exti3IrqHandler();
+    static void Exti4IrqHandler();
+    static void Dma1Stream0IrqHandler();
+    static void Dma1Stream1IrqHandler();
+    static void Dma1Stream2IrqHandler();
+    static void Dma1Stream3IrqHandler();
+    static void Dma1Stream4IrqHandler();
+    static void Dma1Stream5IrqHandler();
+    static void Dma1Stream6IrqHandler();
+    static void AdcIrqHandler();
+    static void Can1TxIrqHandler();
+    static void Can1Rx0IrqHandler();
+    static void Can1Rx1IrqHandler();
+    static void Can1SceIrqHandler();
+    static void Exti95IrqHandler();
+    static void Tim1BrkTim9IrqHandler();
+    static void Tim1UpTim10IrqHandler();
+    static void Tim1TrgComTim11IrqHandler();
+    static void Tim1CaptureCompareIrqHandler();
+    static void Tim2IrqHandler();
+    static void Tim3IrqHandler();
+    static void Tim4IrqHandler();
+    static void I2c1EventIrqHandler();
+    static void I2c1ErrorIrqHandler();
+    static void I2c2EventIrqHandler();
+    static void I2c2ErrorIrqHandler();
+    static void Spi1IrqHandler();
+    static void Spi2IrqHandler();
+    static void Usart1IrqHandler();
+    static void Usart2IrqHandler();
+    static void Usart3IrqHandler();
+    static void Exti1510IrqHandler();
+    static void RtcAlarmIrqHandler();
+    static void OtgFsWkupIrqHandler();
+    static void Tim8BrkTim12IrqHandler();
+    static void Tim8UpTim13IrqHandler();
+    static void Tim8TrgComTim14IrqHandler();
+    static void Tim8CaptureCompareIrqHandler();
+    static void Dma1Stream7IrqHandler();
+    static void FsmcIrqHandler();
+    static void SdioIrqHandler();
+    static void Tim5IrqHandler();
+    static void Spi3IrqHandler();
+    static void Uart4IrqHandler();
+    static void Uart5IrqHandler();
+    static void Tim6DacIrqHandler();
+    static void Tim7IrqHandler();
+    static void Dma2Stream0IrqHandler();
+    static void Dma2Stream1IrqHandler();
+    static void Dma2Stream2IrqHandler();
+    static void Dma2Stream3IrqHandler();
+    static void Dma2Stream4IrqHandler();
+    static void Dma2Stream5IrqHandler();
+    static void Dma2Stream6IrqHandler();
+    static void Dma2Stream7IrqHandler();
+    static void EthIrqHandler();
+    static void EthWkupIrqHandler();
+    static void Can2TxIrqHandler();
+    static void Can2Rx0IrqHandler();
+    static void Can2Rx1IrqHandler();
+    static void Can2SceIrqHandler();
+    static void UsbOtgFsIrqHandler();
+    static void Usart6IrqHandler();
+    static void I2c3EventIrqHandler();
+    static void I2c3ErrorIrqHandler();
+    static void OtgHsEp1OutIrqHandler();
+    static void OtgHsEp1InIrqHandler();
+    static void OtgHsWkupIrqHandler();
+    static void OtgHsIrqHandler();
+    static void DcmiIrqHandler();
+    static void CrypIrqHandler();
+    static void HashRngIrqHandler();
 };
-
 
 #endif // INTERRUPT_MANAGER_H

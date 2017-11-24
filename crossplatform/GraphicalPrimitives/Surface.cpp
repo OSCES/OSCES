@@ -1,28 +1,28 @@
 #include "GraphicalPrimitives/Surface.h"
 
-Surface_t::Surface_t( SurfeceLocation_t location, PixelFormat_t pixelFormat, DisplayInterface_t* pDisplay )
+Surface::Surface(SurfeceLocation location, PixelFormat pixelFormat, DisplayInterface *display) :
+    m_location(location),
+    m_pixelFormat(pixelFormat),
+    m_display(display)
 {
-    m_Location = location;
-    m_pDisplay = pDisplay;
 }
 
-PixelFormat_t Surface_t::GetPixelFormat()
+PixelFormat Surface::pixelFormat()
 {
-    return m_PixelFormat;
-}
-	
-
-uint32_t Surface_t::GetSizeVertical()
-{
-    return m_pDisplay->GetSizeVertical();
+    return m_pixelFormat;
 }
 
-uint32_t Surface_t::GetSizeHorizontal()
+uint32_t Surface::height() const
 {
-    return m_pDisplay->GetSizeHorizontal();
+    return m_display->height();
 }
 
-void* Surface_t::GetFrameBuffer()
+uint32_t Surface::width() const
 {
-    return m_pDisplay->GetFrameBuffer();
+    return m_display->width();
+}
+
+void* Surface::frameBuffer() const
+{
+    return m_display->frameBuffer();
 }

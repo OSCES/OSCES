@@ -5,7 +5,7 @@
 #include "crossplatform/System/Keyboard/Keyboard.h"
 
 
-class KeyboardPlatform_t : public Keyboard_t
+class KeyboardPlatform : public Keyboard
 {
 public:
     void OnEvent(Key_t& key);

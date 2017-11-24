@@ -1,15 +1,13 @@
-
-
 #include "OscesFrameworkInterface.h"
 
-
-OscesApplicationStatus_t osces_main( OscesFrameworkInterface_t* system )
+// Rework osces_main
+OscesApplicationStatus osces_main(OscesFrameworkInterface *system)
 {
-	do
-	{
-		// write your test code
-	} 
-	while( system->IsApplicationRun() );
+    do
+    {
+        // write your test code
+    }
+    while(system->applicationRunning());
 
-	return OSCES_APP_SUCCESS_STATUS;
+    return OSCES_APP_SUCCESS_STATUS;
 }

@@ -1,88 +1,87 @@
 
 #include <assert.h>
 #include "GpioDriver.h"
-#include "ClockManager/ClockManager.h"
+#include "ClockManager.h"
 
-GpioPin_t::GpioPin_t( Port_t port, Pin_t pin )
+GpioPin::GpioPin(Port port, Pin pin) :
+    m_port(0)
 {
-    m_Port  = (GPIO_TypeDef*)port; 
-    m_Pin   = pin;
+    m_port = static_cast<GPIO_TypeDef *>(port);
+    m_pin = pin;
 
-    ClockManager_t &clockManager = ClockManager_t::GetInstance();
-    
+    ClockManager &clockManager = ClockManager::instance();
+
     switch (port)
     {
-        case PORTA: clockManager.EnableGpioClock( GPIO_CLOCK__PORTA ); break;
-        case PORTB: clockManager.EnableGpioClock( GPIO_CLOCK__PORTB ); break;
-        case PORTC: clockManager.EnableGpioClock( GPIO_CLOCK__PORTC ); break;
-        case PORTD: clockManager.EnableGpioClock( GPIO_CLOCK__PORTD ); break;
-        case PORTE: clockManager.EnableGpioClock( GPIO_CLOCK__PORTE ); break;
-        case PORTF: clockManager.EnableGpioClock( GPIO_CLOCK__PORTF ); break;
-        case PORTG: clockManager.EnableGpioClock( GPIO_CLOCK__PORTG ); break;
-        case PORTH: clockManager.EnableGpioClock( GPIO_CLOCK__PORTH ); break;
-        case PORTI: clockManager.EnableGpioClock( GPIO_CLOCK__PORTI ); break;
-
-        default:
-            assert(false);
-            break;
+    case PortA: clockManager.enableGpioClock(ClockManager::PortA); break;
+    case PortB: clockManager.enableGpioClock(ClockManager::PortB); break;
+    case PortC: clockManager.enableGpioClock(ClockManager::PortC); break;
+    case PortD: clockManager.enableGpioClock(ClockManager::PortD); break;
+    case PortE: clockManager.enableGpioClock(ClockManager::PortE); break;
+    case PortF: clockManager.enableGpioClock(ClockManager::PortF); break;
+    case PortG: clockManager.enableGpioClock(ClockManager::PortG); break;
+    case PortH: clockManager.enableGpioClock(ClockManager::PortH); break;
+    case PortI: clockManager.enableGpioClock(ClockManager::PortI); break;
+    default:
+        assert(false);
+        break;
     }
 }
 
-GpioPin_t::~GpioPin_t()
+GpioPin::~GpioPin()
 {
-
+    // deinit
 }
 
-void GpioPin_t::InitPin( PinMode_t pinMode, OutType_t outType, PullType_t pullType )
+void GpioPin::initPin(PinMode pinMode, OutType outType, PullType pullType)
 {
     GPIO_InitTypeDef gpioInitStruct;
+    gpioInitStruct.GPIO_Pin   = m_pin;
+    gpioInitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+    gpioInitStruct.GPIO_Mode  = static_cast<GPIOMode_TypeDef>(pinMode);
+    gpioInitStruct.GPIO_OType = static_cast<GPIOOType_TypeDef>(outType);
+    gpioInitStruct.GPIO_PuPd  = static_cast<GPIOPuPd_TypeDef>(pullType);
 
-    gpioInitStruct.GPIO_Mode  = (GPIOMode_TypeDef)pinMode;
-    gpioInitStruct.GPIO_OType = (GPIOOType_TypeDef)outType;
-    gpioInitStruct.GPIO_Speed =  GPIO_Speed_100MHz;
-    gpioInitStruct.GPIO_PuPd  = (GPIOPuPd_TypeDef)pullType;
-    gpioInitStruct.GPIO_Pin   = m_Pin;
-
-    GPIO_Init( m_Port, &gpioInitStruct );
+    GPIO_Init(m_port, &gpioInitStruct);
 }
 
-void GpioPin_t::MakeOutOd( void )
+void GpioPin::makeOutOd( void )
 {
-    InitPin(MODE_OUT, OUT_OD, PULL_NO);
+    initPin(ModeOut, OutOd, PullNo);
 }
 
-void GpioPin_t::MakeOut( void )
+void GpioPin::makeOut( void )
 {
-    InitPin(MODE_OUT, OUT_PP, PULL_NO);
+    initPin(ModeOut, OutPp, PullNo);
 }
 
-void GpioPin_t::MakeInNonPull( void )
-{  
-    MakeOut();
-}
-
-void GpioPin_t::MakeInPullUp( void )
+void GpioPin::makeInNonPull()
 {
-    InitPin(MODE_IN, OUT_PP, PULL_UP);
+    makeOut();
 }
 
-void GpioPin_t::MakeInPullDown( void )
+void GpioPin::makeInPullUp()
 {
-    InitPin(MODE_IN, OUT_PP, PULL_DOWN);
+    initPin(ModeIn, OutPp, PullUp);
 }
 
-void GpioPin_t::Set( void )
+void GpioPin::makeInPullDown()
 {
-    GPIO_SetBits( m_Port, m_Pin );
+    initPin(ModeIn, OutPp, PullDown);
 }
 
-void GpioPin_t::Clear( void )
+void GpioPin::set()
 {
-    GPIO_ResetBits( m_Port, m_Pin );
+    GPIO_SetBits(m_port, m_pin);
 }
 
-uint8_t GpioPin_t::Read( void )
+void GpioPin::clear()
 {
-    return GPIO_ReadInputDataBit( m_Port, m_Pin);
+    GPIO_ResetBits(m_port, m_pin);
+}
+
+uint8_t GpioPin::read()
+{
+    return GPIO_ReadInputDataBit(m_port, m_pin);
 }
 

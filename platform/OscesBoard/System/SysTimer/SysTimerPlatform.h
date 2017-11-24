@@ -3,21 +3,26 @@
 
 #include "crossplatform/System/SysTimer/SysTimer.h"
 
-enum SysTimerPlatformInitStatus_t
+// TODO: this is some ugly enum
+enum SysTimerPlatformInitStatus
 {
-    SYSTIMER_PLATFORM_INIT_SUCCESS = 0,
+    SYSTIMER_PLATFORM_INIT_SUCCESS,
     SYSTIMER_PLATFORM_INIT_FAIL
 };
 
-class SysTimerPlatform_t : public SysTimer_t
+class SysTimerDriver;
+
+class SysTimerPlatform : public SysTimer
 {
 public:
-    SysTimerPlatformInitStatus_t Init();
-    uint32_t GetValueUsec();
+    SysTimerPlatform();
+    ~SysTimerPlatform();
 
-    
+    SysTimerPlatformInitStatus init();
+    uint32_t valueUsec();
+
 private:
-    void* m_pSysTimerDriver;
+    SysTimerDriver *m_sysTimerDriver;
 };
 
 #endif // SYSTIMER_PLATFORM_H

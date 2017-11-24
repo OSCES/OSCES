@@ -3,12 +3,10 @@
 
 #include "crossplatform/System/SysTimer/SysTimer.h"
 
-class SysTimerPlatform_t : public SysTimer_t
+class SysTimerPlatform : public SysTimer
 {
 public:
-    uint32_t GetValueUsec();
-
-
+    uint32_t valueUsec();
 };
 
 #endif // SYSTIMER_PLATFORM_H

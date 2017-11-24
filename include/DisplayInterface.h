@@ -4,25 +4,22 @@
 #include <stdint.h>
 #include "DisplayTypes.h"
 
-
-
-
-class DisplayInterface_t
+class DisplayInterface
 {
 public:
-    virtual void Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable ) = 0;
-    virtual void DrawPixel( uint16_t xPos, uint16_t yPos ) = 0;
-    virtual void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color ) = 0;
-    virtual void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue ) = 0; // compability issue
-    virtual void* GetFrameBuffer() = 0;
-    virtual uint32_t GetSizeVertical() = 0;
-    virtual uint32_t GetSizeHorizontal() = 0;
-    virtual void SetTitle( const char* pTitle ) = 0;
+    virtual bool init(uint16_t width, uint16_t height, bool vsyncEnabled) = 0;
+    virtual void drawPixel(uint16_t x, uint16_t y) = 0;
+    virtual void drawPixel(uint16_t x, uint16_t y, const Color &color) = 0;
+    virtual void drawPixel(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b) = 0; // compability issue
+    virtual void* frameBuffer() = 0;
+    virtual uint32_t height() const = 0;
+    virtual uint32_t width() const = 0;
+    virtual void setTitle(const char* title) = 0; // TODO: remove
 
 public:
     //virtual void CopyBitmapToSurface( const DisplayBitmap_t* pDestinationRect, uint32_t xPosInSurface, uint32_t yPosInSurface ) = 0;
-    virtual void Flip() = 0;
-    virtual void Clear() = 0;
+    virtual void flip() = 0;
+    virtual void clear() = 0;
 };
 
 

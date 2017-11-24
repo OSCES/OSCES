@@ -1,16 +1,15 @@
 #include "GpioDriver.h"
 #include "VirtualPort.h"
 
-
-VirtualPort_t::VirtualPort_t( uint8_t numOfPins, ... ):
+VirtualPort::VirtualPort(uint8_t numOfPins, ...):
     m_numOfPins(numOfPins)
 {
-    m_Pins = new uint32_t[m_numOfPins];
+    m_pins = new uint32_t[m_numOfPins];
 
     va_list vl;
     va_start(vl, numOfPins);
 
-    for(uint8_t i = 0; i < m_numOfPins; i++)
+    for (uint8_t i = 0; i < m_numOfPins; ++i)
     {
         arg value = va_arg(vl, arg);
 
@@ -27,71 +26,30 @@ VirtualPort_t::VirtualPort_t( uint8_t numOfPins, ... ):
     va_end(vl);
 }
 
-VirtualPort_t::~VirtualPort_t()
+VirtualPort::~VirtualPort()
 {
-    while(m_numOfPins--)
-    {
-        delete (GpioPin_t*)(m_Pins[m_numOfPins]);
-    }
+    for (uint8_t i = 0; i < m_numOfPins; ++i)
+        delete (m_pins + i);
 
-    delete[] m_Pins;
+    delete[] m_pins;
 }
 
-void VirtualPort_t::Write(uint32_t value )
+void VirtualPort::write(uint32_t value)
 {
-    for(uint8_t i = 0; i < m_numOfPins; i++)
+    for (uint8_t i = 0; i < m_numOfPins; ++i)
     {
-        if( (0x0001 << i) & value )
-        {
-            ( (GpioPin_t*)(m_Pins[i]) )->Set();
-        }
+        if ((1 << i) & value)
+            (m_pins + i)->set();
         else
-        {
-            ( (GpioPin_t*)(m_Pins[i]) )->Clear();
-        }
+            (m_pins + i)->clear();
     }
 }
 
-uint32_t VirtualPort_t::Read()
+uint32_t VirtualPort::read()
 {
-    uint32_t value = 0x0000;
-
-    for(uint8_t i = 0; i < m_numOfPins; i++)
-    {
-        value |= ( (GpioPin_t*)(m_Pins[i]) )->Read();
-    }
+    uint32_t value = 0;
+    for (uint8_t i = 0; i < m_numOfPins; ++i)
+        value |= (m_pins + i)->read();
 
     return value;
 }
-
-void VirtualPort_t::operator = (uint32_t value )
-{
-    Write( value );
-}
-
-uint32_t VirtualPort_t::operator << ( uint8_t  shift )
-{
-    if( shift >= m_numOfPins )
-    {
-        return 0;
-    }
-
-    return Read() << shift;
-}
-
-uint32_t VirtualPort_t::operator >> ( uint8_t  shift )
-{
-    if( shift >= m_numOfPins )
-    {
-        return 0;
-    }
-
-    return Read() >> shift;
-}
-
-/*
- uint32_t operator  ! ( void )
- {
-     return !Read();
- }
-*/

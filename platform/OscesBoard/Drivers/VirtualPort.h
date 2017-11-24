@@ -21,22 +21,19 @@
  *                                                                       *
 \*************************************************************************/
 
-class VirtualPort_t
+class GpioPin;
+
+class VirtualPort
 {
 public:
-    VirtualPort_t( uint8_t numOfPins, ... );
-    ~VirtualPort_t();
+    VirtualPort(uint8_t numOfPins, ...);
+    ~VirtualPort();
 
 public:
-    uint32_t Read( void );
-    void     Write( uint32_t value );
+    uint32_t read();
+    void write(uint32_t value);
 
-    void     operator  = ( uint32_t value );
-    uint32_t operator << ( uint8_t  shift );
-    uint32_t operator >> ( uint8_t  shift );
-    //uint32_t operator  ! ( void );
-
-private:   
+private:
     union arg
     {
         struct access
@@ -47,8 +44,8 @@ private:
         uint8_t value;
     };
 
-    uint8_t    m_numOfPins;
-    uint32_t*  m_Pins;
+    uint8_t  m_numOfPins;
+    GpioPin *m_pins;
 };
 
 

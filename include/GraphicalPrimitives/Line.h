@@ -1,43 +1,39 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include <stdint.h>
 #include "Surface.h"
 #include "DisplayTypes.h"
+#include <stdint.h>
 
-class Line_t
+class Line
 {
 public:
-	Line_t( Surface_t* pSurface );
+    Line(Surface *surface);
 
-	void SetColor( Color_t& color );
-    void Draw( uint16_t xStartPos, uint16_t yStartPos, uint16_t xEndPos, uint16_t yEndPos );
-	void DrawVertical( uint16_t xPos, uint16_t yPos, uint16_t size );
-    void DrawHorizontal( uint16_t xPos, uint16_t yPos, uint16_t size );
+    void setColor(const Color &color);
+    void draw(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 
-private:
-	void DrawHorizontal322To888A( uint16_t xPos, uint16_t yPos, uint16_t size );
-	void DrawHorizontal888ATo888A( uint16_t xPos, uint16_t yPos, uint16_t size );
-	void DrawHorizontal322To322( uint16_t xPos, uint16_t yPos, uint16_t size );
+    void drawVertical(uint16_t x, uint16_t y, uint16_t length); // remove
+    void drawHorizontal(uint16_t x, uint16_t y, uint16_t length); // remove
 
 private:
-    void DrawVertical322To888A( uint16_t xPos, uint16_t yPos, uint16_t size );
-	void DrawVertical888ATo888A( uint16_t xPos, uint16_t yPos, uint16_t size );
-	void DrawVertical322To322( uint16_t xPos, uint16_t yPos, uint16_t size );
+    void drawHorizontal322To888A(uint16_t x, uint16_t y, uint16_t length);
+    void drawHorizontal888ATo888A(uint16_t x, uint16_t y, uint16_t length);
+    void drawHorizontal322To322(uint16_t x, uint16_t y, uint16_t length);
+
+    void drawVertical322To888A(uint16_t x, uint16_t y, uint16_t length);
+    void drawVertical888ATo888A(uint16_t x, uint16_t y, uint16_t length);
+    void drawVertical322To322(uint16_t x, uint16_t y, uint16_t length);
 
 private:
-	uint32_t GetAbs( int32_t value );
-
-
-private:
-	void ( Line_t::*fp_DrawHorizontal )( uint16_t xPos, uint16_t yPos, uint16_t size );
-	void ( Line_t::*fp_DrawVertical )( uint16_t xPos, uint16_t yPos, uint16_t size );
-	
-
+    uint32_t abs(int32_t value);
 
 private:
-	Surface_t* m_pSurface;
-	Color_t    m_Color;
+    void (*fp_drawHorizontal)(uint16_t x, uint16_t y, uint16_t length);
+    void (*fp_drawVertical)(uint16_t x, uint16_t y, uint16_t length);
+
+    Surface *m_surface;
+    Color m_color;
 };
 
 #endif // LINE_H

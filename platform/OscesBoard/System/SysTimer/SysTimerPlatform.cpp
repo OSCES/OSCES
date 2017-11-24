@@ -1,29 +1,35 @@
 #include "SysTimerPlatform.h"
 #include "SysTimerDriver.h"
 
-SysTimerPlatformInitStatus_t SysTimerPlatform_t::Init()
+SysTimerPlatform::SysTimerPlatform() :
+    m_sysTimerDriver(0)
 {
-    SysTimerPlatformInitStatus_t status = SYSTIMER_PLATFORM_INIT_SUCCESS;  
-  
+}
+
+SysTimerPlatform::~SysTimerPlatform()
+{
+    delete m_sysTimerDriver;
+}
+
+SysTimerPlatformInitStatus SysTimerPlatform::init()
+{
+    SysTimerPlatformInitStatus status = SYSTIMER_PLATFORM_INIT_SUCCESS;
+
+    // TODO: do we relay need it try catch block?
     try
     {
-        SysTimerDriver_t* pSysTimerDriver = new SysTimerDriver_t();
-        
-        m_pSysTimerDriver = pSysTimerDriver;
-        
-        pSysTimerDriver->Init();        
+        m_sysTimerDriver = new SysTimerDriver();
+        m_sysTimerDriver->init();
     }
-    catch( ... )
+    catch (...)
     {
         status = SYSTIMER_PLATFORM_INIT_FAIL;
     }
-        
+
     return status;
 }
 
-uint32_t SysTimerPlatform_t::GetValueUsec()
+uint32_t SysTimerPlatform::valueUsec()
 {
-    SysTimerDriver_t* pSysTimerDriver = static_cast< SysTimerDriver_t* >( m_pSysTimerDriver );
-    uint32_t value = pSysTimerDriver->GetValueUsec();
-    return value;  
+    return m_sysTimerDriver->valueUsec();
 }

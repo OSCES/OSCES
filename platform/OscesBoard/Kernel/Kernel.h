@@ -1,27 +1,25 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#include <stdint.h>
-#include "ContextSwitcher.h"
 #include "SchedulerPlatform.h"
 
-class Kernel_t
+class ContextSwitcher;
+
+class Kernel
 {
 public:
+    Kernel();
+
     void Init();
-    void Yield();
-    void DeInit();
-    
-private:
-    static void PentSvInterruptRoutine( void* pContext );
+    void yield();
+    void deInit();
 
-    
 private:
-    ContextSwitcher_t* m_pContextSwitcher;
-    SchedulerPlatform_t m_SchedulerPlatform;
-    
+    static void pentSvInterruptRoutine(void *context);
+
+private:
+    ContextSwitcher *m_contextSwitcher;
+    SchedulerPlatform m_schedulerPlatform;
 };
-
-
 
 #endif // KERNEL_H

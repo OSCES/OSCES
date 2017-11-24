@@ -1,13 +1,12 @@
-#ifndef _DMA_DRIVER_
-#define _DMA_DRIVER_
+#ifndef DMA_DRIVER
+#define DMA_DRIVER
 
 #include <stdint.h>
 
-typedef void ( *DmaCompleateCallBack )( void* pContext );
-
+typedef void (*DmaCompleateCallBack)(void *context);
 
 extern void DmaInit();
-extern void DmaM2MCopy( void* pDestination, void* pSource, uint32_t len, DmaCompleateCallBack fpDmaCompleateCallBack );
-extern void DmaM2MFill( void* pDestination, uint8_t data , uint32_t len, DmaCompleateCallBack fpDmaCompleateCallBack );
+extern void DmaM2MCopy(void *dst, void *src, uint32_t len, DmaCompleateCallBack fpDmaCompleateCallBack);
+extern void DmaM2MFill(void *dst, uint8_t data, uint32_t len, DmaCompleateCallBack fpDmaCompleateCallBack);
 
-#endif // _DMA_DRIVER_
+#endif // DMA_DRIVER

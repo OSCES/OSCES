@@ -3,6 +3,4 @@
 
 extern void I2S_DriverInit();
 
-
-
 #endif // I2S_DRIVER_H

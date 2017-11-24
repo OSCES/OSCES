@@ -20,11 +20,11 @@ enum ApplicationStatus_t
 
 namespace Sys
 {
-    DisplayInterface_t*  GetDisplay();
-    KeyboardInterface_t* GetKeyboard();
-    SysTimerInterface_t* GetSysTimer();
+    DisplayInterface*  getDisplay();
+    KeyboardInterface* getKeyboard();
+    SysTimerInterface* getSysTimer();
 
-    bool IsApplicationRun();
+    bool applicationRunning();
 };
 
 //class OscesFrameworkInterface_t

@@ -3,11 +3,10 @@
 
 #include "SysTimerInterface.h"
 
-class SysTimer_t : public SysTimerInterface_t
+class SysTimer : public SysTimerInterface
 {
 public:
-    virtual ~SysTimer_t();  
-
+    virtual ~SysTimer();
 };
 
 #endif // SYSTIMER_H

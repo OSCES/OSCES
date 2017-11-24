@@ -5,47 +5,46 @@
 #include "crossplatform/System/Display/Display.h"
 #include "FsmcDriver.h"
 
-
-enum DisplayBuffer_t
+enum DisplayBuffer
 {
-    DISPLAY_PRIMARY_BUFFER = 0,
-    DISPLAY_BACK_BUFFER    = 1,
+    PrimaryBuffer,
+    BackBuffer
 };
 
-class DisplayPlatform_t : public Display_t
+class DisplayPlatform : public Display
 {
 public:
-    void Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable );
-   
-    ~DisplayPlatform_t();
+    DisplayPlatform();
+    DisplayPlatform(int width, int height);
+    ~DisplayPlatform();
+
+    bool init(uint16_t width, uint16_t height, bool vsyncEnabled );
+    void drawPixel(uint16_t x, uint16_t y);
+    void drawPixel(uint16_t x, uint16_t y, const Color& color);
+    void drawPixel(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b); // compability issue
+    void* frameBuffer();
+    void clear();
+    void setTitle(const char* title); // TODO: remove this fn
+    void flip();
+    uint32_t height() const;
+    uint32_t width() const;
+
+    void fill(uint16_t x, uint16_t y);
+    void fill(uint16_t x, uint16_t y, const Color& color);
 
 public:
-    void DrawPixel( uint16_t xPos, uint16_t yPos );
-    void DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color );
-    void DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue ); // compability issue
-    void Fill( uint16_t xPos, uint16_t yPos );
-    void Fill( uint16_t xPos, uint16_t yPos, Color_t& color );
-    void Clear();
-    void* GetFrameBuffer();
-    uint32_t GetSizeVertical();
-    uint32_t GetSizeHorizontal();
-    void SetTitle( const char* pTitle );
-    
-public:
-    void Flip();
-
-public:
-    void SetMousePos( uint16_t xPos, uint16_t yPos );
-    void Present( PixelStruct_t* pData );
+    void setMousePos(uint16_t x, uint16_t y);
+    void present(PixelStruct *data);
 
 private:
-    void SelectBuffer( DisplayBuffer_t buffer );
+    void selectBuffer(DisplayBuffer buffer);
 
 private:
-    DisplayBuffer_t m_DisplayBuffer;
-    Fsmc_t          m_ExtSram;
-    uint16_t        m_WindowSizeX;
-    uint16_t        m_WindowSizeY;
+    DisplayBuffer m_DisplayBuffer;
+    Fsmc m_externalSram;
+    uint16_t m_width;
+    uint16_t m_height;
+    uint32_t m_bufferSize;
 };
 
 #endif // DISPLAY_H

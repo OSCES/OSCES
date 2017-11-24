@@ -1,18 +1,13 @@
-#ifndef _SYSTIMER_INTERFACE_H_
-#define _SYSTIMER_INTERFACE_H_
+#ifndef SYSTIMER_INTERFACE_H
+#define SYSTIMER_INTERFACE_H
 
 #include <stdint.h>
 
-
-
-//typedef void ( *KeyboardCallBack_t )( void* pContext, KeyboardEvent_t event, uint8_t scanCode );
-
-class SysTimerInterface_t
+class SysTimerInterface
 {
 public:
-    virtual uint32_t GetValueUsec() = 0;
-
-
+    virtual uint32_t valueUsec() = 0;
+    virtual ~SysTimer() {}
 };
 
-#endif
+#endif // SYSTIMER_INTERFACE_H

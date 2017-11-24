@@ -4,25 +4,21 @@
 #include <stdint.h>
 #include "SchedulerPlatform.h"
 
-class ContextSwitcher_t
+class ContextSwitcher
 {
 public:
-    ContextSwitcher_t( SchedulerPlatform_t* pScheduler );
-      
-    void SwitchToThreadMode();
-    void ForceSwitchContext();
-    uint32_t PrepareExeptionStackFrame( uint32_t stackAddr );
-    
+    ContextSwitcher(SchedulerPlatform *scheduler);
+
+    void switchToThreadMode();
+    void forceSwitchContext();
+    uint32_t prepareExeptionStackFrame(uint32_t stackAddr);
+
 public:
-    void PendSvInterruptRoutine();    
-    void SysTimerInterruptRoutine();
-    
+    void pendSvInterruptRoutine();
+    void sysTimerInterruptRoutine();
+
 private:
-    SchedulerPlatform_t* m_pScheduler;
-
+    SchedulerPlatform *m_scheduler;
 };
-
-
-
 
 #endif // CONTEXT_SWITCHER_H

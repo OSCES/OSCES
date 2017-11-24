@@ -1,25 +1,24 @@
 #ifndef _KEYBOARD_INTERFACE_H_
 #define _KEYBOARD_INTERFACE_H_
 
-
 #include <stdint.h>
 #include "KeyCode.h"
 
-
-enum CodePage_t
+// TODO: remove
+enum CodePage
 {
-    CP_ASCII = 0,
-    CP_UTF8  = 1,
-    CP_1251  = 2
+    CP_ASCII,
+    CP_UTF8,
+    CP_1251
 };
 
-enum KeyEvent_t
+enum KeyEvent
 {
-    KEY_RELEASED = 0,
-    KEY_PRESSED  = 1
+    KeyReleased,
+    KeyPressed
 };
 
-struct ModifyKeysState_t
+struct ModifyKeysState
 {
     uint8_t Alt        : 1; // 0 - KEY_RELEASED, 1 - KEY_PRESSED
     uint8_t Ctrl       : 1;
@@ -30,23 +29,25 @@ struct ModifyKeysState_t
     uint8_t Reserved   : 2;
 };
 
-struct Key_t
+struct Key
 {
     uint16_t          CharCode;     // Unicode, ASCII etc.
-    KeyCode_t         KeyCode;
+    KeyCode         KeyCode;
     uint8_t           ScanCode;
     uint8_t           ExtendedKeyFlag;
-    KeyEvent_t        Event;
-    ModifyKeysState_t ModifKeysStates;
+    KeyEvent        Event;
+    ModifyKeysState ModifKeysStates;
 };
 
-typedef void ( *KeyboardCallBack_t )( void* pContext, Key_t& key );
+typedef void (*KeyboardCallBack)(void *context, Key& key);
 
-class KeyboardInterface_t
+class KeyboardInterface
 {
 public:
-    virtual void RegisterCallBack( void* pContext, KeyboardCallBack_t fpCallBack ) = 0;
-    virtual void UnRegisterCallBack( KeyboardCallBack_t fp_CallBack ) = 0;
+    virtual ~KeyboardInterface() = {};
+
+    virtual void registerCallBack( void* pContext, KeyboardCallBack fpCallBack ) = 0;
+    virtual void unRegisterCallBack( KeyboardCallBack fp_CallBack ) = 0;
 };
 
 #endif

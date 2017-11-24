@@ -2,37 +2,37 @@
 #define OSCES_FRAMEWORK_H
 
 #include "OscesFrameworkInterface.h"
-#include "SysTimer/SysTimerPlatform.h"
-#include "KeyBoard/PS2KeyBoardPlatform.h"
-#include "Display/DisplayPlatform.h"
 #include "Kernel/SchedulerPlatform.h"
 
-class OscesFramework_t : public OscesFrameworkInterface_t
+class DisplayPlatform;
+class KeyboardPlatform;
+class SysTimerPlatform;
+class SchedulerPlatform;
+
+class OscesFramework : public OscesFrameworkInterface
 {
 public:
-    OscesFramework_t();
-    DisplayInterface_t*  GetDisplay();
-    KeyboardInterface_t* GetKeyboard();
-    SysTimerInterface_t* GetSysTimer();
-    bool                 IsApplicationRun();
-    ThreadInterface_t*   ThreadCreate( uint32_t stackSize, ThreadRoutine_t fpThreadRoutine, void* pContext );
-    void                 ThreadDestroy( ThreadInterface_t* pThread );   
-    void                 ThreadYield();   
-    
-    
-    OscesFrameworkStatus_t Init();
-    void DeInit();
+    OscesFramework();
+    ~OscesFramework();
 
+    DisplayInterface* display();
+    KeyboardInterface* keyboard();
+    SysTimerInterface* sysTimer();
+    bool applicationRunning();
+
+    OscesFrameworkStatus init();
+    void deInit();
+
+    ThreadInterface* threadCreate(uint32_t stackSize, ThreadRoutine fpThreadRoutine, void *context);
+    void threadDestroy(ThreadInterface *thread);
+    void threadYield();
 
 private:
-    DisplayPlatform_t*   m_pDisplay;
-    KeyboardPlatform_t*  m_pKeyboard;
-    SysTimerPlatform_t*  m_pSysTimer;
-    SchedulerPlatform_t* m_pScheduler;
-private:
-    bool m_IsApplicationRun;
-
+    DisplayPlatform *m_display;
+    KeyboardPlatform *m_keyboard;
+    SysTimerPlatform *m_sysTimer;
+    SchedulerPlatform *m_scheduler;
+    bool m_applicationRunning;
 };
-
 
 #endif // OSCES_FRAMEWORK_H

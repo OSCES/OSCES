@@ -10,14 +10,29 @@
 #define PREEMPTION_PRIORITY 0x0F
 #define SUB_PRIORITY        0x0F
 
-
-void KeyboardPlatform_t::Init()
+KeyboardPlatform::KeyboardPlatform() :
+    m_dataPin(0),
+    m_clockPin(0),
+    m_started(false),
+    m_bitCount(0),
+    m_data(0),
+    m_parity(0)
 {
-    m_DataPin  = new GpioPin_t( DATA  );
-    m_ClockPin = new GpioPin_t( CLOCK );
+}
 
-    m_DataPin->MakeInPullUp();
-    m_ClockPin->MakeInPullUp();
+KeyboardPlatform::~KeyboardPlatform()
+{
+    delete m_dataPin;
+    delete m_clockPin;
+}
+
+void KeyboardPlatform::init()
+{
+    m_dataPin  = new GpioPin(DATA);
+    m_clockPin = new GpioPin(CLOCK);
+
+    m_dataPin->makeInPullUp();
+    m_clockPin->makeInPullUp();
 
     // FIXME
     // Create smth to mannage this
@@ -39,142 +54,113 @@ void KeyboardPlatform_t::Init()
     NVIC_InitStruct.NVIC_IRQChannelSubPriority        = SUB_PRIORITY;
     NVIC_InitStruct.NVIC_IRQChannelCmd                = ENABLE;
     NVIC_Init(&NVIC_InitStruct);
-    
-    InterruptManager_t::RegisterInterrupt( this, INTERRUPT_EXTI1_IRQ_VECTOR, InterruptHandler );
+
+    InterruptManager::registerInterrupt(this, InterruptVector::Exti1IrqVector, interruptHandler);
 }
 
-void KeyboardPlatform_t::OnInterrupt()
+void KeyboardPlatform::proceedInterrupt()
 {
-    uint8_t dataBit = m_DataPin->Read();
+    uint8_t dataBit = m_dataPin->read();
 
-    if( m_started == 1 )
+    if (m_started)
     {
-        if( m_bitCount < 8 ) // Data bit
+        if (m_bitCount < 8) // Data bit
         {
             m_data |= dataBit << m_bitCount;
 
-            if( dataBit )
-            {
-                m_parity++;
-            }
+            if (dataBit)
+                ++m_parity;
         }
-        else if( m_bitCount == 8 ) // Parity bit
+        else if (m_bitCount == 8) // Parity bit
         {
-            if( !( m_parity % 2 ) == dataBit )
-            {
-                m_parity = 1;
-            }
-            else
-            {
-                m_parity = 0;
-            }
+            m_parity = !(m_parity % 2) == dataBit ? 1 : 0;
         }
         else // Stop bit
         {
-            if( m_parity && dataBit )
-            {
-                DecodeData( m_data );
-            }
-
-            m_started = 0;
+            if (m_parity && dataBit)
+                decodeData(m_data);
+            m_started = false;
         }
 
-        m_bitCount++;
+        ++m_bitCount;
     }
     else
     {
-        if( dataBit == 0 )
+        if (dataBit == 0)
         {
-            m_started  = 1;
+            m_started = true;
             m_bitCount = 0;
-            m_data     = 0;
-            m_parity   = 0;
+            m_data = 0;
+            m_parity = 0;
         }
     }
 }
 
-void KeyboardPlatform_t::InterruptHandler( void* pContext )
+void KeyboardPlatform::interruptHandler(void *context)
 {
-    static_cast< KeyboardPlatform_t* >( pContext )->OnInterrupt();
+    static_cast<KeyboardPlatform *>(context)->proceedInterrupt();
 }
 
-void KeyboardPlatform_t::DecodeData( uint8_t data )
+void KeyboardPlatform::decodeData(uint8_t data)
 {
-    static uint8_t waitBytes  = 0;
+    // TODO: State machine
+    static uint8_t waitBytes = 0;
     static uint8_t extendCode = 0;
-    static uint8_t breakCode  = 0;
+    static uint8_t breakCode = 0;
 
-    if( waitBytes )
+    if (waitBytes)
     {
         --waitBytes;
         return;
     }
 
-    switch( data )
+    switch(data)
     {
-        case 0xE0:
-        {
-            extendCode = 1;
-            return;
-        }
-        case 0xE1: // PAUSE
-        {
-            waitBytes = 7;
-            return;
-        }
-        case 0xF0:
-        {
-            breakCode = 1;
-            return;
-        }
-        case 0x12: // L Shift
-        case 0x59: // R Shift
-        {
-           m_Key.ModifKeysStates.Shift = !breakCode;
-           break;
-        }
-        case 0x14: // L R Ctrl
-        {
-            m_Key.ModifKeysStates.Ctrl = !breakCode;
-            break;
-        }
-        case 0x11: // L R Alt
-        {
-            m_Key.ModifKeysStates.Alt  = !breakCode;
-            break;
-        }
-        case 0x77: // NumLock
-        {
-            // TODO: LED ON/OFF
-            m_Key.ModifKeysStates.NumLock = !m_Key.ModifKeysStates.NumLock;
-            break;
-        }
-        case 0x58: // CapsLock
-        {
-            // TODO: LED ON/OFF
-            m_Key.ModifKeysStates.CapsLock = !m_Key.ModifKeysStates.CapsLock;
-            break;
-        }
-        case 0x7E: // ScrollLock
-        {
-            // TODO: LED ON/OFF
-            m_Key.ModifKeysStates.ScrollLock = !m_Key.ModifKeysStates.ScrollLock;
-            break;
-        }
+    case 0xE0:
+        extendCode = 1;
+        return;
+    case 0xE1: // PAUSE
+        waitBytes = 7;
+        return;
+    case 0xF0:
+        breakCode = 1;
+        return;
+    case 0x12: // L Shift
+    case 0x59: // R Shift
+        m_key.ModifKeysStates.Shift = !breakCode;
+        break;
+    case 0x14: // L R Ctrl
+        m_key.ModifKeysStates.Ctrl = !breakCode;
+        break;
+    case 0x11: // L R Alt
+        m_key.ModifKeysStates.Alt  = !breakCode;
+        break;
+    case 0x77: // NumLock
+        // TODO: LED ON/OFF
+        m_key.ModifKeysStates.NumLock = !m_key.ModifKeysStates.NumLock;
+        break;
+    case 0x58: // CapsLock
+        // TODO: LED ON/OFF
+        m_key.ModifKeysStates.CapsLock = !m_key.ModifKeysStates.CapsLock;
+        break;
+    case 0x7E: // ScrollLock
+        // TODO: LED ON/OFF
+        m_key.ModifKeysStates.ScrollLock = !m_key.ModifKeysStates.ScrollLock;
+        break;
     }
 
-    if( 0 != m_fpCallBack )
+    if (m_fpCallBack)
     {
-        m_Key.CharCode        = KeyCodeToCharCode( data );
-        m_Key.KeyCode         = ScanCodeToKeyCode( data, extendCode );
-        m_Key.ExtendedKeyFlag = extendCode;
-        m_Key.ScanCode        = data;
-        m_Key.Event           = breakCode ? KEY_RELEASED : KEY_PRESSED;
+        m_key.CharCode = charCodeFromkeyCode(data);
+        m_key.KeyCode = keyCodeFromScanCode(data, extendCode);
+        m_key.ExtendedKeyFlag = extendCode;
+        m_key.ScanCode = data;
+        m_key.Event = breakCode ? KeyReleased : KeyPressed;
 
-        m_fpCallBack( m_pContext, m_Key );
+        m_fpCallBack(m_context, m_key);
     }
 
-    waitBytes  = 0;
+    waitBytes = 0;
     extendCode = 0;
-    breakCode  = 0;
+    breakCode = 0;
 }

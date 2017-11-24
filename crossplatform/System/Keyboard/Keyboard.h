@@ -1,31 +1,29 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-
 #include <stdint.h>
 #include "KeyboardInterface.h"
 
-
-class Keyboard_t : public KeyboardInterface_t
+class Keyboard : public KeyboardInterface
 {
 public:
-    Keyboard_t();
-    ~Keyboard_t();
+    Keyboard();
+    ~Keyboard();
 
 public:
-    void RegisterCallBack( void* pContext, KeyboardCallBack_t fpCallBack );
-    void UnRegisterCallBack( KeyboardCallBack_t fpCallBack );
+    void registerCallBack(void* context, KeyboardCallBack fpCallBack );
+    void unRegisterCallBack( KeyboardCallBack fpCallBack );
 
-    void      SetCodePage( CodePage_t codePage );
-    KeyCode_t ScanCodeToKeyCode( uint8_t scanCode, uint8_t extendKeyFlag );
-    uint16_t   KeyCodeToCharCode( uint8_t keyCode );
+    void setCodePage( CodePage codePage );
+    KeyCode keyCodeFromScanCode(uint8_t scanCode, uint8_t extendKeyFlag);
+    uint16_t charCodeFromkeyCode(uint8_t keyCode);
 
 protected:
-    KeyboardCallBack_t m_fpCallBack;
-    void              *m_pContext;
+    KeyboardCallBack m_fpCallBack;
+    void *m_context;
 
-    Key_t              m_Key;
-    uint32_t*          m_pCodePage;
+    Key m_key;
+    uint32_t *m_codePage;
 };
 
 #endif // KEYBOARD_H

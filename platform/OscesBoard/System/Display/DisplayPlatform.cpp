@@ -7,7 +7,9 @@
 #define BLUE(x)  (4 * (x) / 255)
 */
 
-static uint8_t RED_GREEN[] =
+static const uint8_t BitsPerPixel = sizeof(uint8_t);
+
+static const uint8_t RedGreenColorValue[] =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -27,7 +29,7 @@ static uint8_t RED_GREEN[] =
     7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7
 };
 
-static uint8_t BLUE[] =
+static const uint8_t BlueColorValue[] =
 {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -47,119 +49,126 @@ static uint8_t BLUE[] =
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
 };
 
-void DisplayPlatform_t::SetTitle( const char* pTitle )
-{
-    pTitle = pTitle;
-}
-
-void DisplayPlatform_t::Init( uint16_t xSize, uint16_t ySize, bool isVsyncEnable )
-{ 
-    m_DisplayBuffer = DISPLAY_PRIMARY_BUFFER;
-    m_WindowSizeX = xSize;
-    m_WindowSizeY = ySize;
-
-    m_ExtSram.SetMemoryDataWidth( MEMORY_DATA_WITH_8BIT );
-    m_ExtSram.SramControllerInit();
-}
-
-void* DisplayPlatform_t::GetFrameBuffer()
-{
-    return m_ExtSram.GetPointerBank1() + m_WindowSizeX * m_WindowSizeY * m_DisplayBuffer;
-}
-
-uint32_t DisplayPlatform_t::GetSizeVertical()
-{
-    return m_WindowSizeY;
-}
-
-uint32_t DisplayPlatform_t::GetSizeHorizontal()
-{
-    return m_WindowSizeX;
-}
-
-void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos )
-{
-    //Color_t color( 255, 255, 255 );
-    //DrawPixel( xPos, yPos, color );
-}
-
-void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, Color_t& color )
-{
-    //DrawPixel( xPos, yPos, color.Red, color.Green, color.Blue );
-}
-
-void DisplayPlatform_t::DrawPixel( uint16_t xPos, uint16_t yPos, uint8_t red, uint8_t green, uint8_t blue )
-{
-    uint8_t* pData = m_ExtSram.GetPointerBank1() + m_WindowSizeX * m_WindowSizeY * m_DisplayBuffer;
-    pData += m_WindowSizeX * yPos + xPos;
-    
-    PixelStruct_t pixel;
-    
-    pixel.Red   = RED_GREEN[ red ];
-    pixel.Green = RED_GREEN[ green ];
-    pixel.Blue  = BLUE[ blue ];
-
-    *pData = *( uint8_t* )&pixel;
-}
-
-void DisplayPlatform_t::Fill( uint16_t xPos, uint16_t yPos )
+void DisplayPlatform::setTitle(const char* title)
 {
 }
 
-void DisplayPlatform_t::Fill( uint16_t xPos, uint16_t yPos, Color_t& color )
+bool DisplayPlatform::init(uint16_t width, uint16_t height, bool vsyncEnabled)
+{
+    m_DisplayBuffer = PrimaryBuffer;
+    m_width = width;
+    m_height = height;
+    m_bufferSize = m_width * m_height * BitsPerPixel;
+
+    m_externalSram.setMemoryDataWidth(Fsmc::MemoryDataWidth_8bit);
+    m_externalSram.sramControllerInit();
+}
+
+void* DisplayPlatform::frameBuffer()
+{
+    return m_externalSram.pointerBank1() + m_bufferSize * m_DisplayBuffer;
+}
+
+void DisplayPlatform::drawPixel(uint16_t x, uint16_t y)
 {
 }
 
-void DisplayPlatform_t::Flip( void )
+void DisplayPlatform::drawPixel(uint16_t x, uint16_t y, const Color &color)
 {
-    m_DisplayBuffer = ( DISPLAY_PRIMARY_BUFFER == m_DisplayBuffer ) ? DISPLAY_BACK_BUFFER : DISPLAY_PRIMARY_BUFFER;
-    SelectBuffer( m_DisplayBuffer );
 }
 
-void DisplayPlatform_t::Clear()
+void DisplayPlatform::drawPixel(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b)
 {
-    uint8_t* pData = m_ExtSram.GetPointerBank1() + m_WindowSizeX * m_WindowSizeY * m_DisplayBuffer;
-    uint32_t len = m_WindowSizeX * m_WindowSizeY / 10;
+    uint8_t *data = frameBuffer();
+    data += m_width * y + x;
 
-    for( uint32_t idx = 0; idx < len; idx ++ )
+    PixelStruct pixel;
+    pixel.red   = RedGreenColorValue[r];
+    pixel.green = RedGreenColorValue[g];
+    pixel.blue  = BlueColorValue[b];
+
+    *data = *static_cast<uint8_t *>(&pixel);
+}
+
+void DisplayPlatform::fill(uint16_t x, uint16_t y)
+{
+}
+
+void DisplayPlatform::fill(uint16_t x, uint16_t y, const Color &color)
+{
+}
+
+void DisplayPlatform::flip()
+{
+    m_DisplayBuffer = (m_DisplayBuffer == PrimaryBuffer) ? BackBuffer : PrimaryBuffer;
+    selectBuffer(m_DisplayBuffer);
+}
+
+uint32_t DisplayPlatform::height() const
+{
+    return m_height;
+}
+
+uint32_t DisplayPlatform::width() const
+{
+    return m_width;
+}
+
+void DisplayPlatform::clear()
+{
+    uint8_t *data = frameBuffer();
+    uint32_t len = m_width * m_height / 10;
+
+    for (uint32_t i = 0; i < len; ++i)
     {
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
-        *pData++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
+        *data++ = 0;
     }
 }
 
-DisplayPlatform_t::~DisplayPlatform_t()
+DisplayPlatform::DisplayPlatform() :
+    m_bufferSize(0),
+    m_width(0),
+    m_height(0)
+{
+}
+
+DisplayPlatform::DisplayPlatform(int width, int height)
+{
+    init(width, height, false);
+}
+
+DisplayPlatform::~DisplayPlatform()
 {
     //delete m_pFrame;
 }
 
-void DisplayPlatform_t::SelectBuffer( DisplayBuffer_t buffer )
+void DisplayPlatform::selectBuffer( DisplayBuffer buffer )
 {
-    uint8_t* pData = m_ExtSram.GetPointerBank1();
-    pData += 0x0007FFFF;
+    uint8_t *data = m_externalSram.pointerBank1();
+    data += 0x0007FFFF;
 
-    if( DISPLAY_PRIMARY_BUFFER == buffer )
-    {
-        *pData |= 0x01;
-    }
+    if (buffer == PrimaryBuffer)
+        *data |= 0x01;
     else
-    {
-        *pData &= ~0x01;
-    }
+        *data &= ~0x01;
 }
 
-void DisplayPlatform_t::SetMousePos( uint16_t xPos, uint16_t yPos )
+void DisplayPlatform::setMousePos(uint16_t x, uint16_t y)
 {
-    uint8_t* pData = m_ExtSram.GetPointerBank1();
-    pData += 0x0007FFFE;
-    *pData = xPos;
+    uint8_t* data = m_externalSram.pointerBank1();
+    data += 0x0007FFFE;
+    *data = x;
 }
 
+void DisplayPlatform::present(PixelStruct *data)
+{
+}

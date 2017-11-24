@@ -1,32 +1,32 @@
-#include "Leds.h"
+#include "leds.h"
 
-
-SystemLed_t::SystemLed_t( SystemLeds_t led )
+static const PinInfo LedInfo[SystemLedCount] =
 {
-    Port_t port;
-    Pin_t  pin;
+    {PortD, Pin8 }, // Led 1
+    {PortE, Pin11}, // Led 2
+    {PortE, Pin12}, // Led 3
+    {PortE, Pin13}  // Led 4
+};
 
-    port = g_LedInfo[led].port;
-    pin  = g_LedInfo[led].pin;
-
-    m_led = new GpioPin_t(port, pin);
-
-    m_led->MakeOut();
-    m_led->Clear();
-
+SystemLed::SystemLed(SystemLedType led) :
+    m_led(0)
+{
+    m_led = new GpioPin(LedInfo[led].port, LedInfo[led].pin);
+    m_led->makeOut();
+    m_led->clear();
 }
 
-SystemLed_t::~SystemLed_t()
+SystemLed::~SystemLed()
 {
     delete m_led;
 }
 
-void SystemLed_t::On( void )
+void SystemLed::on()
 {
-    m_led->Set();
+    m_led->set();
 }
 
-void SystemLed_t::Off( void )
+void SystemLed::off()
 {
-    m_led->Clear();
+    m_led->clear();
 }

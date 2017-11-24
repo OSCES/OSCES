@@ -3,26 +3,31 @@
 
 #include <stdint.h>
 
-
 #define THREAD_MAX_PRIORITY    32
 #define THREAD_NORMAL_PRIORITY 0
 #define THREAD_MIN_PRIORITY   -32
 
-class ThreadInterface_t;
+class ThreadInterface;
+typedef void (*ThreadRoutine)(ThreadInterface *thisThread, void *context);
 
-typedef void ( *ThreadRoutine_t )( ThreadInterface_t* pThisThread, void* pContext );
+enum ThreadPriority
+{
+    Max = 32,
+    Normal = 0,
+    Min = 31
+};
 
-class ThreadInterface_t
+class ThreadInterface
 {
 public:
-    virtual void Start() = 0;
-    virtual void Stop() = 0;
-//    virtual void Destroy() = 0;
-    virtual void Sleep( uint32_t seconds ) = 0;
-    virtual void SleepMsec( uint32_t mSeconds ) = 0;
-    virtual void SetPriority( uint8_t priority ) = 0;
-    virtual void Yield() = 0;
-    virtual ~ThreadInterface_t(){};
+    virtual ~ThreadInterface() {}
+
+    virtual void start() = 0;
+    virtual void stop() = 0;
+    virtual void sleep(uint32_t seconds) = 0;
+    virtual void sleepMsec(uint32_t mSeconds) = 0;
+    virtual void setPriority(uint8_t priority) = 0;
+    virtual void yield() = 0;
 };
 
 #endif

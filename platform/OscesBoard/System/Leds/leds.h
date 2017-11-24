@@ -1,38 +1,29 @@
 #ifndef LEDS_H
 #define LEDS_H
 
-
 #include "GpioDriver.h"
 
-
-enum SystemLeds_t
+enum SystemLedType
 {
-    SYSTEM_LED_1 = 0,   // TODO: set led name (LED__SYSTEM_LOAD, LED__SYSTEM_IDLE and so on)
-    SYSTEM_LED_2,
-    SYSTEM_LED_3,
-    SYSTEM_LED_4
+    SystemLed1, // TODO: set led name (LED__SYSTEM_LOAD, LED__SYSTEM_IDLE and so on)
+    SystemLed2,
+    SystemLed3,
+    SystemLed4,
+
+    SystemLedCount
 };
 
-static const PinInfo g_LedInfo[] =
-{
-    {PORTD, PIN_8 },    // Led 1
-    {PORTE, PIN_11},    // Led 2
-    {PORTE, PIN_12},    // Led 3
-    {PORTE, PIN_13}     // Led 4
-};
-
-
-class SystemLed_t
+class SystemLed
 {
 public:
-    SystemLed_t( SystemLeds_t led );
-    ~SystemLed_t();
+    SystemLed(SystemLedType led);
+    ~SystemLed();
 
-    void On( void );
-    void Off( void );
+    void on();
+    void off();
 
 private:
-    GpioPin_t* m_led;
+    GpioPin *m_led;
 };
 
 

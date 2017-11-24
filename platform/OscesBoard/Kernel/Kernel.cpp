@@ -1,35 +1,35 @@
 #include "Kernel.h"
 #include "InterruptManager.h"
+#include "ContextSwitcher.h"
 
-void Kernel_t::Init()
+Kernel::Kernel() :
+    m_contextSwitcher(0)
 {
-    InterruptManager_t::RegisterInterrupt( this, INTERRUPT_PENDSV_VECTOR, PentSvInterruptRoutine );
-    
-    m_SchedulerPlatform.Start();
-
-    m_pContextSwitcher = new ContextSwitcher_t( &m_SchedulerPlatform );
-    
-    m_pContextSwitcher->SwitchToThreadMode();
-  
 }
 
-void Kernel_t::PentSvInterruptRoutine( void* pContext )
+void Kernel::Init()
 {
-    Kernel_t* pKernel = static_cast< Kernel_t* >( pContext );
-    pKernel->m_pContextSwitcher->PendSvInterruptRoutine();
+    InterruptManager::registerInterrupt(this, InterruptVector::PendSvVector, pentSvInterruptRoutine);
+
+    m_schedulerPlatform.start();
+    m_contextSwitcher = new ContextSwitcher(&m_schedulerPlatform);
+    m_contextSwitcher->switchToThreadMode();
 }
 
-void Kernel_t::Yield()
+void Kernel::pentSvInterruptRoutine(void* context)
 {
-    m_SchedulerPlatform.ThreadYield( 0 );
-    m_pContextSwitcher->ForceSwitchContext();
+    Kernel* kernel = static_cast<Kernel *>(context);
+    kernel->m_contextSwitcher->pendSvInterruptRoutine();
 }
 
-void Kernel_t::DeInit()
+void Kernel::yield()
 {
-    if( 0 != m_pContextSwitcher )
-    {
-        delete m_pContextSwitcher;
-        m_pContextSwitcher = 0;
-    }
+    m_schedulerPlatform.threadYield(0);
+    m_contextSwitcher->forceSwitchContext();
+}
+
+void Kernel::deInit()
+{
+    delete m_contextSwitcher;
+    m_contextSwitcher = 0;
 }

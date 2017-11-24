@@ -1,7 +1,7 @@
 #include "SysTimerPlatform.h"
 #include <SDL.h>
 
-uint32_t SysTimerPlatform_t::GetValueUsec()
+uint32_t SysTimerPlatform::valueUsec()
 {
     uint64_t perfCounter = SDL_GetPerformanceCounter();
     uint64_t perfFreq = SDL_GetPerformanceFrequency();

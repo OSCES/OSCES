@@ -1,29 +1,30 @@
 #ifndef KEYBOARD_PLATFORM_H
 #define KEYBOARD_PLATFORM_H
 
-
-#include <stdint.h>
 #include "GpioDriver.h"
 #include "crossplatform/System/Keyboard/Keyboard.h"
+#include <stdint.h>
 
-class KeyboardPlatform_t : public Keyboard_t
-{   
+class KeyboardPlatform : public Keyboard
+{
 public:
-    void Init();
-    void OnInterrupt();
+    KeyboardPlatform();
+    ~KeyboardPlatform();
+
+    void init();
+    void proceedInterrupt();
 
 private:
-    static void InterruptHandler( void* pContext );    
-    
-private:
-    void DecodeData( uint8_t data );
+    static void interruptHandler(void *context);
 
 private:
-    GpioPin_t* m_DataPin;
-    GpioPin_t* m_ClockPin;
+    void decodeData(uint8_t data);
 
 private:
-    uint8_t m_started;
+    GpioPin *m_dataPin;
+    GpioPin *m_clockPin;
+
+    bool m_started;
     uint8_t m_bitCount;
     uint8_t m_data;
     uint8_t m_parity;
