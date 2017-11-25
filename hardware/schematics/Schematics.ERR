@@ -1,0 +1,198 @@
+P-CAD Net List Load Errors
+
+======================================================================
+
+Netlist filename: C:\Users\xMEGA\Dropbox\Shared\Orion\schematics\Schematics.net
+Warning: Net ~SRAM-CE has less than two nodes.
+Warning: Net DATA_0 has less than two nodes.
+Warning: Net SRAM-A18 has less than two nodes.
+Warning: Net SRAM-A17 has less than two nodes.
+Warning: Net SRAM-A16 has less than two nodes.
+Warning: Net SRAM-A15 has less than two nodes.
+Warning: Net SRAM-A14 has less than two nodes.
+Warning: Net GCLK0 has less than two nodes.
+Warning: Net AUDIO_SYSCLK has less than two nodes.
+Warning: Net LED0 has less than two nodes.
+Warning: Net LED1 has less than two nodes.
+Warning: Net LED2 has less than two nodes.
+Warning: Net LED3 has less than two nodes.
+Warning: Net IR has less than two nodes.
+Warning: Net B1 has less than two nodes.
+Warning: Net B2 has less than two nodes.
+Warning: Net B3 has less than two nodes.
+Warning: Net AUDIO_MUTE has less than two nodes.
+Warning: Net AUDIO_SFOR1 has less than two nodes.
+Warning: Net AUDIO_PCS has less than two nodes.
+Warning: Net AUDIO_SFOR0 has less than two nodes.
+Warning: Net SRAM-A13 has less than two nodes.
+Warning: Net VGA_HSYNC has less than two nodes.
+Warning: Net SRAM-A12 has less than two nodes.
+Warning: Net SRAM-A11 has less than two nodes.
+Warning: Net AUDIO_BCK has less than two nodes.
+Warning: Net AUDIO_WS has less than two nodes.
+Warning: Net SRAM-A10 has less than two nodes.
+Warning: Net SRAM-A9 has less than two nodes.
+Warning: Net AUDIO_DEEM has less than two nodes.
+Warning: Net SRAM-A8 has less than two nodes.
+Warning: Net SRAM-A7 has less than two nodes.
+Warning: Net SRAM-A6 has less than two nodes.
+Warning: Net VGA_R0 has less than two nodes.
+Warning: Net VGA_R1 has less than two nodes.
+Warning: Net VGA_R2 has less than two nodes.
+Warning: Net VGA_R3 has less than two nodes.
+Warning: Net VGA_VSYNC has less than two nodes.
+Warning: Net B_D0 has less than two nodes.
+Warning: Net B_D1 has less than two nodes.
+Warning: Net B_D2 has less than two nodes.
+Warning: Net B_D3 has less than two nodes.
+Warning: Net B_D4 has less than two nodes.
+Warning: Net B_D5 has less than two nodes.
+Warning: Net G_D0 has less than two nodes.
+Warning: Net G_D1 has less than two nodes.
+Warning: Net G_D2 has less than two nodes.
+Warning: Net G_D3 has less than two nodes.
+Warning: Net G_D4 has less than two nodes.
+Warning: Net R_D0 has less than two nodes.
+Warning: Net R_D1 has less than two nodes.
+Warning: Net R_D2 has less than two nodes.
+Warning: Net SRAM-A3 has less than two nodes.
+Warning: Net SRAM-A4 has less than two nodes.
+Warning: Net SRAM-A5 has less than two nodes.
+Warning: Net SRAM-A1 has less than two nodes.
+Warning: Net SRAM-A2 has less than two nodes.
+
+----------------------------------------------------------------------
+
+24-Sep-13  23:45                                            Page    1
+
+P-CAD Net List Load Errors
+
+======================================================================
+
+Warning: Net SRAM-IO1 has less than two nodes.
+Warning: Net SRAM-IO2 has less than two nodes.
+Warning: Net SRAM-IO3 has less than two nodes.
+Warning: Net SRAM-IO4 has less than two nodes.
+Warning: Net SRAM-IO5 has less than two nodes.
+Warning: Net SRAM-IO6 has less than two nodes.
+Warning: Net SRAM-IO7 has less than two nodes.
+Warning: Net ~SRAM-WE has less than two nodes.
+Warning: Net ~EXT_SRAM-OE has less than two nodes.
+Warning: Net EXT_SRAM-IO2 has less than two nodes.
+Warning: Net SRAM-IO0 has less than two nodes.
+Warning: Net SRAM-A0 has less than two nodes.
+Warning: Net EXT_SRAM-IO3 has less than two nodes.
+Warning: Net ~EXT_SRAM-WE has less than two nodes.
+Warning: Net ~EXT_SRAM-CE has less than two nodes.
+Warning: Net EXT_SRAM-A16 has less than two nodes.
+Warning: Net EXT_SRAM-A17 has less than two nodes.
+Warning: Net EXT_SRAM-A18 has less than two nodes.
+Warning: Net EXT_SRAM-IO0 has less than two nodes.
+Warning: Net EXT_SRAM-IO1 has less than two nodes.
+Warning: Net EXT_SRAM-A0 has less than two nodes.
+Warning: Net EXT_SRAM-A1 has less than two nodes.
+Warning: Net EXT_SRAM-A2 has less than two nodes.
+Warning: Net EXT_SRAM-A3 has less than two nodes.
+Warning: Net EXT_SRAM-A4 has less than two nodes.
+Warning: Net EXT_SRAM-A5 has less than two nodes.
+Warning: Net EXT_SRAM-A6 has less than two nodes.
+Warning: Net EXT_SRAM-A7 has less than two nodes.
+Warning: Net EXT_SRAM-A8 has less than two nodes.
+Warning: Net EXT_SRAM-A9 has less than two nodes.
+Warning: Net EXT_SRAM-A10 has less than two nodes.
+Warning: Net EXT_SRAM-A11 has less than two nodes.
+Warning: Net EXT_SRAM-A12 has less than two nodes.
+Warning: Net EXT_SRAM-A13 has less than two nodes.
+Warning: Net EXT_SRAM-A14 has less than two nodes.
+Warning: Net EXT_SRAM-A15 has less than two nodes.
+Warning: Net EXT_SRAM-IO7 has less than two nodes.
+Warning: Net EXT_SRAM-IO6 has less than two nodes.
+Warning: Net EXT_SRAM-IO5 has less than two nodes.
+Warning: Net EXT_SRAM-IO4 has less than two nodes.
+Warning: Net ~SRAM-OE has less than two nodes.
+Warning: Net R_D3 has less than two nodes.
+Warning: Net R_D4 has less than two nodes.
+Warning: Net VGA_R4 has less than two nodes.
+Warning: Net VGA_G0 has less than two nodes.
+Warning: Net VGA_G1 has less than two nodes.
+Warning: Net VGA_G2 has less than two nodes.
+Warning: Net VGA_G3 has less than two nodes.
+Warning: Net VGA_G4 has less than two nodes.
+Warning: Net VGA_B0 has less than two nodes.
+Warning: Net VGA_B1 has less than two nodes.
+Warning: Net VGA_B2 has less than two nodes.
+Warning: Net VGA_B3 has less than two nodes.
+Warning: Net VGA_B4 has less than two nodes.
+Warning: Net VGA_G5 has less than two nodes.
+Warning: Net NET00016 has less than two nodes.
+Warning: Net USB_PWR_D-0 has less than two nodes.
+
+----------------------------------------------------------------------
+
+24-Sep-13  23:45                                            Page    2
+
+P-CAD Net List Load Errors
+
+======================================================================
+
+Warning: Net USB_PWR_D+0 has less than two nodes.
+Warning: Net NET00025 has less than two nodes.
+Warning: Net NET00026 has less than two nodes.
+Warning: Net DATA_1 has less than two nodes.
+Warning: Net INT_0 has less than two nodes.
+Warning: Net OSC32_IN0 has less than two nodes.
+Warning: Net INT_1 has less than two nodes.
+Warning: Net PLIS_DEV_E has less than two nodes.
+Warning: Net PLIS_ODP has less than two nodes.
+Warning: Net OSC32_OUT0 has less than two nodes.
+Warning: Net NET00020 has less than two nodes.
+Warning: Net NET00014 has less than two nodes.
+SHORTED NETS:
+
+
+Net List Errors:   0
+Net List Warnings: 126
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+24-Sep-13  23:45                                            Page    3
+

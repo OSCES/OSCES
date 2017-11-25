@@ -1,0 +1,792 @@
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+D:\Downloads\dropboxpage\Dropbox\Orion\Hardware\schematics\Schematics.erc:
+
+ERC Report Options:
+-------------------
+
+Single Node Nets:   On
+No Node Nets:       On
+Electrical Rules:        On
+Unconnected Pins:        On
+Unconnected Wires:       On
+Bus/Net Rules:           On
+Component Rules:         On
+Net Connectivity Rules:  On
+Hierarchy Rules:         On
+
+ERC Errors:
+-----------
+
+
+SINGLE NODE NETS:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+NO NODE NETS:
+
+Error 1 -- Net B_D0 has no nodes
+Error 2 -- Net B_D1 has no nodes
+Error 3 -- Net B_D2 has no nodes
+Error 4 -- Net B_D3 has no nodes
+Error 5 -- Net B_D4 has no nodes
+Error 6 -- Net B_D5 has no nodes
+Error 7 -- Net G_D0 has no nodes
+Error 8 -- Net G_D1 has no nodes
+Error 9 -- Net G_D2 has no nodes
+Error 10 -- Net G_D3 has no nodes
+Error 11 -- Net G_D4 has no nodes
+Error 12 -- Net R_D0 has no nodes
+Error 13 -- Net R_D1 has no nodes
+Error 14 -- Net R_D2 has no nodes
+Error 15 -- Net R_D3 has no nodes
+Error 16 -- Net R_D4 has no nodes
+Error 17 -- Net NET00016 has no nodes
+Error 18 -- Net USB_PWR_D-0 has no nodes
+Error 19 -- Net USB_PWR_D+0 has no nodes
+Error 20 -- Net NET00025 has no nodes
+Error 21 -- Net NET00026 has no nodes
+Error 22 -- Net NET00020 has no nodes
+Error 23 -- Net NET00014 has no nodes
+
+0 warning(s) detected.
+23 error(s) detected.
+
+ELECTRICAL RULES:
+
+Warning 1 -- Net NET00002 has no input pins
+Warning 2 -- Net NET00002 has no output pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    1
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 3 -- Net SWDC has no input pins
+Warning 4 -- Net SWDC has no output pins
+Warning 5 -- Net +3.3B has no input pins
+Warning 6 -- Net +3.3B has no output pins
+Warning 7 -- Net GND has no input pins
+Warning 8 -- Net GND has no output pins
+Warning 9 -- Net +5B has no input pins
+Warning 10 -- Net +5B has no output pins
+Warning 11 -- Net TDO has no input pins
+Warning 12 -- Net TDO has no output pins
+Warning 13 -- Net TMS has no input pins
+Warning 14 -- Net TMS has no output pins
+Warning 15 -- Net TDI has no input pins
+Warning 16 -- Net TDI has no output pins
+Warning 17 -- Net NET00004 has no input pins
+Warning 18 -- Net NET00004 has no output pins
+Warning 19 -- Net NET00003 has no input pins
+Warning 20 -- Net NET00003 has no output pins
+Warning 21 -- Net ~SRAM-CE has no input pins
+Warning 22 -- Net ~SRAM-CE has no output pins
+Warning 23 -- Net TCK has no input pins
+Warning 24 -- Net TCK has no output pins
+Warning 25 -- Net DATA_0 has no input pins
+Warning 26 -- Net DATA_0 has no output pins
+Warning 27 -- Net SRAM-A18 has no input pins
+Warning 28 -- Net SRAM-A18 has no output pins
+Warning 29 -- Net SRAM-A17 has no input pins
+Warning 30 -- Net SRAM-A17 has no output pins
+Warning 31 -- Net SRAM-A16 has no input pins
+Warning 32 -- Net SRAM-A16 has no output pins
+Warning 33 -- Net SRAM-A15 has no input pins
+Warning 34 -- Net SRAM-A15 has no output pins
+Warning 35 -- Net SRAM-A14 has no input pins
+Warning 36 -- Net SRAM-A14 has no output pins
+Warning 37 -- Net VOUTR has no input pins
+Warning 38 -- Net VOUTR has no output pins
+Warning 39 -- Net VOUTL has no input pins
+Warning 40 -- Net VOUTL has no output pins
+Warning 41 -- Net VREFDAC has no input pins
+Warning 42 -- Net VREFDAC has no output pins
+Warning 43 -- Net R_OUT has no input pins
+Warning 44 -- Net R_OUT has no output pins
+Warning 45 -- Net CLK_PLIS has no input pins
+Warning 46 -- Net CLK_PLIS has no output pins
+Warning 47 -- Net VDDD has no input pins
+Warning 48 -- Net VDDD has no output pins
+Warning 49 -- Net L_OUT has no input pins
+Warning 50 -- Net L_OUT has no output pins
+Warning 51 -- Net VDDA has no input pins
+Warning 52 -- Net VDDA has no output pins
+Warning 53 -- Net AUDIO_SYSCLK has no input pins
+Warning 54 -- Net AUDIO_SYSCLK has no output pins
+Warning 55 -- Net NET00005 has no input pins
+Warning 56 -- Net NET00005 has no output pins
+Warning 57 -- Net LED_C_2 has no input pins
+Warning 58 -- Net LED_C_2 has no output pins
+Warning 59 -- Net LED_C_3 has no input pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    2
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 60 -- Net LED_C_3 has no output pins
+Warning 61 -- Net NET00007 has no input pins
+Warning 62 -- Net NET00007 has no output pins
+Warning 63 -- Net SD_PRESENT has no input pins
+Warning 64 -- Net SD_PRESENT has no output pins
+Warning 65 -- Net NET00006 has no input pins
+Warning 66 -- Net NET00006 has no output pins
+Warning 67 -- Net LED0 has no input pins
+Warning 68 -- Net LED0 has no output pins
+Warning 69 -- Net SPEAKER has no input pins
+Warning 70 -- Net SPEAKER has no output pins
+Warning 71 -- Net LED1 has no input pins
+Warning 72 -- Net LED1 has no output pins
+Warning 73 -- Net LED2 has no input pins
+Warning 74 -- Net LED2 has no output pins
+Warning 75 -- Net LED3 has no input pins
+Warning 76 -- Net LED3 has no output pins
+Warning 77 -- Net NET00008 has no input pins
+Warning 78 -- Net NET00008 has no output pins
+Warning 79 -- Net NET00012 has no input pins
+Warning 80 -- Net NET00012 has no output pins
+Warning 81 -- Net IR has no input pins
+Warning 82 -- Net IR has no output pins
+Warning 83 -- Net B1 has no input pins
+Warning 84 -- Net B1 has no output pins
+Warning 85 -- Net B2 has no input pins
+Warning 86 -- Net B2 has no output pins
+Warning 87 -- Net B3 has no input pins
+Warning 88 -- Net B3 has no output pins
+Warning 89 -- Net VGA_SCL has no input pins
+Warning 90 -- Net VGA_SCL has no output pins
+Warning 91 -- Net NET00015 has no input pins
+Warning 92 -- Net NET00015 has no output pins
+Warning 93 -- Net AUDIO_MUTE has no input pins
+Warning 94 -- Net AUDIO_MUTE has no output pins
+Warning 95 -- Net GPIO0 has no input pins
+Warning 96 -- Net GPIO0 has no output pins
+Warning 97 -- Net LED_C_0 has no input pins
+Warning 98 -- Net LED_C_0 has no output pins
+Warning 99 -- Net VGA_SDA has no input pins
+Warning 100 -- Net VGA_SDA has no output pins
+Warning 101 -- Net AUDIO_SFOR1 has no input pins
+Warning 102 -- Net AUDIO_SFOR1 has no output pins
+Warning 103 -- Net AUDIO_PCS has no input pins
+Warning 104 -- Net AUDIO_PCS has no output pins
+Warning 105 -- Net AUDIO_SFOR0 has no input pins
+Warning 106 -- Net AUDIO_SFOR0 has no output pins
+Warning 107 -- Net GPIO1 has no input pins
+Warning 108 -- Net GPIO1 has no output pins
+Warning 109 -- Net GPIO2 has no input pins
+Warning 110 -- Net GPIO2 has no output pins
+Warning 111 -- Net GPIO3 has no input pins
+Warning 112 -- Net GPIO3 has no output pins
+Warning 113 -- Net GPIO4 has no input pins
+Warning 114 -- Net GPIO4 has no output pins
+Warning 115 -- Net GPIO5 has no input pins
+Warning 116 -- Net GPIO5 has no output pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    3
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 117 -- Net GPIO6 has no input pins
+Warning 118 -- Net GPIO6 has no output pins
+Warning 119 -- Net GPIO7 has no input pins
+Warning 120 -- Net GPIO7 has no output pins
+Warning 121 -- Net GPIO8 has no input pins
+Warning 122 -- Net GPIO8 has no output pins
+Warning 123 -- Net GPIO9 has no input pins
+Warning 124 -- Net GPIO9 has no output pins
+Warning 125 -- Net GPIO10 has no input pins
+Warning 126 -- Net GPIO10 has no output pins
+Warning 127 -- Net GPIO11 has no input pins
+Warning 128 -- Net GPIO11 has no output pins
+Warning 129 -- Net GPIO12 has no input pins
+Warning 130 -- Net GPIO12 has no output pins
+Warning 131 -- Net GPIO13 has no input pins
+Warning 132 -- Net GPIO13 has no output pins
+Warning 133 -- Net GPIO14 has no input pins
+Warning 134 -- Net GPIO14 has no output pins
+Warning 135 -- Net GPIO15 has no input pins
+Warning 136 -- Net GPIO15 has no output pins
+Warning 137 -- Net IO_R has no input pins
+Warning 138 -- Net IO_R has no output pins
+Warning 139 -- Net VSYNC_CON has no input pins
+Warning 140 -- Net VSYNC_CON has no output pins
+Warning 141 -- Net HSYNC_CON has no input pins
+Warning 142 -- Net HSYNC_CON has no output pins
+Warning 143 -- Net IO_G has no input pins
+Warning 144 -- Net IO_G has no output pins
+Warning 145 -- Net IO_B has no input pins
+Warning 146 -- Net IO_B has no output pins
+Warning 147 -- Net GPIO16 has no input pins
+Warning 148 -- Net GPIO16 has no output pins
+Warning 149 -- Net NET00022 has no input pins
+Warning 150 -- Net NET00022 has no output pins
+Warning 151 -- Net NET00000 has no input pins
+Warning 152 -- Net NET00000 has no output pins
+Warning 153 -- Net GPIO17 has no input pins
+Warning 154 -- Net GPIO17 has no output pins
+Warning 155 -- Net NET00024 has no input pins
+Warning 156 -- Net NET00024 has no output pins
+Warning 157 -- Net SRAM-A13 has no input pins
+Warning 158 -- Net SRAM-A13 has no output pins
+Warning 159 -- Net VGA_HSYNC has no input pins
+Warning 160 -- Net VGA_HSYNC has no output pins
+Warning 161 -- Net SRAM-A12 has no input pins
+Warning 162 -- Net SRAM-A12 has no output pins
+Warning 163 -- Net SRAM-A11 has no input pins
+Warning 164 -- Net SRAM-A11 has no output pins
+Warning 165 -- Net AUDIO_BCK has no input pins
+Warning 166 -- Net AUDIO_BCK has no output pins
+Warning 167 -- Net AUDIO_WS has no input pins
+Warning 168 -- Net AUDIO_WS has no output pins
+Warning 169 -- Net AUDIO_DATAI has no input pins
+Warning 170 -- Net AUDIO_DATAI has no output pins
+Warning 171 -- Net SRAM-A10 has no input pins
+Warning 172 -- Net SRAM-A10 has no output pins
+Warning 173 -- Net SRAM-A9 has no input pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    4
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 174 -- Net SRAM-A9 has no output pins
+Warning 175 -- Net AUDIO_DEEM has no input pins
+Warning 176 -- Net AUDIO_DEEM has no output pins
+Warning 177 -- Net SRAM-A8 has no input pins
+Warning 178 -- Net SRAM-A8 has no output pins
+Warning 179 -- Net SRAM-A7 has no input pins
+Warning 180 -- Net SRAM-A7 has no output pins
+Warning 181 -- Net SRAM-A6 has no input pins
+Warning 182 -- Net SRAM-A6 has no output pins
+Warning 183 -- Net VGA_R0 has no input pins
+Warning 184 -- Net VGA_R0 has no output pins
+Warning 185 -- Net VGA_R1 has no input pins
+Warning 186 -- Net VGA_R1 has no output pins
+Warning 187 -- Net VGA_R2 has no input pins
+Warning 188 -- Net VGA_R2 has no output pins
+Warning 189 -- Net VGA_R3 has no input pins
+Warning 190 -- Net VGA_R3 has no output pins
+Warning 191 -- Net VGA_VSYNC has no input pins
+Warning 192 -- Net VGA_VSYNC has no output pins
+Warning 193 -- Net NET00031 has no input pins
+Warning 194 -- Net NET00031 has no output pins
+Warning 195 -- Net NET00032 has no input pins
+Warning 196 -- Net NET00032 has no output pins
+Warning 197 -- Net NET00033 has no input pins
+Warning 198 -- Net NET00033 has no output pins
+Warning 199 -- Net NET00034 has no input pins
+Warning 200 -- Net NET00034 has no output pins
+Warning 201 -- Net NET00035 has no input pins
+Warning 202 -- Net NET00035 has no output pins
+Warning 203 -- Net NET00036 has no input pins
+Warning 204 -- Net NET00036 has no output pins
+Warning 205 -- Net NET00037 has no input pins
+Warning 206 -- Net NET00037 has no output pins
+Warning 207 -- Net NET00038 has no input pins
+Warning 208 -- Net NET00038 has no output pins
+Warning 209 -- Net NET00039 has no input pins
+Warning 210 -- Net NET00039 has no output pins
+Warning 211 -- Net NET00040 has no input pins
+Warning 212 -- Net NET00040 has no output pins
+Warning 213 -- Net NET00041 has no input pins
+Warning 214 -- Net NET00041 has no output pins
+Warning 215 -- Net NET00042 has no input pins
+Warning 216 -- Net NET00042 has no output pins
+Warning 217 -- Net NET00043 has no input pins
+Warning 218 -- Net NET00043 has no output pins
+Warning 219 -- Net NET00044 has no input pins
+Warning 220 -- Net NET00044 has no output pins
+Warning 221 -- Net NET00045 has no input pins
+Warning 222 -- Net NET00045 has no output pins
+Warning 223 -- Net GPIO18 has no input pins
+Warning 224 -- Net GPIO18 has no output pins
+Warning 225 -- Net B_D0 has no input pins
+Warning 226 -- Net B_D0 has no output pins
+Warning 227 -- Net B_D1 has no input pins
+Warning 228 -- Net B_D1 has no output pins
+Warning 229 -- Net B_D2 has no input pins
+Warning 230 -- Net B_D2 has no output pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    5
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 231 -- Net B_D3 has no input pins
+Warning 232 -- Net B_D3 has no output pins
+Warning 233 -- Net B_D4 has no input pins
+Warning 234 -- Net B_D4 has no output pins
+Warning 235 -- Net B_D5 has no input pins
+Warning 236 -- Net B_D5 has no output pins
+Warning 237 -- Net G_D0 has no input pins
+Warning 238 -- Net G_D0 has no output pins
+Warning 239 -- Net G_D1 has no input pins
+Warning 240 -- Net G_D1 has no output pins
+Warning 241 -- Net G_D2 has no input pins
+Warning 242 -- Net G_D2 has no output pins
+Warning 243 -- Net G_D3 has no input pins
+Warning 244 -- Net G_D3 has no output pins
+Warning 245 -- Net G_D4 has no input pins
+Warning 246 -- Net G_D4 has no output pins
+Warning 247 -- Net R_D0 has no input pins
+Warning 248 -- Net R_D0 has no output pins
+Warning 249 -- Net R_D1 has no input pins
+Warning 250 -- Net R_D1 has no output pins
+Warning 251 -- Net R_D2 has no input pins
+Warning 252 -- Net R_D2 has no output pins
+Warning 253 -- Net SRAM-A3 has no input pins
+Warning 254 -- Net SRAM-A3 has no output pins
+Warning 255 -- Net SRAM-A4 has no input pins
+Warning 256 -- Net SRAM-A4 has no output pins
+Warning 257 -- Net SRAM-A5 has no input pins
+Warning 258 -- Net SRAM-A5 has no output pins
+Warning 259 -- Net SRAM-A1 has no input pins
+Warning 260 -- Net SRAM-A1 has no output pins
+Warning 261 -- Net SRAM-A2 has no input pins
+Warning 262 -- Net SRAM-A2 has no output pins
+Warning 263 -- Net SRAM-IO1 has no input pins
+Warning 264 -- Net SRAM-IO1 has no output pins
+Warning 265 -- Net SRAM-IO2 has no input pins
+Warning 266 -- Net SRAM-IO2 has no output pins
+Warning 267 -- Net SRAM-IO3 has no input pins
+Warning 268 -- Net SRAM-IO3 has no output pins
+Warning 269 -- Net SRAM-IO4 has no input pins
+Warning 270 -- Net SRAM-IO4 has no output pins
+Warning 271 -- Net SRAM-IO5 has no input pins
+Warning 272 -- Net SRAM-IO5 has no output pins
+Warning 273 -- Net SRAM-IO6 has no input pins
+Warning 274 -- Net SRAM-IO6 has no output pins
+Warning 275 -- Net SRAM-IO7 has no input pins
+Warning 276 -- Net SRAM-IO7 has no output pins
+Warning 277 -- Net ~SRAM-WE has no input pins
+Warning 278 -- Net ~SRAM-WE has no output pins
+Warning 279 -- Net ~EXT_SRAM-OE has no input pins
+Warning 280 -- Net ~EXT_SRAM-OE has no output pins
+Warning 281 -- Net EXT_SRAM-IO2 has no input pins
+Warning 282 -- Net EXT_SRAM-IO2 has no output pins
+Warning 283 -- Net SRAM-IO0 has no input pins
+Warning 284 -- Net SRAM-IO0 has no output pins
+Warning 285 -- Net SRAM-A0 has no input pins
+Warning 286 -- Net SRAM-A0 has no output pins
+Warning 287 -- Net EXT_SRAM-IO3 has no input pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    6
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 288 -- Net EXT_SRAM-IO3 has no output pins
+Warning 289 -- Net ~EXT_SRAM-WE has no input pins
+Warning 290 -- Net ~EXT_SRAM-WE has no output pins
+Warning 291 -- Net ~EXT_SRAM-CE has no input pins
+Warning 292 -- Net ~EXT_SRAM-CE has no output pins
+Warning 293 -- Net SDIO_D3 has no input pins
+Warning 294 -- Net SDIO_D3 has no output pins
+Warning 295 -- Net EXT_SRAM-A16 has no input pins
+Warning 296 -- Net EXT_SRAM-A16 has no output pins
+Warning 297 -- Net EXT_SRAM-A17 has no input pins
+Warning 298 -- Net EXT_SRAM-A17 has no output pins
+Warning 299 -- Net EXT_SRAM-A18 has no input pins
+Warning 300 -- Net EXT_SRAM-A18 has no output pins
+Warning 301 -- Net EXT_SRAM-IO0 has no input pins
+Warning 302 -- Net EXT_SRAM-IO0 has no output pins
+Warning 303 -- Net EXT_SRAM-IO1 has no input pins
+Warning 304 -- Net EXT_SRAM-IO1 has no output pins
+Warning 305 -- Net EXT_SRAM-A0 has no input pins
+Warning 306 -- Net EXT_SRAM-A0 has no output pins
+Warning 307 -- Net EXT_SRAM-A1 has no input pins
+Warning 308 -- Net EXT_SRAM-A1 has no output pins
+Warning 309 -- Net EXT_SRAM-A2 has no input pins
+Warning 310 -- Net EXT_SRAM-A2 has no output pins
+Warning 311 -- Net EXT_SRAM-A3 has no input pins
+Warning 312 -- Net EXT_SRAM-A3 has no output pins
+Warning 313 -- Net EXT_SRAM-A4 has no input pins
+Warning 314 -- Net EXT_SRAM-A4 has no output pins
+Warning 315 -- Net EXT_SRAM-A5 has no input pins
+Warning 316 -- Net EXT_SRAM-A5 has no output pins
+Warning 317 -- Net EXT_SRAM-A6 has no input pins
+Warning 318 -- Net EXT_SRAM-A6 has no output pins
+Warning 319 -- Net EXT_SRAM-A7 has no input pins
+Warning 320 -- Net EXT_SRAM-A7 has no output pins
+Warning 321 -- Net EXT_SRAM-A8 has no input pins
+Warning 322 -- Net EXT_SRAM-A8 has no output pins
+Warning 323 -- Net EXT_SRAM-A9 has no input pins
+Warning 324 -- Net EXT_SRAM-A9 has no output pins
+Warning 325 -- Net EXT_SRAM-A10 has no input pins
+Warning 326 -- Net EXT_SRAM-A10 has no output pins
+Warning 327 -- Net EXT_SRAM-A11 has no input pins
+Warning 328 -- Net EXT_SRAM-A11 has no output pins
+Warning 329 -- Net EXT_SRAM-A12 has no input pins
+Warning 330 -- Net EXT_SRAM-A12 has no output pins
+Warning 331 -- Net EXT_SRAM-A13 has no input pins
+Warning 332 -- Net EXT_SRAM-A13 has no output pins
+Warning 333 -- Net EXT_SRAM-A14 has no input pins
+Warning 334 -- Net EXT_SRAM-A14 has no output pins
+Warning 335 -- Net EXT_SRAM-A15 has no input pins
+Warning 336 -- Net EXT_SRAM-A15 has no output pins
+Warning 337 -- Net EXT_SRAM-IO7 has no input pins
+Warning 338 -- Net EXT_SRAM-IO7 has no output pins
+Warning 339 -- Net EXT_SRAM-IO6 has no input pins
+Warning 340 -- Net EXT_SRAM-IO6 has no output pins
+Warning 341 -- Net EXT_SRAM-IO5 has no input pins
+Warning 342 -- Net EXT_SRAM-IO5 has no output pins
+Warning 343 -- Net EXT_SRAM-IO4 has no input pins
+Warning 344 -- Net EXT_SRAM-IO4 has no output pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    7
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 345 -- Net ~SRAM-OE has no input pins
+Warning 346 -- Net ~SRAM-OE has no output pins
+Warning 347 -- Net SDIO_D1 has no input pins
+Warning 348 -- Net SDIO_D1 has no output pins
+Warning 349 -- Net SDIO_CK has no input pins
+Warning 350 -- Net SDIO_CK has no output pins
+Warning 351 -- Net SDIO_D2 has no input pins
+Warning 352 -- Net SDIO_D2 has no output pins
+Warning 353 -- Net SDIO_D0 has no input pins
+Warning 354 -- Net SDIO_D0 has no output pins
+Warning 355 -- Net SDIO_CMD has no input pins
+Warning 356 -- Net SDIO_CMD has no output pins
+Warning 357 -- Net R_D3 has no input pins
+Warning 358 -- Net R_D3 has no output pins
+Warning 359 -- Net R_D4 has no input pins
+Warning 360 -- Net R_D4 has no output pins
+Warning 361 -- Net VGA_R4 has no input pins
+Warning 362 -- Net VGA_R4 has no output pins
+Warning 363 -- Net VGA_G0 has no input pins
+Warning 364 -- Net VGA_G0 has no output pins
+Warning 365 -- Net VGA_G1 has no input pins
+Warning 366 -- Net VGA_G1 has no output pins
+Warning 367 -- Net VGA_G2 has no input pins
+Warning 368 -- Net VGA_G2 has no output pins
+Warning 369 -- Net VGA_G3 has no input pins
+Warning 370 -- Net VGA_G3 has no output pins
+Warning 371 -- Net VGA_G4 has no input pins
+Warning 372 -- Net VGA_G4 has no output pins
+Warning 373 -- Net VGA_B0 has no input pins
+Warning 374 -- Net VGA_B0 has no output pins
+Warning 375 -- Net VGA_B1 has no input pins
+Warning 376 -- Net VGA_B1 has no output pins
+Warning 377 -- Net VGA_B2 has no input pins
+Warning 378 -- Net VGA_B2 has no output pins
+Warning 379 -- Net VGA_B3 has no input pins
+Warning 380 -- Net VGA_B3 has no output pins
+Warning 381 -- Net VGA_B4 has no input pins
+Warning 382 -- Net VGA_B4 has no output pins
+Warning 383 -- Net GPIO19 has no input pins
+Warning 384 -- Net GPIO19 has no output pins
+Warning 385 -- Net GPIO20 has no input pins
+Warning 386 -- Net GPIO20 has no output pins
+Warning 387 -- Net GPIO21 has no input pins
+Warning 388 -- Net GPIO21 has no output pins
+Warning 389 -- Net NET00016 has no input pins
+Warning 390 -- Net NET00016 has no output pins
+Warning 391 -- Net USB_PWR_D-0 has no input pins
+Warning 392 -- Net USB_PWR_D-0 has no output pins
+Warning 393 -- Net USB_PWR_D+0 has no input pins
+Warning 394 -- Net USB_PWR_D+0 has no output pins
+Warning 395 -- Net NET00025 has no input pins
+Warning 396 -- Net NET00025 has no output pins
+Warning 397 -- Net NET00026 has no input pins
+Warning 398 -- Net NET00026 has no output pins
+Warning 399 -- Net DATA_1 has no input pins
+Warning 400 -- Net DATA_1 has no output pins
+Warning 401 -- Net GPIO22 has no input pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    8
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 402 -- Net GPIO22 has no output pins
+Warning 403 -- Net NET00018 has no input pins
+Warning 404 -- Net NET00018 has no output pins
+Warning 405 -- Net NET00019 has no input pins
+Warning 406 -- Net NET00019 has no output pins
+Warning 407 -- Net INT_0 has no input pins
+Warning 408 -- Net INT_0 has no output pins
+Warning 409 -- Net GPIO23 has no input pins
+Warning 410 -- Net GPIO23 has no output pins
+Warning 411 -- Net USB_FS_DM has no input pins
+Warning 412 -- Net USB_FS_DM has no output pins
+Warning 413 -- Net USB_FS_DP has no input pins
+Warning 414 -- Net USB_FS_DP has no output pins
+Warning 415 -- Net USB_HS_DP has no input pins
+Warning 416 -- Net USB_HS_DP has no output pins
+Warning 417 -- Net USB_HS_DM has no input pins
+Warning 418 -- Net USB_HS_DM has no output pins
+Warning 419 -- Net INT_1 has no input pins
+Warning 420 -- Net INT_1 has no output pins
+Warning 421 -- Net SWDIO has no input pins
+Warning 422 -- Net SWDIO has no output pins
+Warning 423 -- Net BOOT1 has no input pins
+Warning 424 -- Net BOOT1 has no output pins
+Warning 425 -- Net OSC_IN has no input pins
+Warning 426 -- Net OSC_IN has no output pins
+Warning 427 -- Net OSC_OUT has no input pins
+Warning 428 -- Net OSC_OUT has no output pins
+Warning 429 -- Net BOOT0 has no input pins
+Warning 430 -- Net BOOT0 has no output pins
+Warning 431 -- Net NRST has no input pins
+Warning 432 -- Net NRST has no output pins
+Warning 433 -- Net PLIS_DEV_E has no input pins
+Warning 434 -- Net PLIS_DEV_E has no output pins
+Warning 435 -- Net PLIS_ODP has no input pins
+Warning 436 -- Net PLIS_ODP has no output pins
+Warning 437 -- Net GPIO24 has no input pins
+Warning 438 -- Net GPIO24 has no output pins
+Warning 439 -- Net NET00020 has no input pins
+Warning 440 -- Net NET00020 has no output pins
+Warning 441 -- Net NET00014 has no input pins
+Warning 442 -- Net NET00014 has no output pins
+Warning 443 -- Net OSC32_IN has no input pins
+Warning 444 -- Net OSC32_IN has no output pins
+Warning 445 -- Net OSC32_OUT has no input pins
+Warning 446 -- Net OSC32_OUT has no output pins
+Warning 447 -- Net GPIO25 has no input pins
+Warning 448 -- Net GPIO25 has no output pins
+Warning 449 -- Net GPIO26 has no input pins
+Warning 450 -- Net GPIO26 has no output pins
+Warning 451 -- Net GPIO27 has no input pins
+Warning 452 -- Net GPIO27 has no output pins
+Warning 453 -- Net GPIO28 has no input pins
+Warning 454 -- Net GPIO28 has no output pins
+Warning 455 -- Net GPIO29 has no input pins
+Warning 456 -- Net GPIO29 has no output pins
+Warning 457 -- Net RFM_IRQ has no input pins
+Warning 458 -- Net RFM_IRQ has no output pins
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page    9
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+Warning 459 -- Net RFM_MISO has no input pins
+Warning 460 -- Net RFM_MISO has no output pins
+Warning 461 -- Net RFM_MOSI has no input pins
+Warning 462 -- Net RFM_MOSI has no output pins
+Warning 463 -- Net RFM_SCK has no input pins
+Warning 464 -- Net RFM_SCK has no output pins
+Warning 465 -- Net RFM_CSN has no input pins
+Warning 466 -- Net RFM_CSN has no output pins
+Warning 467 -- Net RFM_CE has no input pins
+Warning 468 -- Net RFM_CE has no output pins
+Warning 469 -- Net GPIO30 has no input pins
+Warning 470 -- Net GPIO30 has no output pins
+Warning 471 -- Net GPIO31 has no input pins
+Warning 472 -- Net GPIO31 has no output pins
+Warning 473 -- Net GPIO32 has no input pins
+Warning 474 -- Net GPIO32 has no output pins
+Warning 475 -- Net GPIO33 has no input pins
+Warning 476 -- Net GPIO33 has no output pins
+
+476 warning(s) detected.
+0 error(s) detected.
+
+UNCONNECTED PINS:
+
+Warning 477 -- Unconnected pin XP5-8 on sheet:Configuration at mm (307.500, 62.
+500)
+Warning 478 -- Unconnected pin XP5-7 on sheet:Configuration at mm (307.500, 87.
+500)
+Warning 479 -- Unconnected pin XS1-11 on sheet:VGA at mm (352.500, 50.000)
+Warning 480 -- Unconnected pin XS1-9 on sheet:VGA at mm (352.500, 60.000)
+Warning 481 -- Unconnected pin XS1-4 on sheet:VGA at mm (352.500, 85.000)
+Warning 482 -- Unconnected pin XS2-4 on sheet:Audio at mm (295.000,192.500)
+Warning 483 -- Unconnected pin XS2-2 on sheet:Audio at mm (295.000,202.500)
+Warning 484 -- Unconnected pin DD4:1-143 on sheet:STM32 at mm (325.000, 82.500)
+
+Warning 485 -- Unconnected pin XS4-6 on sheet:PS2-USB at mm ( 92.500,190.000)
+Warning 486 -- Unconnected pin XS4-2 on sheet:PS2-USB at mm ( 92.500,210.000)
+Warning 487 -- Unconnected pin XS3-6 on sheet:PS2-USB at mm ( 92.500,240.000)
+Warning 488 -- Unconnected pin XS3-2 on sheet:PS2-USB at mm ( 92.500,260.000)
+
+12 warning(s) detected.
+0 error(s) detected.
+
+UNCONNECTED WIRES:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+BUS/NET RULES:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+COMPONENT RULES:
+
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page   10
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+NET CONNECTIVITY RULES:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+HIERARCHY RULES:
+
+
+Hierarchy is simple.
+Hierarchy is resolved.
+
+0 warning(s) detected.
+0 error(s) detected.
+
+ERC Summary:
+------------
+
+Single Node:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+No Node:
+	Errors:         23
+	Warnings:       0
+	Ignored Errors: 0
+Electrical:
+	Errors:         0
+	Warnings:       476
+	Ignored Errors: 0
+Unconnected Pin:
+	Errors:         0
+	Warnings:       12
+	Ignored Errors: 0
+Unconnected Wire:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Bus/Net:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Component:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Net Connectivity:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Hierarchy:
+	Errors:         0
+	Warnings:       0
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page   11
+
+P-CAD Electrical Rules Check Report
+
+======================================================================
+
+	Ignored Errors: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:21                                            Page   12
+

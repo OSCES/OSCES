@@ -1,0 +1,330 @@
+P-CAD Design Rule Check Report
+
+======================================================================
+
+D:\Downloads\dropboxpage\Dropbox\Orion\Hardware\schematics\pcb.drc:
+
+
+Design Clearances (in   mm):
+-------------------------------
+Silk Screen Clearance:  12.0mil
+Hole-Hole Clearance:    13.0mil
+Board Edge Clearance:   Not Defined
+
+
+Layer Clearances (in   mm):
+-------------------------------
+
+Layer Name          Pad-Pad  Pad-Line Line-Line   Pad-Via  Via-Line   Via-Via
+
+Top                   0.150     0.150     0.150     0.150     0.150     0.150
+Bottom                0.150     0.150     0.150     0.150     0.150     0.150
+
+
+Net Class Clearances (in   mm):
+-------------------------------
+Net Class Name      Pad-Pad  Pad-Line Line-Line   Pad-Via  Via-Line   Via-Via
+
+
+
+Net Clearances (In   mm):
+-------------------------
+Net Name            Pad-Pad  Pad-Line Line-Line   Pad-Via  Via-Line   Via-Via
+
+
+Net Class To Net Class Clearances (in   mm):
+--------------------------------------------
+Net Class Names     Pad-Pad  Pad-Line Line-Line   Pad-Via  Via-Line   Via-Via
+
+
+
+Area Checked:
+-------------
+
+DRC Extents:            Entire Workspace
+
+
+DRC Report Options:
+-------------------
+
+Net List Compare:                       Off
+Clearance Violations:                   On
+Text Violations:                        Off
+Same-Parent-Component Pad Violations:   On
+Net List Violations:                    On
+Unrouted Nets:                          On
+Unconnected Pins:                       On
+Net Length Violations:                  On
+Silk Violations:                        Off
+Copper Pour Violations:                 On
+Plane Violations:                       On
+Component Violations:                   On
+Drill Violations:                       On
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:48                                            Page    1
+
+P-CAD Design Rule Check Report
+
+======================================================================
+
+Test Point Violations:                  Off
+
+DRC Errors:
+-----------
+
+
+NETLIST VIOLATIONS:
+
+Warning 1 -- Objects in Net GPIO3 are physically connected but not routed point
+-to-point.
+   * Line at (505.057,480.793):(503.614,479.350) mm [Top layer]
+   * Pad DD4-3 at (505.057,480.793) mm
+Warning 2 -- Objects in Net GPIO4 are physically connected but not routed point
+-to-point.
+   * Line at (504.704,481.146):(503.407,479.850) mm [Top layer]
+   * Pad DD4-2 at (504.704,481.146) mm
+Warning 3 -- Objects in Net GPIO6 are physically connected but not routed point
+-to-point.
+   * Line at (505.057,485.743):(503.400,487.400) mm [Top layer]
+   * Pad DD4-142 at (505.057,485.743) mm
+Warning 4 -- Objects in Net GPIO7 are physically connected but not routed point
+-to-point.
+   * Line at (505.411,486.096):(503.900,487.607) mm [Top layer]
+   * Pad DD4-141 at (505.411,486.096) mm
+Warning 5 -- Objects in Net GPIO13 are physically connected but not routed poin
+t-to-point.
+   * Line at (508.593,489.278):(506.900,490.971) mm [Top layer]
+   * Pad DD4-132 at (508.593,489.278) mm
+Warning 6 -- Objects in Net GPIO14 are physically connected but not routed poin
+t-to-point.
+   * Line at (509.653,490.339):(507.400,492.592) mm [Top layer]
+   * Pad DD4-129 at (509.653,490.339) mm
+Warning 7 -- Objects in Net GPIO15 are physically connected but not routed poin
+t-to-point.
+   * Line at (510.007,490.692):(507.900,492.799) mm [Top layer]
+   * Pad DD4-128 at (510.007,490.692) mm
+Warning 8 -- Objects in Net GPIO16 are physically connected but not routed poin
+t-to-point.
+   * Line at (510.360,491.046):(508.400,493.006) mm [Top layer]
+   * Pad DD4-127 at (510.360,491.046) mm
+Warning 9 -- Objects in Net GPIO19 are physically connected but not routed poin
+t-to-point.
+   * Line at (511.421,492.107):(509.900,493.628) mm [Top layer]
+   * Pad DD4-124 at (511.421,492.107) mm
+
+9 warning(s) detected.
+0 error(s) detected.
+
+CLEARANCE VIOLATIONS:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+UNROUTED NETS:
+
+
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:48                                            Page    2
+
+P-CAD Design Rule Check Report
+
+======================================================================
+
+0 warning(s) detected.
+0 error(s) detected.
+
+UNCONNECTED PINS:
+
+Error 1 -- Unconnected pin:
+   * Pad XS4-2 at (507.400,435.800) mm
+Error 2 -- Unconnected pin:
+   * Pad XS4-6 at (505.300,438.300) mm
+Error 3 -- Unconnected pin:
+   * Pad XS2-4 at (543.540,435.930) mm
+Error 4 -- Unconnected pin:
+   * Pad XS2-2 at (538.460,435.930) mm
+Error 5 -- Unconnected pin:
+   * Pad DD6-23 at (566.400,471.150) mm
+Error 6 -- Unconnected pin:
+   * Pad DD6-25 at (566.400,469.550) mm
+Error 7 -- Unconnected pin:
+   * Pad DD6-42 at (566.400,455.950) mm
+Error 8 -- Unconnected pin:
+   * Pad DD6-44 at (566.400,454.350) mm
+Error 9 -- Unconnected pin:
+   * Pad DD6-24 at (566.400,470.350) mm
+Error 10 -- Unconnected pin:
+   * Pad DD6-43 at (566.400,455.150) mm
+Error 11 -- Unconnected pin:
+   * Pad DD6-22 at (578.400,471.150) mm
+Error 12 -- Unconnected pin:
+   * Pad DD6-1 at (578.400,454.350) mm
+Error 13 -- Unconnected pin:
+   * Pad DD6-21 at (578.400,470.350) mm
+Error 14 -- Unconnected pin:
+   * Pad DD6-2 at (578.400,455.150) mm
+Error 15 -- Unconnected pin:
+   * Pad XP5-8 at (559.700,451.550) mm
+Error 16 -- Unconnected pin:
+   * Pad XP5-7 at (557.150,451.550) mm
+Error 17 -- Unconnected pin:
+   * Pad XS3-2 at (524.500,435.800) mm
+Error 18 -- Unconnected pin:
+   * Pad XS3-6 at (522.400,438.300) mm
+Error 19 -- Unconnected pin:
+   * Pad XS1-11 at (555.500,508.700) mm
+Error 20 -- Unconnected pin:
+   * Pad XS1-9 at (561.200,506.100) mm
+Error 21 -- Unconnected pin:
+   * Pad XS1-4 at (562.400,503.600) mm
+Error 22 -- Unconnected pin:
+   * Pad DD4-143 at (504.704,485.389) mm
+
+0 warning(s) detected.
+22 error(s) detected.
+Warning: Net length violation tests were not performed because
+         of missing MinNetLength, MaxNetLength, or MatchedLength rules.
+
+NETLIST LENGTH VIOLATIONS:
+
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:48                                            Page    3
+
+P-CAD Design Rule Check Report
+
+======================================================================
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+WIDTH VIOLATIONS:
+
+Warning: Width violation tests were not performed because
+         of missing Width rule.
+
+0 warning(s) detected.
+0 error(s) detected.
+
+COPPER POUR VIOLATIONS:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+PLANE VIOLATIONS:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+COMPONENT VIOLATIONS:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+DRILL VIOLATIONS:
+
+
+0 warning(s) detected.
+0 error(s) detected.
+
+DRC Summary:
+------------
+
+Netlist:
+	Errors:         0
+	Warnings:       9
+	Ignored Errors: 0
+Clearance:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Unrouted Nets:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Unconnected Pins:
+	Errors:         22
+	Warnings:       0
+	Ignored Errors: 0
+Net Length:
+	Errors:         0
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:48                                            Page    4
+
+P-CAD Design Rule Check Report
+
+======================================================================
+
+	Warnings:       0
+	Ignored Errors: 0
+Width:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Copper Pour:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Plane:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Component:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+Drilling:
+	Errors:         0
+	Warnings:       0
+	Ignored Errors: 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+20-Oct-13  22:48                                            Page    5
+
