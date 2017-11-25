@@ -1,2 +1,2 @@
-OSCES-FRAMEWORK
+OSCES
 ===============
