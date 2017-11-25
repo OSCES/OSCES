@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Emulator.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\Apu.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\ApuRegisters.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\NoiseGenerator.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\SquareGenerator.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\TriangleGenerator.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Cartridge.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\GameRomAnaliser.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\AoRom.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\IMapper.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc1.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc3.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\NoRom.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\UnRom.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Control\Control.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cpu\Cpu.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cpu\CpuOpCodes.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Cpu\CpuRegisters.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\GameConsole.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Ppu\Ppu.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Ppu\PpuPalette.cpp" />
+    <ClCompile Include="..\..\..\src\GameConsole\Ppu\PpuRegisters.cpp" />
+    <ClCompile Include="..\..\..\src\Games\Balloon_Fight.cpp" />
+    <ClCompile Include="..\..\..\src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\Emulator.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\Apu.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\ApuRegisters.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\NoiseGenerator.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\SquareGenerator.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\TriangleGenerator.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Cartridge.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\GameRomAnaliser.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\AoRom.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\CartridgeMapperTypes.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\IMapper.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc1.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc3.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\NoRom.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\UnRom.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Control\Control.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cpu\Cpu.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cpu\CpuOpCodes.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Cpu\CpuRegisters.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\GameConsole.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Ppu\Ppu.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Ppu\PpuPalette.h" />
+    <ClInclude Include="..\..\..\src\GameConsole\Ppu\PpuRegisters.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{44C2D06E-DF8C-42A5-8AAF-BC0883F088D2}</ProjectGuid>
+    <RootNamespace>project</RootNamespace>
+    <ProjectName>NES_Emulator</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)..\..\..\build\bin\Windows\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\out\Windows\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)..\..\..\build\bin\Windows\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\out\Windows\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\..\..\OSCES-FRAMEWORK;..\..\..\..\..\OSCES-FRAMEWORK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile />
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libOSCES_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\..\..\..\..\OSCES-FRAMEWORK\build\bin\Windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <Lib>
+      <OutputFile>../../../build/Windows/libOSCES$(TargetExt)</OutputFile>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>..\..\..\thirdparty\SDL2-VC\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <BuildLog>
+      <Path>$(ProjectDir)..\..\..\build\out\Windows\$(Configuration)\build.log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\OSCES-FRAMEWORK;..\..\..\..\..\OSCES-FRAMEWORK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\..\..\..\..\OSCES-FRAMEWORK\build\bin\Windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libOSCES.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
+    <Lib>
+      <OutputFile>../../lib/libOSCES$(TargetExt)</OutputFile>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\thirdparty\SDL2-VC\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <BuildLog>
+      <Path>$(ProjectDir)..\..\..\build\out\Windows\$(Configuration)\build.log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

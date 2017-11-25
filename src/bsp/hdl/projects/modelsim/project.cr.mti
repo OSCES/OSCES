@@ -1,0 +1,22 @@
+H:/OscesRepo/OSCES-BSP/hdl/src/VgaRenderer.v {1 {vlog -work work H:/OscesRepo/OSCES-BSP/hdl/src/VgaRenderer.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module VgaRenderer
+
+Top level modules:
+	VgaRenderer
+
+} {} {}} H:/OscesRepo/OSCES-BSP/hdl/src/TopModule.v {1 {vlog -work work {H:\OscesRepo\OSCES-BSP\hdl\src\TopModule.v}
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module TopModule
+
+Top level modules:
+	TopModule
+
+} {} {}} H:/OscesRepo/OSCES-BSP/hdl/src/VgaSyncGenerator.v {1 {vlog -work work H:/OscesRepo/OSCES-BSP/hdl/src/VgaSyncGenerator.v
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module VgaSyncGenerator
+
+Top level modules:
+	VgaSyncGenerator
+
+} {} {}}

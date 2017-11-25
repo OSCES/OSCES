@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\GameConsole">
+      <UniqueIdentifier>{2a8eeb75-46b9-402f-96e2-ebeeb0640c0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Games">
+      <UniqueIdentifier>{1e6f7726-9c3b-4b7d-bff8-cd1e2147ac19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameConsole\Apu">
+      <UniqueIdentifier>{84dae0b8-f8e6-4e47-92aa-abf6f03b6035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameConsole\Cartridge">
+      <UniqueIdentifier>{e040b730-919d-4a24-8ae4-6884817029e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameConsole\Control">
+      <UniqueIdentifier>{413b2789-5a62-4df4-ac64-fc761815c816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameConsole\Cpu">
+      <UniqueIdentifier>{f420778a-0541-44f1-8211-d47faa15f32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameConsole\Ppu">
+      <UniqueIdentifier>{db89b179-ca22-4a4f-9144-b3ae787a3f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameConsole\Cartridge\Mappers">
+      <UniqueIdentifier>{e947cc16-3994-4c16-b70b-ee6df5124f46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\Apu.cpp">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\ApuRegisters.cpp">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\NoiseGenerator.cpp">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\SquareGenerator.cpp">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Apu\TriangleGenerator.cpp">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Cartridge.cpp">
+      <Filter>Source Files\GameConsole\Cartridge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\GameRomAnaliser.cpp">
+      <Filter>Source Files\GameConsole\Cartridge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\AoRom.cpp">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\IMapper.cpp">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc1.cpp">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc3.cpp">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\NoRom.cpp">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cartridge\Mappers\UnRom.cpp">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Control\Control.cpp">
+      <Filter>Source Files\GameConsole\Control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cpu\Cpu.cpp">
+      <Filter>Source Files\GameConsole\Cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cpu\CpuOpCodes.cpp">
+      <Filter>Source Files\GameConsole\Cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Cpu\CpuRegisters.cpp">
+      <Filter>Source Files\GameConsole\Cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Ppu\Ppu.cpp">
+      <Filter>Source Files\GameConsole\Ppu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Ppu\PpuPalette.cpp">
+      <Filter>Source Files\GameConsole\Ppu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\Ppu\PpuRegisters.cpp">
+      <Filter>Source Files\GameConsole\Ppu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GameConsole\GameConsole.cpp">
+      <Filter>Source Files\GameConsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Games\Balloon_Fight.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Emulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\Apu.h">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\ApuRegisters.h">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\NoiseGenerator.h">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\SquareGenerator.h">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Apu\TriangleGenerator.h">
+      <Filter>Source Files\GameConsole\Apu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Cartridge.h">
+      <Filter>Source Files\GameConsole\Cartridge</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\GameRomAnaliser.h">
+      <Filter>Source Files\GameConsole\Cartridge</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\AoRom.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\CartridgeMapperTypes.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\IMapper.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc1.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\Mmc3.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\NoRom.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cartridge\Mappers\UnRom.h">
+      <Filter>Source Files\GameConsole\Cartridge\Mappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Control\Control.h">
+      <Filter>Source Files\GameConsole\Control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cpu\Cpu.h">
+      <Filter>Source Files\GameConsole\Cpu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cpu\CpuOpCodes.h">
+      <Filter>Source Files\GameConsole\Cpu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Cpu\CpuRegisters.h">
+      <Filter>Source Files\GameConsole\Cpu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Ppu\Ppu.h">
+      <Filter>Source Files\GameConsole\Ppu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Ppu\PpuPalette.h">
+      <Filter>Source Files\GameConsole\Ppu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\Ppu\PpuRegisters.h">
+      <Filter>Source Files\GameConsole\Ppu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\GameConsole\GameConsole.h">
+      <Filter>Source Files\GameConsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Emulator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
