@@ -6,25 +6,25 @@
 #include "KeyboardPlatform.h"
 #include "Display/DisplayPlatform.h"
 
-class OscesFramework : public OscesFrameworkInterface
+class OscesCore : public OscesFrameworkInterface
 {
 public:
-    OscesFramework();
+    OscesCore();
     DisplayInterface*  display();
     KeyboardInterface* keyboard();
     SysTimerInterface* sysTimer();
     bool applicationRunning();
 
-    OscesFrameworkStatus Init();
-    void DeInit();
+    OscesFrameworkStatus init();
+    void deInit();
 
 private:
-    DisplayPlatform *m_pDisplay;
-    KeyboardPlatform *m_pKeyboard;
-    SysTimerPlatform *m_pSysTimer;
+    DisplayPlatform *m_display;
+    KeyboardPlatform *m_keyboard;
+    SysTimerPlatform *m_sysTimer;
 
 private:
-    bool m_IsApplicationRun;
+    bool m_applicationRunning;
 };
 
 

@@ -4,12 +4,12 @@
 extern "C" void __iar_program_start(void);
 extern "C" void __main(void);
 
-void* InterruptManager::m_pContextTable[InterruptVector::VectorsCount] =
+void* InterruptManager::m_contextTable[InterruptVector::VectorsCount] =
 {
     0
 };
 
-InterruptRoutine InterruptManager::m_IntRoutineTable[InterruptVector::VectorsCount] =
+InterruptRoutine InterruptManager::m_intRoutineTable[InterruptVector::VectorsCount] =
 {
     DefaultInterruptRoutine
 };
@@ -18,18 +18,27 @@ void InterruptManager::init()
 {
     for (uint8_t index = 0; index < InterruptVector::VectorsCount; ++index)
     {
-        m_pContextTable[index] = 0;
-        m_IntRoutineTable[index] = DefaultInterruptRoutine;
+        m_contextTable[index] = 0;
+        m_intRoutineTable[index] = DefaultInterruptRoutine;
     }
 }
 
-void InterruptManager::registerInterrupt(void *context, uint16_t vector, InterruptRoutine routine)
+void InterruptManager::registerInterrupt(void *context, InterruptVector vector, InterruptRoutine routine)
 {
     if (vector < 0 && vector >= InterruptVector::VectorsCount)
         return;
 
-    m_pContextTable[vector] = context;
-    m_IntRoutineTable[vector] = routine;
+    m_contextTable[vector] = context;
+    m_intRoutineTable[vector] = routine;
+}
+
+void InterruptManager::unregisterInterrupt(InterruptVector vector)
+{
+    if (vector < 0 && vector >= InterruptVector::VectorsCount)
+        return;
+
+    m_contextTable[vector] = 0;
+    m_intRoutineTable[vector] = DefaultInterruptRoutine;
 }
 
 void InterruptManager::disableInterrupt()
@@ -42,7 +51,7 @@ void InterruptManager::enableInterrupt()
     __enable_interrupt();
 }
 
-void InterruptManager::DefaultInterruptRoutine(void* context)
+void InterruptManager::DefaultInterruptRoutine(void *context)
 {
     while (true) // Trap
     {
@@ -599,7 +608,7 @@ void InterruptManager::HashRngIrqHandler()
 #pragma language = extended
 #pragma segment  = "CSTACK"
 #pragma location = ".intvec"
-__root const InterruptManager::HandlerItem InterruptManager::m_InterruptVectorTable[InterruptVector::VectorsCount] =
+__root const InterruptManager::HandlerItem InterruptManager::m_interruptVectorTable[InterruptVector::VectorsCount] =
 {
     { .handler = __sfe("CSTACK") }          ,
     ResetHandler                            ,  //Reset Handler

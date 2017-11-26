@@ -4,16 +4,17 @@
 #include "OscesFrameworkInterface.h"
 #include "Kernel/SchedulerPlatform.h"
 
+class Kernel;
 class DisplayPlatform;
 class KeyboardPlatform;
 class SysTimerPlatform;
 class SchedulerPlatform;
 
-class OscesFramework : public OscesFrameworkInterface
+class OscesCore : public OscesFrameworkInterface
 {
 public:
-    OscesFramework();
-    ~OscesFramework();
+    OscesCore();
+    ~OscesCore();
 
     DisplayInterface* display();
     KeyboardInterface* keyboard();
@@ -28,6 +29,7 @@ public:
     void threadYield();
 
 private:
+    Kernel *m_kernel;
     DisplayPlatform *m_display;
     KeyboardPlatform *m_keyboard;
     SysTimerPlatform *m_sysTimer;

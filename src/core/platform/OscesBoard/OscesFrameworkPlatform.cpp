@@ -17,97 +17,77 @@
 #include <stdlib.h>
 
 extern OscesApplicationStatus osces_main(OscesFrameworkInterface *system);
-Kernel m_Kernel;
-uint8_t ProcessStack[512];
-RCC_ClocksTypeDef freq;
-
-OscesFramework::OscesFramework() :
-    m_applicationRunning(true)
-{
-}
-
-OscesFramework::~OscesFramework()
-{
-}
-
-SysTimerInterface* OscesFramework::sysTimer()
-{
-    return m_sysTimer;
-}
-
-DisplayInterface* OscesFramework::display()
-{
-    return m_display;
-}
-
-KeyboardInterface* OscesFramework::keyboard()
-{
-    return m_keyboard;
-}
-
-ThreadInterface* OscesFramework::threadCreate(uint32_t stackSize, ThreadRoutine fpThreadRoutine, void* context )
-{
-    ThreadPlatform* pThreadPlatform = new ThreadPlatform( &m_Kernel );
-
-    uint32_t threadId = m_scheduler->threadCreate( stackSize, fpThreadRoutine, pThreadPlatform, context );
-
-    pThreadPlatform->setId( threadId );
-
-    return pThreadPlatform;
-}
-
-void  OscesFramework::threadDestroy(ThreadInterface* thread )
-{
-    ThreadPlatform* pThreadPlatform = static_cast< ThreadPlatform* >( thread ); //TODO: delete cast !!!
-
-    uint32_t threadId = pThreadPlatform->id();
-
-    m_scheduler->threadDestroy( threadId );
-
-    delete thread;// pThreadPlatform;
-}
-
-void OscesFramework::threadYield()
-{
-    uint32_t currentThreadId = 0;
-    m_scheduler->threadYield(currentThreadId);
-}
-
 
 void *operator new(size_t size)
 {
     return malloc(size);
 }
+
 void operator delete(void *p)
 {
     free(p);
 }
 
-int main()
+// -----------------------------------------------------------
+
+OscesCore::OscesCore() :
+    m_kernel(0),
+    m_display(0),
+    m_keyboard(0),
+    m_sysTimer(0),
+    m_scheduler(0),
+    m_applicationRunning(true)
 {
-    ClockManager clockManager;
-    clockManager.setSystemClock(ClockManager::SysClock_120MHz);
-
-    //__svc(SVC_00);
-    //__svc(0);
-    asm("nop");
-    //m_Kernel.Init();
-
-    OscesFramework  oscesFramework;
-    oscesFramework.init();
-    osces_main(&oscesFramework);
-    oscesFramework.deInit();
-
-    return 0;
 }
 
-//$PROJ_DIR$\..\..\..\thirdparty\STM32F4\STM32F4xx_StdPeriph_Driver\stm32f4xx_conf.h
-bool OscesFramework::applicationRunning()
+OscesCore::~OscesCore()
+{
+}
+
+SysTimerInterface* OscesCore::sysTimer()
+{
+    return m_sysTimer;
+}
+
+DisplayInterface* OscesCore::display()
+{
+    return m_display;
+}
+
+KeyboardInterface* OscesCore::keyboard()
+{
+    return m_keyboard;
+}
+
+ThreadInterface* OscesCore::threadCreate(uint32_t stackSize, ThreadRoutine fpThreadRoutine, void* context )
+{
+    ThreadPlatform *pThreadPlatform = new ThreadPlatform(&m_kernel);
+    uint32_t threadId = m_scheduler->threadCreate(stackSize, fpThreadRoutine, pThreadPlatform, context);
+    pThreadPlatform->setId(threadId);
+    return pThreadPlatform;
+}
+
+void  OscesCore::threadDestroy(ThreadInterface *thread)
+{
+    ThreadPlatform *pThreadPlatform = static_cast<ThreadPlatform *>(thread); //TODO: delete cast !!!
+    uint32_t threadId = pThreadPlatform->id();
+    m_scheduler->threadDestroy(threadId);
+    delete thread;
+    thread = 0;
+}
+
+void OscesCore::threadYield()
+{
+    uint32_t currentThreadId = 0;
+    m_scheduler->threadYield(currentThreadId);
+}
+
+bool OscesCore::applicationRunning()
 {
     return m_applicationRunning;
 }
 
-OscesFrameworkStatus OscesFramework::init()
+OscesFrameworkStatus OscesCore::init()
 {
     OscesFrameworkStatus status = OSCES_FRAMEWORK_INIT_SUCCESS;
 
@@ -126,6 +106,7 @@ OscesFrameworkStatus OscesFramework::init()
 
     try
     {
+        m_kernel = new Kernel;
         m_display = new DisplayPlatform;
         m_keyboard = new KeyboardPlatform;
         m_sysTimer = new SysTimerPlatform;
@@ -158,11 +139,28 @@ OscesFrameworkStatus OscesFramework::init()
     return status;
 }
 
-
-void OscesFramework::deInit()
+void OscesCore::deInit()
 {
     delete m_scheduler;
     delete m_sysTimer;
     delete m_keyboard;
     delete m_display;
+}
+
+int main()
+{
+    ClockManager clockManager;
+    clockManager.setSystemClock(ClockManager::SysClock_120MHz);
+
+    //__svc(SVC_00);
+    //__svc(0);
+    asm("nop");
+    //m_kernel.Init();
+
+    OscesCore oscesFramework;
+    oscesFramework.init();
+    osces_main(&oscesFramework);
+    oscesFramework.deInit();
+
+    return 0;
 }

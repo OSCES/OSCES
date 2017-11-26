@@ -8,27 +8,27 @@
 //extern OscesApplicationStatus_t osces_main( void );// OscesFrameworkInterface_t* system );
 extern OscesApplicationStatus osces_main(OscesFrameworkInterface *system);
 
-OscesFramework::OscesFramework()
+OscesCore::OscesCore()
 {
-    m_IsApplicationRun = true;
+    m_applicationRunning = true;
 }
 
-SysTimerInterface* OscesFramework::sysTimer()
+SysTimerInterface* OscesCore::sysTimer()
 {
-    return m_pSysTimer;
+    return m_sysTimer;
 }
 
-DisplayInterface* OscesFramework::display()
+DisplayInterface* OscesCore::display()
 {
-    return m_pDisplay;
+    return m_display;
 }
 
-KeyboardInterface* OscesFramework::keyboard()
+KeyboardInterface* OscesCore::keyboard()
 {
-    return m_pKeyboard;
+    return m_keyboard;
 }
 
-bool OscesFramework::applicationRunning()
+bool OscesCore::applicationRunning()
 {
     SDL_Event sdlEvent;
 
@@ -38,7 +38,7 @@ bool OscesFramework::applicationRunning()
         {
             if( sdlEvent.window.event == SDL_WINDOWEVENT_RESIZED )
             {
-                m_pDisplay->WindowResize( sdlEvent.window.data1,sdlEvent.window.data2 );
+                m_display->WindowResize( sdlEvent.window.data1,sdlEvent.window.data2 );
             }
         }
 
@@ -48,7 +48,7 @@ bool OscesFramework::applicationRunning()
             key.Event   = KeyPressed;
             key.KeyCode = (KeyCode)sdlEvent.key.keysym.scancode;
 
-            m_pKeyboard->OnEvent( key );
+            m_keyboard->OnEvent( key );
         }
         else if( sdlEvent.type == SDL_KEYUP )
         {
@@ -56,19 +56,19 @@ bool OscesFramework::applicationRunning()
             key.Event   = KeyReleased;
             key.KeyCode = (KeyCode)sdlEvent.key.keysym.scancode;
 
-            m_pKeyboard->OnEvent( key );
+            m_keyboard->OnEvent( key );
         }
 
         if(  SDL_QUIT == sdlEvent.quit.type )
         {
-            m_IsApplicationRun = false;
+            m_applicationRunning = false;
         }
     }
 
-    return m_IsApplicationRun;
+    return m_applicationRunning;
 }
 
-OscesFrameworkStatus OscesFramework::Init()
+OscesFrameworkStatus OscesCore::init()
 {
     OscesFrameworkStatus status = OSCES_FRAMEWORK_INIT_SUCCESS;
 
@@ -86,46 +86,42 @@ OscesFrameworkStatus OscesFramework::Init()
             break;
         }
 
-        m_pDisplay  = new DisplayPlatform;
-        m_pKeyboard = new KeyboardPlatform;
-        m_pSysTimer = new SysTimerPlatform;
+        m_display  = new DisplayPlatform;
+        m_keyboard = new KeyboardPlatform;
+        m_sysTimer = new SysTimerPlatform;
 
     }while( false );
 
-    m_pDisplay->init( 400, 300, true);
+    m_display->init( 400, 300, true);
 
-    m_pDisplay->clear();
-    m_pDisplay->flip();
-    m_pDisplay->clear();
-    m_pDisplay->flip();
+    m_display->clear();
+    m_display->flip();
+    m_display->clear();
+    m_display->flip();
 
     return status;
 }
 
 
-void OscesFramework::DeInit()
+void OscesCore::deInit()
 {
-    delete m_pSysTimer;
-    delete m_pKeyboard;
-    delete m_pDisplay;
+    delete m_sysTimer;
+    delete m_keyboard;
+    delete m_display;
 }
 
-
-#ifdef WIN32
-#include <windows.h>
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) //For Visual Studio
-//int SDL_main(int argc, char *argv[])
-#else
-int main()
+#define NEEDS_OSCES_MAIN
+#if defined(NEEDS_OSCES_MAIN)
+int osces_main(int, char **);
+#define main osces_main
 #endif
+
+int main(int argc, char *argv[])
 {
-    OscesFramework *System = new OscesFramework;
-
-    System->Init();
-
-    osces_main(System);//pOscesFramework );
-
-    System->DeInit();
+    OscesCore *system = new OscesCore;
+    system->init();
+    main(system);
+    system->deInit();
 
     return 0;
 }

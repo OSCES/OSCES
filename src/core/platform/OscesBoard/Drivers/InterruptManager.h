@@ -122,7 +122,8 @@ class InterruptManager
 {
 public:
     static void init();
-    static void registerInterrupt(void* context, uint16_t Vector, InterruptRoutine routine );
+    static void registerInterrupt(void *context, InterruptVector vector, InterruptRoutine routine);
+    static void unregisterInterrupt(InterruptVector vector);
 
     static void disableInterrupt();
     static void enableInterrupt();
@@ -135,9 +136,9 @@ private:
         void *handler;
     };
 
-    static void *m_pContextTable[];
-    static const HandlerItem m_InterruptVectorTable[];
-    static InterruptRoutine m_IntRoutineTable[];
+    static void *m_contextTable[];
+    static const HandlerItem m_interruptVectorTable[];
+    static InterruptRoutine m_intRoutineTable[];
 
 private:
     static void DefaultInterruptRoutine(void *context);

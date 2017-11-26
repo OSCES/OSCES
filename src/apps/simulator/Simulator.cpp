@@ -1,7 +1,9 @@
 #include "OscesFrameworkInterface.h"
 
+#define main osces_main
+
 // Rework osces_main
-OscesApplicationStatus osces_main(OscesFrameworkInterface *system)
+OscesApplicationStatus main(OscesFrameworkInterface *system)
 {
     do
     {
