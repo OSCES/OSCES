@@ -12,7 +12,7 @@ public:
 
     }
 
-    Display *display;
+    VideoDevice *display;
     SysTimer *sysTimer;
 };
 
@@ -43,7 +43,7 @@ int Osces::exec()
     return ret;
 }
 
-Display *Osces::display()
+VideoDevice *Osces::display()
 {
 
 }

@@ -2,7 +2,7 @@
 #define DISPLAY_PLATFORM_H
 
 #include <stdint.h>
-#include "crossplatform/System/Display/Display.h"
+#include "Display.h"
 #include "FsmcDriver.h"
 
 enum DisplayBuffer

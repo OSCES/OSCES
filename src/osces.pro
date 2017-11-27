@@ -188,7 +188,10 @@ HEADERS = \
     core/include/osces.h \
     core/new/include/OscesDefs.h \
     core/new/include/Osces.h \
-    core/new/include/NonCopyable.h
+    core/new/include/NonCopyable.h \
+    core/new/include/Screen.h \
+    core/new/include/Painter.h \
+    core/new/include/PlatformScreen.h
 
 SOURCES = \
    $$PWD/apps/nes_emulator/src/GameConsole/Apu/Apu.cpp \
@@ -289,7 +292,11 @@ SOURCES = \
    $$PWD/thirdparty/STM32F4/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.c \
    $$PWD/thirdparty/STM32F4/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_wwdg.c \
     core/new/include/Oscesces.cpp \
-    core/new/include/Osces.cpp
+    core/new/include/Osces.cpp \
+    core/new/include/Display.cpp \
+    core/new/include/Screen.cpp \
+    core/new/include/Painter.cpp \
+    core/new/include/PlatformScreen.cpp
 
 INCLUDEPATH = \
     $$PWD/apps/nes_emulator/src \

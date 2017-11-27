@@ -80,7 +80,7 @@ void DisplayPlatform::drawPixel(uint16_t x, uint16_t y, const Color &color)
 void DisplayPlatform::drawPixel(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b)
 {
     uint8_t *data = frameBuffer();
-    data += m_width * y + x;
+    data += m_width * y + x * BitsPerPixel;
 
     PixelStruct pixel;
     pixel.red   = RedGreenColorValue[r];

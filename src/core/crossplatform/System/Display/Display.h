@@ -1,7 +1,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include "include/DisplayInterface.h"
+#include "DisplayInterface.h"
 
 
 class Display : public DisplayInterface

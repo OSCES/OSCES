@@ -3,7 +3,7 @@
 
 class OscesPrivate;
 
-class Display;
+class VideoDevice;
 class SysTimer;
 
 class Osces
@@ -17,7 +17,7 @@ public:
 
     int exec();
 
-    Display* display();
+    VideoDevice* display();
     SysTimer* sysTimer();
 
 private:
