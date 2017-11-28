@@ -4,9 +4,12 @@
     06/11/2012
 */
 
+#include "OscesCore.h"
+#include "VideoSystem.h"
+#include "AbstractDisplay.h"
+#include "PaintEngine.h"
 #include "Emulator.h"
 #include <stdio.h>
-#include "OscesFrameworkInterface.h"
 
 extern uint8_t GameFile[];
 
@@ -16,31 +19,23 @@ void Emulator_t::Init()
 
     m_GameConsole.SetPresentFrameCallBack( PresentFrame, this );
     m_GameConsole.SetRomFileAccesCallBack( RomFileAcces, this );
-//    m_GameConsole.SetAudioSamplingRate( AUDIO_DAC_SAMPLING_RATE );  
+    //    m_GameConsole.SetAudioSamplingRate( AUDIO_DAC_SAMPLING_RATE );
     m_GameConsole.Init();
 }
 
-uint32_t frames = 0;
-uint32_t fps = 0;
-
 bool Emulator_t::Run()
 {
-    bool isExit = false;
-    
-    uint32_t msec = Sys::GetSysTimer()->GetValueUsec();
-        
-    m_GameConsole.Run( msec );
+    uint32_t msec = OscesCore::tickCount();
+    m_GameConsole.Run(msec);
+
+    static uint32_t frames = 0;
+    static uint32_t fps = 0;
 
     frames++;
-
     fps = m_GameConsole.GetFramesPerSecond();
-                            
-    char fpsStr[20];
-    sprintf( fpsStr, "FPS = %d", fps );
-            
-    Sys::GetDisplay()->SetTitle( fpsStr );
+    OscesCore::videoSystem()->display()->updateFpsInfo(fps);
 
-    return isExit;
+    return false;
 }
 
 void Emulator_t::AudioDacQueryFrame( _out_ void* pContext, _out_ int16_t* pData, _in_ uint16_t bytesCnt )
@@ -67,52 +62,31 @@ void Emulator_t::RomFileAcces( _in_ void * pContext, _out_ uint8_t* pData, _in_ 
     }
 }
 
-//#define DISPLAY_332
-
 void Emulator_t::PresentFrame( _in_ void * pContext, uint8_t* pData, uint16_t len, uint16_t posInFrame )
-{    
-
-   //Emulator_t* emulator = static_cast<Emulator_t *>(pContext);
-
-
-#ifdef DISPLAY_332
-
-    static uint8_t* pPixel = ( uint8_t* )Sys::GetDisplay()->GetFrameBuffer();
-    static uint8_t* pPalette = GetPalettePixel332();
-    static uint32_t displayAlign = Sys::GetDisplay()->GetSizeHorizontal() - PPU_HORIZONTAL_RESOLUTION;
-
-    if( 0 == posInFrame )
-    {
-        Sys::GetDisplay()->Flip();
-        pPixel = ( uint8_t* )Sys::GetDisplay()->GetFrameBuffer();
-    }
-    	
-    for( uint16_t xVisible = 0; xVisible < PPU_HORIZONTAL_RESOLUTION; xVisible++ ) 
-    {
-        *pPixel ++= pPalette[ *pData++ ];
-    }
-
-    pPixel += displayAlign;
-
-#else
-
-    static uint32_t* pPixel = ( uint32_t* )Sys::GetDisplay()->GetFrameBuffer();
+{
     static uint32_t* pPalette = GetPalettePixelRGBA();
-    static uint32_t  displayAlign = Sys::GetDisplay()->GetSizeHorizontal() - PPU_HORIZONTAL_RESOLUTION;
+    static int y = 0;
+    static PaintEngine paintEngine;
+    static AbstractDisplay *display = OscesCore::videoSystem()->display();
+    static int xOffset = (display->width() - PPU_HORIZONTAL_RESOLUTION) / 2;
+    static int yOffset = (display->height() - PPU_VERTICAL_PAL_RESOLUTION) / 2;
 
-    if( 0 == posInFrame )
+    if (posInFrame == 0)
     {
-          Sys::GetDisplay()->Flip();
-          pPixel = ( uint32_t* )Sys::GetDisplay()->GetFrameBuffer();
+        paintEngine.drawEnd();
+        y = yOffset;
     }
-    
-    for( uint16_t xVisible = 0; xVisible < PPU_HORIZONTAL_RESOLUTION; xVisible++ ) 
+
+    paintEngine.drawBegin(display);
+    for (int x = xOffset; x < PPU_HORIZONTAL_RESOLUTION + xOffset; ++x)
     {
-          *pPixel ++= pPalette[ *pData++ ];
+        uint32_t rgb = pPalette[*pData++];
+        uint8_t r = (rgb >> 24) & 0xFF;
+        uint8_t g = (rgb >> 16) & 0xFF;
+        uint8_t b = (rgb >> 8) & 0xFF;
+        Color color(r, g, b);
+        paintEngine.setPenColor(color);
+        paintEngine.drawPixel(x, y);
     }
-
-    pPixel += displayAlign;
-
-#endif
-
+    ++y;
 }

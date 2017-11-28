@@ -64,14 +64,14 @@ void GameConsole_t::Init(void)
     m_Cartridge.Reset();
 
     m_Cpu.SetBusReadCallBack( CpuBusRead, this );
-    m_Cpu.SetBusWriteCallBack( CpuBusWrite, this ); 
+    m_Cpu.SetBusWriteCallBack( CpuBusWrite, this );
     m_Cpu.Reset();
 
     m_Ppu.SetPresentFrameCallBack( fp_PresentFrameCallBack, m_pContext );
     m_Ppu.SetBusWriteCallBack( PpuBusWrite, this );
     m_Ppu.SetBusReadCallBack( PpuBusRead, this );
     m_Ppu.SetVsyncSignalCallBack( VsyncSignal, this );
-    m_Ppu.SetLineCounterCallBack( CartridgeIrqCallBack, this );    
+    m_Ppu.SetLineCounterCallBack( CartridgeIrqCallBack, this );
     m_Ppu.Reset();
 
     m_Apu.SetInterruptRequestCallBack( ApuInterruptReqest, this );
@@ -95,7 +95,7 @@ void GameConsole_t::CartridgeIrqCallBack( void* pContext )
 
 void GameConsole_t::Run( uint32_t sysTick )
 {
-
+    sysTick *= 1000;
     if( ( sysTick - m_FramesLastSysTick ) >= USECOND_IN_SECOND )
     {
         m_FramesLastSysTick = sysTick;
@@ -104,10 +104,10 @@ void GameConsole_t::Run( uint32_t sysTick )
     }
 
     uint32_t deltaTime = sysTick - m_LastSysTick;
-	
+
     if ( deltaTime > ONE_FRAME_TIME )
     {
-        m_LastSysTick = sysTick; 
+        m_LastSysTick = sysTick;
 
         m_CpuCycles = 0;
 
@@ -116,10 +116,10 @@ void GameConsole_t::Run( uint32_t sysTick )
         do
         {
             uint32_t cycles = m_Cpu.Run();
-            ppuCycles += m_Ppu.Run( cycles );            
+            ppuCycles += m_Ppu.Run( cycles );
         }
         while( ( ppuCycles < 89342  ) );
-        
+
         m_FramesCnt++;
     }
 
@@ -130,7 +130,7 @@ void GameConsole_t::CpuBusWrite( void * pContext, uint16_t busAddr, uint8_t busD
     GameConsole_t* gameConsole = static_cast<GameConsole_t *>(pContext);
 
     uint8_t readData = 0;
-    
+
 
     if( busAddr < 0x2000 )
     {
@@ -143,7 +143,7 @@ void GameConsole_t::CpuBusWrite( void * pContext, uint16_t busAddr, uint8_t busD
     }
     else if( busAddr <= 0x4017 )
     {
-    
+
         if( DMA_REG_CPU_ADDR == busAddr ) // DMA
         {
             uint16_t intMemAddr = busData << 8;
@@ -181,7 +181,7 @@ uint8_t GameConsole_t::CpuBusRead( void * pContext, uint16_t busAddr )
 
     uint8_t readData = 0;
 
-    
+
     if( busAddr < 0x2000)
     {
         busAddr &= 0x07FF; // CPU RAM mirroring
@@ -196,7 +196,7 @@ uint8_t GameConsole_t::CpuBusRead( void * pContext, uint16_t busAddr )
     {
         readData = gameConsole->m_Apu.Read( busAddr );
 
-        if( ( busAddr == 0x4016) || ( busAddr == 0x4017) ) 
+        if( ( busAddr == 0x4016) || ( busAddr == 0x4017) )
         {
             readData = gameConsole->m_Control.Read( busAddr );
         }

@@ -46,7 +46,7 @@ typedef void (*PresentFrameCallBack_t)     ( _out_ void * context, uint8_t* pDat
 typedef void (*RomFileAccesCallBack_t)     ( _out_ void * context, _out_ uint8_t* pData, _in_ uint32_t offset, _in_ uint16_t bytesCnt );
 
 
-      
+
 
 class GameConsole_t
 {
@@ -54,10 +54,10 @@ class GameConsole_t
 public:
     void SetPresentFrameCallBack( PresentFrameCallBack_t presentFrameCallBack, void * pContext );
     void SetRomFileAccesCallBack( RomFileAccesCallBack_t romFileAccesCallBack, void * pContext );
-        
+
     void Init(void);
     void SetAudioSamplingRate( uint32_t samplingRate );
-    
+
     //  ------ For Save Games ---------------
     void SaveGameContext( uint8_t* pData );
     void LoadGameContext( uint8_t* pData );
@@ -65,10 +65,10 @@ public:
 
     void Run( uint32_t sysTick );
     void SetButtonJoysticA( uint8_t button );
-    void SetButtonJoysticB( uint8_t button );   
+    void SetButtonJoysticB( uint8_t button );
     void GetAudioFrame( int16_t* pData, uint16_t len );
     uint16_t GetFramesPerSecond( void );
-    
+
 
 private:
     static void    CpuBusWrite( _out_ void* pContext, uint16_t busAddr, uint8_t busData );
@@ -85,11 +85,11 @@ private:
 
 private:
     Cpu_t          m_Cpu;
-    Ppu_t          m_Ppu;         
+    Ppu_t          m_Ppu;
     Control_t      m_Control;
     Apu_t          m_Apu;
     Cartridge_t    m_Cartridge;
-    uint8_t        m_Ram[ INTERNAL_RAM_SIZE ];        
+    uint8_t        m_Ram[ INTERNAL_RAM_SIZE ];
 
 private:
     //int32_t  m_CpuCount;

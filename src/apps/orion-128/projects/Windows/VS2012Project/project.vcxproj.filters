@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Display">
+      <UniqueIdentifier>{d0d4d546-e0e4-468e-bd6f-36ddcd443e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Keyboard">
+      <UniqueIdentifier>{06deafc3-fab4-41ea-8ebc-f4b082e9ab86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Renderer">
+      <UniqueIdentifier>{af3c63a6-c10b-49ff-84ff-914efde546e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Cpu">
+      <UniqueIdentifier>{0a17d76c-037a-4dbb-9454-d3a8a4d33126}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ppi">
+      <UniqueIdentifier>{7b3ce861-fa5f-41eb-afac-dee5cbe87e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ram">
+      <UniqueIdentifier>{a8dea20c-5d8d-4f40-8e2b-f592e73590e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThirdParty">
+      <UniqueIdentifier>{c4a9ed10-bfb9-4c4d-94ba-f0ff4dcff0de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThirdParty\Z80">
+      <UniqueIdentifier>{f5e9a3d4-f45d-4598-b4ab-2ef9bdbe01f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{ca1afc8c-f48e-4a06-9a4d-478da0b03bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Cpu">
+      <UniqueIdentifier>{489d148f-3088-4e41-9ac4-a69bc895a7b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Display">
+      <UniqueIdentifier>{f48ca9c8-c7e1-4ae8-9551-9613e35d0681}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Keyboard">
+      <UniqueIdentifier>{a2cbdf56-ad23-4a7e-82b1-00d528ade42a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Ppi">
+      <UniqueIdentifier>{54b0492f-a965-461e-9650-62bf456529af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Ram">
+      <UniqueIdentifier>{8ce52b7e-1546-43ab-846f-9730c76c9472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\Renderer">
+      <UniqueIdentifier>{f7742cf0-bbf7-43cf-93b2-17285e68ed7f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\Display\Display.h">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\KeyBoard\KeyBoard.h">
+      <Filter>Header Files\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Cpu\Cpu.h">
+      <Filter>Header Files\Cpu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Ram\Memory.h">
+      <Filter>Header Files\Ram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Renderer\Renderer.h">
+      <Filter>Header Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Ppi\Ppi.h">
+      <Filter>Header Files\Ppi</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\KeyBoard\KeyBoard.cpp">
+      <Filter>Source Files\src\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Cpu\Cpu.cpp">
+      <Filter>Source Files\src\Cpu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Ppi\Ppi.cpp">
+      <Filter>Source Files\src\Ppi</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Renderer\Renderer.cpp">
+      <Filter>Source Files\src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Ram\Memory.cpp">
+      <Filter>Source Files\src\Ram</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Display\Display.cpp">
+      <Filter>Source Files\src\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\thirdparty\Z80\Z80.cpp">
+      <Filter>Source Files\ThirdParty\Z80</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\main.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Orion.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

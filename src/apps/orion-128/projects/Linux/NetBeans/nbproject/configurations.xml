@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="94">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="Cpu" projectFiles="true">
+        <itemPath>../../../src/Cpu/Cpu.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Display" projectFiles="true">
+        <itemPath>../../../src/Display/Display.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="KeyBoard" projectFiles="true">
+        <itemPath>../../../src/KeyBoard/KeyBoard.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4" displayName="Ppi" projectFiles="true">
+        <itemPath>../../../src/Ppi/Ppi.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="Ram" projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="Renderer" projectFiles="true">
+        <itemPath>../../../src/Renderer/Renderer.h</itemPath>
+      </logicalFolder>
+      <itemPath>../../../src/Orion.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="Cpu" projectFiles="true">
+        <itemPath>../../../src/Cpu/Cpu.cpp</itemPath>
+        <itemPath>../../../thirdparty/Z80/Z80.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Display" projectFiles="true">
+        <itemPath>../../../src/Display/Display.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="KeyBoard" projectFiles="true">
+        <itemPath>../../../src/KeyBoard/KeyBoard.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4" displayName="Ppi" projectFiles="true">
+        <itemPath>../../../src/Ppi/Ppi.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="Ram" projectFiles="true">
+        <itemPath>../../../src/Ram/Memory.cpp</itemPath>
+        <itemPath>../../../src/Ram/Memory.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="Renderer" projectFiles="true">
+        <itemPath>../../../src/Renderer/Renderer.cpp</itemPath>
+      </logicalFolder>
+      <itemPath>../../../src/Orion.cpp</itemPath>
+      <itemPath>../../../src/main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <standard>3</standard>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <standard>4</standard>
+          <incDir>
+            <pElem>../../../thirdparty/SDL2-VC/include</pElem>
+            <pElem>../../../thirdparty/Z80</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/../../../../build/Linux/Debug/emulator</output>
+          <linkerAddLib>
+            <pElem>../../src/ExternalLibs/SDL/lib/../../src/ExternalLibs/SDL/lib</pElem>
+          </linkerAddLib>
+          <commandLine>-lSDL2</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../../../src/Cpu/Cpu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Cpu/Cpu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Display/Display.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Display/Display.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/KeyBoard/KeyBoard.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/KeyBoard/KeyBoard.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Orion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Orion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Ppi/Ppi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Ppi/Ppi.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Ram/Memory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Ram/Memory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Renderer/Renderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Renderer/Renderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../thirdparty/Z80/Z80.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../../../thirdparty/SDL2-VC/include</pElem>
+            <pElem>../../../thirdparty/Z80</pElem>
+          </incDir>
+          <commandLine>-O3 -Wstrict-aliasing</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/../../../../build/Linux/Release/emulator</output>
+          <commandLine>-lSDL2</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../../../src/Cpu/Cpu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Cpu/Cpu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Display/Display.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Display/Display.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/KeyBoard/KeyBoard.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/KeyBoard/KeyBoard.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Orion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Orion.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Ppi/Ppi.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Ppi/Ppi.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Ram/Memory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Ram/Memory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/Renderer/Renderer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../src/Renderer/Renderer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../../../src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="../../../thirdparty/Z80/Z80.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
