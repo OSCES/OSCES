@@ -66,20 +66,20 @@
 //#define PPU_SCREEN_PAGE2_BASE_ADDR          0x2400    // Начальный адрес второй экранной страници
 //#define PPU_SCREEN_PAGE3_BASE_ADDR          0x2800    // Начальный адрес третьей экранной страници
 //#define PPU_SCREEN_PAGE4_BASE_ADDR          0x2C00    // Начальный адрес четвертой экранной страници
-//#define PPU_SCREEN_PAGE_SIZE                0x0400    
+//#define PPU_SCREEN_PAGE_SIZE                0x0400
 //#define PPU_VISIBLE_SCAN_LINE_LENGTH        256       // Длина видимой области скан-линии ( в пикселях )
 //#define PPU_NON_VISIBLE_SCAN_LINE_LENGTH    85        // Длина невидимой области скан-линии ( в пикселях )
 //#define PPU_PRE_RENDERING_SCAN_LINES        1         // Количество скан линий между ??? и следующим кадром
 //#define PPU_VISIBLE_SCAN_LINES              240       // Количество скан видимых скан - линий
 //#define PPU_PAL_POST_RENDERING_SCAN_LINES   4         // Количество скан-линий после окончания прорисовки картинки до формирования NMI
 //#define PPU_PAL_SCAN_LINES_AFTER_NMI        20        // Количество скан-линий после формирования NMI до момента сброса флага NMI
-//#define PPU_NUMBER_OF_SYMBOLS_IN_LINE       32      // Максимальное количество знакомест в строке  
+//#define PPU_NUMBER_OF_SYMBOLS_IN_LINE       32      // Максимальное количество знакомест в строке
 //#define PPU_SCREEN_PAGE_SIZE                1024
 
 
 #define PPU_CYCLES_PER_LINE                 341
-#define PPU_SET_VERT_BLANK_CYCLE            1         // Номер цикла ( от начала линии ) на во время которого нужно установить VsyncFlag 
-#define PPU_CLR_VERT_BLANK_CYCLE            1         // Номер цикла ( от начала линии ) на во время которого нужно сбросить VsyncFlag 
+#define PPU_SET_VERT_BLANK_CYCLE            1         // Номер цикла ( от начала линии ) на во время которого нужно установить VsyncFlag
+#define PPU_CLR_VERT_BLANK_CYCLE            1         // Номер цикла ( от начала линии ) на во время которого нужно сбросить VsyncFlag
 
 
 #define PPU_SET_VBLANK_CYCLE            82183
@@ -137,13 +137,13 @@ union PpuBusAdress_t
         uint16_t FineScrollY     : 3;
         uint16_t                 : 1;
     };
-          
+
     struct
     {
         uint16_t LowPart         : 8;
         uint16_t MiddlePart      : 6;
         uint16_t HidhPart        : 1;
-        uint16_t                 : 1;         
+        uint16_t                 : 1;
     };
 
     struct
@@ -171,15 +171,15 @@ union PpuShiftReg_t
 class Ppu_t
 {
 public:
-    // -------------- Initialization ----------------        
+    // -------------- Initialization ----------------
     void SetBusWriteCallBack( PpuBusWriteCallBack_t busWriteCallBack, void * pContext );
     void SetBusReadCallBack( PpuBusReadCallBack_t busReadCallBack, void * pContext );
     void SetPresentFrameCallBack( PpuPresentFrameCallBack_t presentFrameCallBack, void * pContext );
     void SetVsyncSignalCallBack( PpuInterruptCallBack_t vsyncCallBack, void * pContext );
     void SetLineCounterCallBack( PpuInterruptCallBack_t lineCounterCallBack, void * pContext );
-    void Reset(void);
+    void Reset();
     //-----------------------------------------------
-        
+
     //  ------ For Save Games ---------------
     void SavePpuContext( uint8_t* pOutData );
     void LoadPpuContext( uint8_t* pInData );
@@ -189,10 +189,10 @@ public:
     uint8_t Read(uint16_t addr);
     void Write(uint16_t addr, uint8_t data);
     // ----------------------------------------------
-        
+
     uint32_t Run( uint16_t cpuCycles );
 
-           
+
 private:
     inline void RunVisibleScanLine  ( void );
     inline void RunPreRenderLine    ( void );
@@ -219,24 +219,24 @@ private:
     uint8_t        m_T     : 5;
 
 private:
-    uint8_t        m_FoneScanLine  [ PPU_HORIZONTAL_RESOLUTION ];        
+    uint8_t        m_FoneScanLine  [ PPU_HORIZONTAL_RESOLUTION ];
     uint8_t        m_PaletteFone   [ PPU_FONE_PALETTE_SIZE ];
     uint8_t        m_ScanLine      [ PPU_HORIZONTAL_RESOLUTION ];
     PpuShiftReg_t  m_FoneLowTile;
     PpuShiftReg_t  m_FoneHighTile;
-    PpuShiftReg_t  m_SymbolItemByte; 
+    PpuShiftReg_t  m_SymbolItemByte;
 
 
     uint8_t        m_AddrIncValue;
     uint8_t        m_SpriteSize;
     uint8_t        m_LastWritten;
     void*          m_pContext;
-    void*          m_pPresenFrameContext;    
+    void*          m_pPresenFrameContext;
 
 
 private:    // Call backs
     PpuBusWriteCallBack_t     fp_BusWriteCallBack;
-    PpuBusReadCallBack_t      fp_BusReadCallBack;            
+    PpuBusReadCallBack_t      fp_BusReadCallBack;
     PpuPresentFrameCallBack_t fp_PresentFrameCallBack;
     PpuInterruptCallBack_t    fp_VsyncSignalCallBack;
     PpuInterruptCallBack_t    fp_IrqHookCallBack;
@@ -251,7 +251,7 @@ private:
     SpriteFifo_t              m_SpriteFifo    [ PPU_MAX_NUMBER_OF_SPRITES_ON_LINE ];
     uint8_t                   m_SpriteScanLine[ PPU_HORIZONTAL_RESOLUTION ];
     uint8_t                   m_PaletteSprites[ PPU_SPRITES_PALETTE_SIZE ];
-    uint8_t                   m_EvalSpriteIdx;             
+    uint8_t                   m_EvalSpriteIdx;
     uint8_t                   m_SpriteIdx;
     uint8_t                   m_SpritePixel;
     uint8_t*                  m_pSecondaryOam;

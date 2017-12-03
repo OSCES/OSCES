@@ -77,6 +77,9 @@ void keyEventHandler(void *context, const KeyEvent &event)
 
 int main(int argc, char* argv[])
 {
+    (void)argc;
+    (void)argv;
+
     Emulator_t emulator;
     emulator.Init();
 

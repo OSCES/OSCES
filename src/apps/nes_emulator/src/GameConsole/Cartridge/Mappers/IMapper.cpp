@@ -42,7 +42,7 @@ IMapper_t* IMapper_t::CreateMapper( MapperInfo_t* mapperInfo )
     default:
 
     break;
-                
+
     }
 
     if( pIMapper )
@@ -63,11 +63,11 @@ void IMapper_t::SetInterruptRequestCallBack( InterruptRequestCallBack_t pInterru
 
 uint16_t IMapper_t::TranslateVideoRamAddr( uint16_t addr )
 {
-    uint16_t videoRamAddr;    
+    uint16_t videoRamAddr;
     uint16_t pinA10;
-    
+
     if( NO_MIRRORING_TYPE != m_MapperInfo.MirroringType )
-    {            
+    {
         pinA10 = addr;
 
         pinA10 >>= static_cast<uint8_t>( m_MapperInfo.MirroringType );
@@ -96,7 +96,8 @@ IMapper_t::~IMapper_t()
 
 void IMapper_t::Write( uint16_t addr, uint8_t value )
 {
-
+    (void)addr;
+    (void)value;
 }
 
 void IMapper_t::IrqCounterDecrement( void )
@@ -106,10 +107,12 @@ void IMapper_t::IrqCounterDecrement( void )
 
 uint32_t IMapper_t::GetRomAddrFromCpuAddr( uint16_t cpuAddr )
 {
-    return 0; 
+    (void)cpuAddr;
+    return 0;
 }
 
 uint32_t IMapper_t::GetRomAddrFromPpuAddr( uint16_t ppuAddr )
-{ 
+{
+    (void)ppuAddr;
     return 0;
 }

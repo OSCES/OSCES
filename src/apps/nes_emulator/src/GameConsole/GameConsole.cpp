@@ -9,14 +9,13 @@
 
 void GameConsole_t::SaveGameContext( uint8_t* pData )
 {
-
+    (void)pData;
 }
 
 
 void GameConsole_t::LoadGameContext( uint8_t* pData )
 {
-
-
+    (void)pData;
 }
 
 void GameConsole_t::SetAudioSamplingRate( uint32_t samplingRate )
@@ -93,7 +92,7 @@ void GameConsole_t::CartridgeIrqCallBack( void* pContext )
 }
 
 
-void GameConsole_t::Run( uint32_t sysTick )
+void GameConsole_t::Run(uint32_t sysTick)
 {
     sysTick *= 1000;
     if( ( sysTick - m_FramesLastSysTick ) >= USECOND_IN_SECOND )
@@ -116,9 +115,9 @@ void GameConsole_t::Run( uint32_t sysTick )
         do
         {
             uint32_t cycles = m_Cpu.Run();
-            ppuCycles += m_Ppu.Run( cycles );
+            ppuCycles += m_Ppu.Run(cycles);
         }
-        while( ( ppuCycles < 89342  ) );
+        while(ppuCycles < 89342);
 
         m_FramesCnt++;
     }

@@ -38,53 +38,29 @@ bool Simulator::event(QEvent *event)
         KeyEvent keyEvent;
         keyEvent.eventType = event->type() == QEvent::KeyPress ? KeyPressed : KeyReleased;
 
+        // TODO: make some map
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
-        switch (key->key())
-        {
-        case Qt::Key_Up:
+        int qtKeyCode = key->key();
+        if (qtKeyCode >= Qt::Key_A && qtKeyCode <= Qt::Key_Z)
+            keyEvent.key.keyCode = static_cast<KeyCode>(Key_A + (qtKeyCode - Qt::Key_A));
+        else if (qtKeyCode >= Qt::Key_0 && qtKeyCode <= Qt::Key_9)
+            keyEvent.key.keyCode = static_cast<KeyCode>(Key_0 + (qtKeyCode - Qt::Key_0));
+        else if (qtKeyCode >= Qt::Key_F1 && qtKeyCode <= Qt::Key_F12)
+            keyEvent.key.keyCode = static_cast<KeyCode>(Key_F1 + (qtKeyCode - Qt::Key_F1));
+        else if (qtKeyCode == Qt::Key_Up)
             keyEvent.key.keyCode = Key_Up;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_Left:
+        else if (qtKeyCode == Qt::Key_Left)
             keyEvent.key.keyCode = Key_Left;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_Down:
+        else if (qtKeyCode == Qt::Key_Down)
             keyEvent.key.keyCode = Key_Down;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_Right:
+        else if (qtKeyCode == Qt::Key_Right)
             keyEvent.key.keyCode = Key_Right;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_E:
-            keyEvent.key.keyCode = Key_E;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_S:
-            keyEvent.key.keyCode = Key_S;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_Z:
-            keyEvent.key.keyCode = Key_Z;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_X:
-            keyEvent.key.keyCode = Key_X;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_Return:
+        else if (qtKeyCode == Qt::Key_Return)
             keyEvent.key.keyCode = Key_Enter;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        case Qt::Key_Tab:
+        else if (qtKeyCode == Qt::Key_Tab)
             keyEvent.key.keyCode = Key_Tab;
-            OscesCore::keyboard()->proceedKeyEvent(keyEvent);
-            break;
-        default:
-            ;
-        }
-        return true;
+
+        OscesCore::keyboard()->proceedKeyEvent(keyEvent);
     }
 
     return QWidget::event(event);

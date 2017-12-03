@@ -14,6 +14,8 @@ void UNROM_Mapper_t ::Init( void )
 
 void UNROM_Mapper_t::Write( uint16_t addr, uint8_t value )
 {
+    (void)addr;
+
     uint8_t nBank = 0x07 & value;
     m_RomAddrBank0 = nBank * ROM_BANK_SIZE;
 }
@@ -21,7 +23,7 @@ void UNROM_Mapper_t::Write( uint16_t addr, uint8_t value )
 uint32_t UNROM_Mapper_t::GetRomAddrFromCpuAddr( uint16_t cpuAddr )
 {
     uint32_t retValue = 0;
-        
+
     if(  MAPPER_UNROM_PROG_BANK1_ADDR <= cpuAddr )
     {
         retValue = m_RomAddrBank1 + cpuAddr - MAPPER_UNROM_PROG_BANK1_ADDR;

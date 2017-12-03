@@ -34,6 +34,7 @@ bool Emulator_t::Run()
     frames++;
     fps = m_GameConsole.GetFramesPerSecond();
     OscesCore::videoSystem()->display()->updateFpsInfo(fps);
+//    OscesCore::videoSystem()->display()->present();
 
     return false;
 }
@@ -53,6 +54,8 @@ void Emulator_t::JoysticEvent( _in_ void* pContext, _in_ uint8_t joysticA, _in_ 
 
 void Emulator_t::RomFileAcces( _in_ void * pContext, _out_ uint8_t* pData, _in_ uint32_t offset, _in_ uint16_t bytesCnt )
 {
+    (void)pContext;
+
     //Emulator_t* emulator = static_cast<Emulator_t *>(pContext);
     uint8_t* pSource = ( uint8_t* )&GameFile[ offset ];
 
@@ -64,6 +67,9 @@ void Emulator_t::RomFileAcces( _in_ void * pContext, _out_ uint8_t* pData, _in_ 
 
 void Emulator_t::PresentFrame( _in_ void * pContext, uint8_t* pData, uint16_t len, uint16_t posInFrame )
 {
+    (void)pContext;
+    (void)len;
+
     static uint32_t* pPalette = GetPalettePixelRGBA();
     static int y = 0;
     static PaintEngine paintEngine;

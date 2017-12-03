@@ -31,7 +31,7 @@ public:
     void* GetFrameBuffer();
     uint32_t GetSizeVertical();
     uint32_t GetSizeHorizontal();
- 
+
     Display_t();
     ~Display_t();
 
@@ -40,7 +40,7 @@ private:
     SDL_Texture *  m_Texture;
     SDL_Renderer * m_Renderer;
 
-    uint32_t*      m_pFrame[ 2 ];   
+    uint32_t*      m_pFrame[ 2 ];
     uint16_t       m_WindowSizeX;
     uint16_t       m_WindowSizeY;
     uint16_t       m_SurfaceSizeX;

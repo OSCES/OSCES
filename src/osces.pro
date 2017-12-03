@@ -60,3 +60,7 @@ include($$PWD/apps/nes_emulator/nes.pri)
 snake {
 include($$PWD/apps/snake/snake.pri)
 }
+
+orion {
+include($$PWD/apps/orion-128/orion-128.pri)
+}
