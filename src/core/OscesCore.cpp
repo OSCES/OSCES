@@ -5,6 +5,7 @@
 
 extern int osces_main(int, char **);
 
+#ifdef WIN32
 #include <windows.h>
 HANDLE     g_AppThreadId;
 DWORD WINAPI MyThreadFunction(LPVOID lpParam)
@@ -12,6 +13,16 @@ DWORD WINAPI MyThreadFunction(LPVOID lpParam)
     (void)lpParam;
     return osces_main(0, '\0');
 }
+#else
+#include <sys/time.h>
+#include <pthread.h>
+static pthread_t AppThreadId = 0;
+void* AppThread(void *)
+{
+    osces_main(0, '\0');
+    return 0;
+}
+#endif
 
 AbstractDisplay *OscesCore::m_display = new Display;
 AbstractKeyboard *OscesCore::m_keyBoard = new Keyboard;
@@ -26,7 +37,11 @@ OscesCore::OscesCore()
 
 OscesCore::~OscesCore()
 {
+#ifdef WIN32
     WaitForSingleObject(g_AppThreadId, INFINITE);
+#else
+    pthread_join(AppThreadId, 0);
+#endif
 
     m_keyBoard->unRegisterCallBack(keyEventHandler);
 
@@ -51,7 +66,11 @@ int OscesCore::exec()
 
     // start app
     m_running = true;
+#ifdef WIN32
     g_AppThreadId = CreateThread(NULL, 0, MyThreadFunction, 0, 0, 0);
+#else
+    pthread_create(&AppThreadId, 0, AppThread, 0);
+#endif
 //    int argc = 0;
 //    char **argv = 0;
 //    int ret = osces_main(argc, argv);
@@ -64,12 +83,25 @@ void OscesCore::stop()
     m_activeAppContext = 0;
     m_activeAppKeyHandler = 0;
 
+#ifdef WIN32
     WaitForSingleObject(g_AppThreadId, INFINITE);
+#else
+    if (AppThreadId > 0)
+        pthread_join(AppThreadId, 0);
+#endif
 }
 
 unsigned long OscesCore::tickCount()
 {
+#ifdef WIN32
     return GetTickCount();
+#else
+    struct timeval tv;
+    if(gettimeofday(&tv, NULL) != 0)
+        return 0;
+
+    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+#endif
 }
 
 VideoSystem *OscesCore::videoSystem()

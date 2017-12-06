@@ -33,10 +33,10 @@ struct PixelStruct
     uint8_t green : 3;
     uint8_t red   : 3;
 #else
-    uint32_t blue  : 8;
-    uint32_t green : 8;
-    uint32_t red   : 8;
-    uint32_t alfa  : 8;
+    uint8_t blue;
+    uint8_t green;
+    uint8_t red;
+    uint8_t alfa;
 #endif
 };
 
