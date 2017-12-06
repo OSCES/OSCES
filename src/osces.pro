@@ -64,3 +64,7 @@ include($$PWD/apps/snake/snake.pri)
 orion {
 include($$PWD/apps/orion-128/orion-128.pri)
 }
+
+raycasting {
+include($$PWD/apps/raycasting/raycasting.pri)
+}
