@@ -1,6 +1,9 @@
 #include "PaintEngine.h"
-
 #include "AbstractDisplay.h"
+
+#ifndef OSCES_BOARD
+#include <assert.h>
+#endif
 
 static const uint8_t RedGreenColorValue[] =
 {
@@ -42,15 +45,32 @@ static const uint8_t BlueColorValue[] =
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
 };
 
+//static inline int abs(const int &a)
+//{
+//    return a > 0 ? a : -a;
+//}
+
+//static inline void swap(int &a, int &b)
+//{
+//    a ^= b;
+//    b ^= a;
+//    a ^= b;
+//}
+
+#define abs(x) ((x) > 0 ? (x) : -(x))
+#define swap(x, y) ((x) ^= (y), (y) ^= (x), (x) ^= (y))
+
 PaintEngine::PaintEngine() :
-    m_display(0)
+    m_display(0),
+    m_displayData(0),
+    m_displayWidth(0),
+    m_displayHeight(0)
 {
 }
 
-PaintEngine::PaintEngine(AbstractDisplay *display) :
-    m_display(display)
+PaintEngine::PaintEngine(AbstractDisplay *display)
 {
-    drawBegin(m_display);
+    drawBegin(display);
 }
 
 PaintEngine::~PaintEngine()
@@ -60,29 +80,40 @@ PaintEngine::~PaintEngine()
 
 void PaintEngine::drawBegin(AbstractDisplay *display)
 {
-    if (m_display == display)
+    if (m_display)
         return;
+
     m_display = display;
+    m_displayWidth = m_display->width();
+    m_displayHeight = m_display->height();
+    m_displayData = display->displayBuffer();
 }
 
 void PaintEngine::drawEnd()
 {
     if (!m_display)
         return;
+
+    // flip buffers
     m_display->present();
+
+    m_display = 0;
+    m_displayWidth = 0;
+    m_displayHeight = 0;
+    m_displayData = 0;
 }
 
 void PaintEngine::setPenColor(const Color &color)
 {
 #ifdef OSCES_BOARD
-    m_pixelData.red = RedGreenColorValue[color.red()];
-    m_pixelData.green = RedGreenColorValue[color.green()];
-    m_pixelData.blue = BlueColorValue[color.blue()];
+    m_penData.red = RedGreenColorValue[color.red()];
+    m_penData.green = RedGreenColorValue[color.green()];
+    m_penData.blue = BlueColorValue[color.blue()];
 #else
-    m_pixelData.red = color.red();
-    m_pixelData.green = color.green();
-    m_pixelData.blue = color.blue();
-    m_pixelData.alfa = color.alpha();
+    m_pixel.red = color.red();
+    m_pixel.green = color.green();
+    m_pixel.blue = color.blue();
+    m_pixel.alfa = color.alpha();
 #endif
 }
 
@@ -97,26 +128,13 @@ void PaintEngine::drawPixel(int x, int y)
         return;
 
     // let compiler optimize it
-    PixelStruct *pixel = pixelAddress(x, y);
-    *pixel = m_pixelData;
+    PixelStruct *pixel = pixelAt(x, y);
+    *pixel = m_pixel;
 }
 
 inline void PaintEngine::drawLine(const Point &p1, const Point &p2)
 {
     drawLine(p1.x, p1.y, p2.x, p2.y);
-}
-
-//#define abs(x) (x) > 0 ? (x) : (-(x))
-static inline int abs(const int &a)
-{
-    return a > 0 ? a : -a;
-}
-
-static inline void swap(int &a, int &b)
-{
-    a ^= b;
-    b ^= a;
-    a ^= b;
 }
 
 void PaintEngine::drawLine(int x1, int y1, int x2, int y2)
@@ -188,7 +206,7 @@ void PaintEngine::drawBitmap(int x, int y, const Bitmap &bitmap)
     if (!m_display)
         return;
 
-    PixelStruct *pixel = pixelAddress(x, y);
+    PixelStruct *pixel = pixelAt(x, y);
     if (!pixel)
         return;
 
@@ -218,11 +236,11 @@ void PaintEngine::fillRect(int x1, int y1, int x2, int y2)
     int width = x2 - x1 + 1;
     int height = y2 - y1 + 1;
     int lineOffset = m_display->width() - width;
-    PixelStruct *pixel = pixelAddress(x1, y1);
+    PixelStruct *pixel = pixelAt(x1, y1);
     for (int j = 0; j < height; ++j)
     {
         for (int i = 0; i < width; ++i)
-            *pixel++ = m_pixelData;
+            *pixel++ = m_pixel;
         pixel += lineOffset;
     }
 }
@@ -233,24 +251,25 @@ void PaintEngine::drawText(int x, int y, const char *text)
         return;
 
     // TODO:
-    PixelStruct *pixel = pixelAddress(x, y);
+    PixelStruct *pixel = pixelAt(x, y);
     (void)pixel;
     (void)text;
 }
 
-inline PixelStruct* PaintEngine::pixelAddress(int x, int y) const
+inline PixelStruct* PaintEngine::pixelAt(int x, int y) const
 {
-    if (!m_display)
-        return 0;
+#ifndef OSCES_BOARD
+    assert(m_display != 0);
+#endif
 
     // not efficient
-    bool xValid = x >= 0 && x < m_display->width();
-    bool yValid = y >= 0 || y < m_display->height();
+    bool xValid = x >= 0 && x < m_displayWidth;
+    bool yValid = y >= 0 || y < m_displayHeight;
     if (!xValid || !yValid)
         return 0; // nothing to draw
 
-    PixelStruct *data = reinterpret_cast<PixelStruct *>(m_display->displayBuffer());
-    int dataOffset = m_display->width() * y + x;
+    PixelStruct *data = reinterpret_cast<PixelStruct *>(m_displayData);
+    int dataOffset = m_displayWidth * y + x;
 
     // TODO: think about depth
     // make more flexible

@@ -29,6 +29,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 INCLUDEPATH += $$PWD/include/
+INCLUDEPATH += $$PWD/core/
+INCLUDEPATH += $$PWD/core/buttons
+INCLUDEPATH += $$PWD/core/clocks
+INCLUDEPATH += $$PWD/core/fs
+INCLUDEPATH += $$PWD/core/keyboard
+INCLUDEPATH += $$PWD/core/leds
+INCLUDEPATH += $$PWD/core/sound
+INCLUDEPATH += $$PWD/core/systimer
+INCLUDEPATH += $$PWD/core/video
+INCLUDEPATH += $$PWD/drivers
+INCLUDEPATH += $$PWD/drivers/audio
+INCLUDEPATH += $$PWD/drivers/dma
+INCLUDEPATH += $$PWD/drivers/fsmc
+INCLUDEPATH += $$PWD/drivers/gpio
+INCLUDEPATH += $$PWD/drivers/i2s
+INCLUDEPATH += $$PWD/drivers/irq
+INCLUDEPATH += $$PWD/drivers/rfm73
+INCLUDEPATH += $$PWD/drivers/sdio
+INCLUDEPATH += $$PWD/drivers/sysclock
 
 DEFINES += NEEDS_OSCES_MAIN
 CONFIG += nes

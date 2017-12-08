@@ -26,7 +26,7 @@ struct Rect
     int y2;
 };
 
-struct PixelStruct
+struct PixelStruct // maybe it better to use Rgb
 {
 #ifdef OSCES_BOARD
     uint8_t blue  : 2;
@@ -83,11 +83,15 @@ public:
     void drawText(int x, int y, const char *text);
 
 private:
-    inline PixelStruct* pixelAddress(int x, int y) const;
+    inline PixelStruct* pixelAt(int x, int y) const;
 
 private:
+    PixelStruct m_pixel;
     AbstractDisplay *m_display;
-    PixelStruct m_pixelData;
+    uint8_t *m_displayData;
+    int m_displayWidth;
+    int m_displayHeight;
+
 };
 
 #endif // PAINTENGINE_H
