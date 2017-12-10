@@ -50,7 +50,7 @@ INCLUDEPATH += $$PWD/drivers/sdio
 INCLUDEPATH += $$PWD/drivers/sysclock
 
 DEFINES += NEEDS_OSCES_MAIN
-CONFIG += nes
+CONFIG += raycasting
 
 HEADERS += \
     Simulator.h \
@@ -63,7 +63,8 @@ HEADERS += \
     core/video/PaintEngine.h \
     core/video/VideoSystem.h \
     core/OscesCore.h \
-    drivers/irq/InterruptManager.h
+    drivers/irq/InterruptManager.h \
+    core/keyboard/PS2KeyboardPlatform.h
 
 SOURCES += \
     main.cpp \
@@ -75,21 +76,23 @@ SOURCES += \
     core/video/PaintEngine.cpp \
     core/video/VideoSystem.cpp \
     core/OscesCore.cpp \
-    drivers/irq/InterruptManager.cpp
+    drivers/irq/InterruptManager.cpp \
+    core/keyboard/PS2KeyboardPlatform.cpp
 
+include($$PWD/apps/apps.pri)
 
-nes {
-include($$PWD/apps/nes_emulator/nes.pri)
-}
+#nes {
+#include($$PWD/apps/nes_emulator/nes.pri)
+#}
 
-snake {
-include($$PWD/apps/snake/snake.pri)
-}
+#snake {
+#include($$PWD/apps/snake/snake.pri)
+#}
 
-orion {
-include($$PWD/apps/orion-128/orion-128.pri)
-}
+#orion {
+#include($$PWD/apps/orion-128/orion-128.pri)
+#}
 
-raycasting {
-include($$PWD/apps/raycasting/raycasting.pri)
-}
+#raycasting {
+#include($$PWD/apps/raycasting/raycasting.pri)
+#}

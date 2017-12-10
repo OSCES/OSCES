@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 
-#define CONTRA
+#define SUPER_MARIO
 
 uint8_t GameFile[] =
 {

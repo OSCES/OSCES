@@ -81,9 +81,10 @@ void ClockManager::setSystemClock(SystemClock clock)
     asm("nop");
 }
 
-void ClockManager::enableGpioClock(GpioClock clock)
+void ClockManager::setGpioClockEnabled(ClockManager::GpioClock clock, bool enabled)
 {
-    if (m_gpioClockEnabled & clock)
+    // (0 && 0) or (1 && 1)
+    if ((enabled ^ (m_gpioClockEnabled & clock)) == 0)
         return;
 
     uint32_t gpioPeriph = 0;

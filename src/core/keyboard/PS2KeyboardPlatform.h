@@ -1,9 +1,10 @@
 #ifndef KEYBOARD_PLATFORM_H
 #define KEYBOARD_PLATFORM_H
 
-#include "GpioDriver.h"
 #include "Keyboard.h"
 #include <stdint.h>
+
+class GpioPin;
 
 class KeyboardPlatform : public Keyboard
 {
@@ -14,7 +15,6 @@ public:
     void init();
     void proceedInterrupt();
 
-private:
     static void interruptHandler(void *context);
 
 private:

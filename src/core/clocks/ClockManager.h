@@ -31,7 +31,7 @@ public:
     static ClockManager& instance();
 
     void setSystemClock(SystemClock clock);
-    void enableGpioClock(GpioClock clock);
+    void setGpioClockEnabled(GpioClock clock, bool enabled);
 
 private:
     uint32_t m_gpioClockEnabled;

@@ -1,14 +1,20 @@
 #include "PS2KeyboardPlatform.h"
 #include "InterruptManager.h"
+#ifdef OSCES_BOARD
+#include "GpioDriver.h"
+#endif
 
+
+#ifdef OSCES_BOARD
 // Pin config
-#define DATA                PORTA, PIN_0
-#define CLOCK               PORTA, PIN_1
+#define DATA                PortA, Pin0
+#define CLOCK               PortA, Pin1
 #define EXTI_LINE           EXTI_Line1
 #define EXTI_TRIGGER        EXTI_Trigger_Falling
 #define IRQ_CHANNEL         EXTI1_IRQn
 #define PREEMPTION_PRIORITY 0x0F
 #define SUB_PRIORITY        0x0F
+#endif
 
 static const uint8_t ExtendKeyOffset = 0x78;
 static const KeyCode Set2KeyCodeTable[] =
@@ -44,19 +50,21 @@ KeyboardPlatform::KeyboardPlatform() :
 
 KeyboardPlatform::~KeyboardPlatform()
 {
+#ifdef OSCES_BOARD
     delete m_dataPin;
     delete m_clockPin;
+#endif
 }
 
 void KeyboardPlatform::init()
 {
+#ifdef OSCES_BOARD
     m_dataPin  = new GpioPin(DATA);
     m_clockPin = new GpioPin(CLOCK);
 
     m_dataPin->makeInPullUp();
     m_clockPin->makeInPullUp();
 
-#ifdef OSCES_BOARD
     // FIXME
     // Create smth to mannage this
     EXTI_InitTypeDef EXTI_InitStruct;
@@ -82,9 +90,17 @@ void KeyboardPlatform::init()
     InterruptManager::registerInterrupt(this, InterruptVector::Exti1IrqVector, interruptHandler);
 }
 
+// state
+// receive data
+//
+
 void KeyboardPlatform::proceedInterrupt()
 {
+#ifdef OSCES_BOARD
     uint8_t dataBit = m_dataPin->read();
+#else
+    uint8_t dataBit = 0;
+#endif
 
     if (m_started)
     {
@@ -100,6 +116,9 @@ void KeyboardPlatform::proceedInterrupt()
         }
         else // Stop bit
         {
+            // call time of decodeData() function can be too long
+            // so we can just skip next keyboard event
+            // it should not be called inside irq function
             if (m_parity && dataBit)
                 decodeData(m_data);
             m_started = false;
@@ -150,25 +169,25 @@ void KeyboardPlatform::decodeData(uint8_t data)
         return;
     case 0x12: // L Shift
     case 0x59: // R Shift
-        m_key.modifKeysStates.Shift = !breakCode;
+        m_keyEvent.key.modifKeysStates.Shift = !breakCode;
         break;
     case 0x14: // L R Ctrl
-        m_key.modifKeysStates.Ctrl = !breakCode;
+        m_keyEvent.key.modifKeysStates.Ctrl = !breakCode;
         break;
     case 0x11: // L R Alt
-        m_key.modifKeysStates.Alt  = !breakCode;
+        m_keyEvent.key.modifKeysStates.Alt  = !breakCode;
         break;
     case 0x77: // NumLock
         // TODO: LED ON/OFF
-        m_key.modifKeysStates.NumLock = !m_key.modifKeysStates.NumLock;
+        m_keyEvent.key.modifKeysStates.NumLock = !m_keyEvent.key.modifKeysStates.NumLock;
         break;
     case 0x58: // CapsLock
         // TODO: LED ON/OFF
-        m_key.modifKeysStates.CapsLock = !m_key.modifKeysStates.CapsLock;
+        m_keyEvent.key.modifKeysStates.CapsLock = !m_keyEvent.key.modifKeysStates.CapsLock;
         break;
     case 0x7E: // ScrollLock
         // TODO: LED ON/OFF
-        m_key.modifKeysStates.ScrollLock = !m_key.modifKeysStates.ScrollLock;
+        m_keyEvent.key.modifKeysStates.ScrollLock = !m_keyEvent.key.modifKeysStates.ScrollLock;
         break;
     }
 
