@@ -1,0 +1,3 @@
+[submodule "src/core/drivers/rfm73"]
+	path = src/core/drivers/rfm73
+	url = https://github.com/xMEGA/Libs-Utils.git
